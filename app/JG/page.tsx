@@ -73,9 +73,9 @@ const services = [
 ];
 
 const highlights = [
-    { title: "Technical Training", desc: "Online/Offline तकनीकी ट्रेनिंग", icon: <GraduationCap className="w-6 h-6 text-pink-600" /> },
-    { title: "Local Advertisement", desc: "आपके लोकल बिज़नेस का विज्ञापन", icon: <Megaphone className="w-6 h-6 text-orange-600" /> },
-    { title: "Local Business Growth", desc: "लोकल बिज़नेस को डिजिटल रूप से बढ़ाना", icon: <MapPin className="w-6 h-6 text-teal-600" /> },
+    { title: "Technical Training", desc: "Online/Offline तकनीकी ट्रेनिंग", icon: <GraduationCap className="w-6 h-6 text-pink-600" />, waMsg: "नमस्ते, मुझे 'Technical Training (तकनीकी ट्रेनिंग)' के बारे में जानकारी चाहिए।" },
+    { title: "Local Advertisement", desc: "आपके लोकल बिज़नेस का विज्ञापन", icon: <Megaphone className="w-6 h-6 text-orange-600" />, waMsg: "नमस्ते, मुझे 'Local Advertisement (लोकल बिज़नेस का विज्ञापन)' सर्विस के बारे में और जानकारी चाहिए।" },
+    { title: "Local Business Growth", desc: "लोकल बिज़नेस को डिजिटल रूप से बढ़ाना", icon: <MapPin className="w-6 h-6 text-teal-600" />, waMsg: "नमस्ते, मुझे अपने लोकल बिज़नेस को डिजिटल रूप से बढ़ाने ('Local Business Growth') के बारे में बात करनी है।" },
 ];
 
 export default function JGPage() {
@@ -185,15 +185,23 @@ export default function JGPage() {
                     className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-24"
                 >
                     {highlights.map((item, idx) => (
-                        <div key={idx} className="flex items-center gap-4 p-6 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-                            <div className="p-4 bg-slate-50 border border-slate-100 rounded-full">
-                                {item.icon}
+                        <a
+                            href={getWhatsAppLink(item.waMsg)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            key={idx}
+                            className="flex flex-col h-full p-6 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 group"
+                        >
+                            <div className="flex items-start gap-4 h-full">
+                                <div className="p-4 bg-slate-50 border border-slate-100 rounded-full group-hover:scale-110 transition-transform duration-300 shrink-0">
+                                    {item.icon}
+                                </div>
+                                <div className="flex flex-col justify-center h-full">
+                                    <h4 className="text-slate-900 font-bold">{item.title}</h4>
+                                    <p className="text-slate-600 text-sm font-medium mt-1">{item.desc}</p>
+                                </div>
                             </div>
-                            <div>
-                                <h4 className="text-slate-900 font-bold">{item.title}</h4>
-                                <p className="text-slate-600 text-sm font-medium mt-1">{item.desc}</p>
-                            </div>
-                        </div>
+                        </a>
                     ))}
                 </motion.div>
 
