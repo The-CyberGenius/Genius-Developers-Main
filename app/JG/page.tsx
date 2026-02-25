@@ -80,11 +80,11 @@ const highlights = [
 
 export default function JGPage() {
 
-    const handleWhatsApp = (message: string) => {
+    const getWhatsAppLink = (message: string) => {
         // URL encode the message so it's safely formatted for the WhatsApp API
         const text = encodeURIComponent(message);
         const phoneNumber = "919828116211"; // Added country code 91
-        window.open(`https://wa.me/${phoneNumber}?text=${text}`, '_blank');
+        return `https://wa.me/${phoneNumber}?text=${text}`;
     };
 
     return (
