@@ -79,7 +79,7 @@ export default function Work() {
     );
 
     return (
-        <section id="work" className="py-16 bg-clay-base relative">
+        <section id="work" className="py-16 bg-glass-base relative">
             <div className="container px-4 md:px-6 mx-auto">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -87,7 +87,7 @@ export default function Work() {
                     viewport={{ once: true }}
                     className="text-center mb-10"
                 >
-                    <h2 className="text-3xl md:text-5xl font-bold font-space-grotesk mb-3 text-white">
+                    <h2 className="text-3xl md:text-5xl font-bold font-space-grotesk mb-3 text-slate-900">
                         Selected <span className="text-zinc-500">Works</span>
                     </h2>
                     <p className="text-gray-400 max-w-xl mx-auto text-base">
@@ -102,8 +102,8 @@ export default function Work() {
                             key={cat}
                             onClick={() => setFilter(cat)}
                             className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${filter === cat
-                                ? "clay-btn text-white shadow-[0_0_15px_rgba(255,255,255,0.1)]"
-                                : "bg-transparent text-gray-400 border border-white/10 hover:border-white/20 hover:text-white"
+                                ? "glass-btn text-slate-900 shadow-[0_0_15px_rgba(255,255,255,0.1)]"
+                                : "bg-transparent text-gray-400 border border-white/10 hover:border-white/20 hover:text-slate-900"
                                 }`}
                         >
                             {cat}
@@ -125,7 +125,7 @@ export default function Work() {
                                 exit={{ opacity: 0, scale: 0.95 }}
                                 transition={{ duration: 0.3 }}
                                 key={project.id}
-                                className="group relative clay-card overflow-hidden flex flex-col"
+                                className="group relative glass-card overflow-hidden flex flex-col"
                             >
                                 {/* Image Area */}
                                 <Link href={project.demoLink} target="_blank" className="block aspect-[16/10] w-full bg-zinc-800 relative overflow-hidden">
@@ -150,8 +150,8 @@ export default function Work() {
 
                                 <div className="p-5 flex-1 flex flex-col">
                                     <div className="mb-3">
-                                        <span className="text-[10px] font-bold tracking-wider text-indigo-400 uppercase mb-1 block">{project.category}</span>
-                                        <h3 className="text-lg font-bold text-white group-hover:text-indigo-300 transition-colors">{project.title}</h3>
+                                        <span className="text-[10px] font-bold tracking-wider text-orange-500 uppercase mb-1 block">{project.category}</span>
+                                        <h3 className="text-lg font-bold text-slate-900 group-hover:text-indigo-300 transition-colors">{project.title}</h3>
                                     </div>
 
                                     <p className="text-gray-400 mb-4 text-sm leading-relaxed flex-1">
@@ -172,7 +172,7 @@ export default function Work() {
                 </motion.div>
 
                 <div className="text-center mt-12">
-                    <Link href="https://github.com/The-CyberGenius" target="_blank" className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-white transition-colors border-b border-transparent hover:border-white pb-0.5">
+                    <Link href="https://github.com/The-CyberGenius" target="_blank" className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-slate-900 transition-colors border-b border-transparent hover:border-white pb-0.5">
                         <span>View more on GitHub</span>
                         <Github className="w-3 h-3" />
                     </Link>

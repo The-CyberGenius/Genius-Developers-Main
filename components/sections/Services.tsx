@@ -57,9 +57,9 @@ const services = [
 
 export default function Services() {
     return (
-        <section id="services" className="py-24 relative overflow-hidden bg-clay-base">
+        <section id="services" className="py-24 relative overflow-hidden bg-glass-base">
             {/* Background Elements */}
-            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/5 rounded-full blur-[100px] pointer-events-none" />
+            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-orange-500/5 rounded-full blur-[100px] pointer-events-none" />
             <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-600/5 rounded-full blur-[100px] pointer-events-none" />
 
             <div className="container px-4 md:px-6 mx-auto relative z-10">
@@ -69,7 +69,7 @@ export default function Services() {
                     viewport={{ once: true }}
                     className="text-center mb-16"
                 >
-                    <h2 className="text-3xl md:text-5xl font-bold font-space-grotesk mb-4 text-white">
+                    <h2 className="text-3xl md:text-5xl font-bold font-space-grotesk mb-4 text-slate-900">
                         Premium <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Services</span>
                     </h2>
                     <p className="text-gray-400 max-w-xl mx-auto">
@@ -85,7 +85,7 @@ export default function Services() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.1 }}
-                            className="group relative p-8 clay-card flex flex-col items-start"
+                            className="group relative p-8 glass-card flex flex-col items-start"
                         >
 
                             <div className="relative z-10 flex flex-col h-full">
@@ -94,13 +94,13 @@ export default function Services() {
                                     <div className={`p-4 rounded-2xl bg-black/50 border border-white/5 ${service.color} group-hover:scale-110 transition-transform duration-300`}>
                                         {service.icon}
                                     </div>
-                                    <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 -translate-y-2 group-hover:translate-y-0 text-white/50">
+                                    <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 -translate-y-2 group-hover:translate-y-0 text-slate-900/50">
                                         <ArrowUpRight className="w-6 h-6" />
                                     </div>
                                 </div>
 
                                 {/* Content */}
-                                <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-white transition-colors">
+                                <h3 className="text-2xl font-bold text-slate-900 mb-3 group-hover:text-slate-900 transition-colors">
                                     {service.title}
                                 </h3>
                                 <p className="text-gray-400 leading-relaxed mb-6 flex-grow group-hover:text-gray-300 transition-colors">

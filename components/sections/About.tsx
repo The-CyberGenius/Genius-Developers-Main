@@ -13,10 +13,10 @@ const stats = [
 
 export default function About() {
     return (
-        <section id="about" className="py-24 relative bg-clay-base overflow-hidden">
+        <section id="about" className="py-24 relative bg-glass-base overflow-hidden">
             {/* Background Ambience */}
-            <div className="absolute top-0 right-0 w-1/2 h-full bg-indigo-600/5 blur-[150px] -z-10" />
-            <div className="absolute bottom-0 left-0 w-1/2 h-full bg-fuchsia-600/5 blur-[150px] -z-10" />
+            <div className="absolute top-0 right-0 w-1/2 h-full bg-orange-600/5 blur-[150px] -z-10" />
+            <div className="absolute bottom-0 left-0 w-1/2 h-full bg-amber-600/5 blur-[150px] -z-10" />
 
             <div className="container px-4 md:px-6 mx-auto">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -27,26 +27,26 @@ export default function About() {
                         viewport={{ once: true }}
                         transition={{ duration: 0.8 }}
                     >
-                        <h2 className="text-4xl md:text-6xl font-bold font-space-grotesk mb-6 text-white leading-tight">
+                        <h2 className="text-4xl md:text-6xl font-bold font-space-grotesk mb-6 text-slate-900 leading-tight">
                             Engineering <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-fuchsia-400">
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-400">
                                 Digital Dominance
                             </span>
                         </h2>
 
                         <div className="space-y-6 text-lg text-gray-400">
                             <p>
-                                I don&apos;t just write code; <span className="text-white font-medium">I architect revenue-generating engines.</span> In a digital landscape crowded with mediocrity, I build platforms that demand attention and convert visitors into loyal customers.
+                                I don&apos;t just write code; <span className="text-slate-900 font-medium">I architect revenue-generating engines.</span> In a digital landscape crowded with mediocrity, I build platforms that demand attention and convert visitors into loyal customers.
                             </p>
                             <p>
-                                My philosophy is simple: <span className="text-white font-medium">Speed wins, aesthetics sell, and precision scales.</span> Whether you need a high-performance web app or a brand-defining portfolio, I deliver solutions that put you leagues ahead of the competition.
+                                My philosophy is simple: <span className="text-slate-900 font-medium">Speed wins, aesthetics sell, and precision scales.</span> Whether you need a high-performance web app or a brand-defining portfolio, I deliver solutions that put you leagues ahead of the competition.
                             </p>
                         </div>
 
                         {/* Tech Stack Pills (Subtle) */}
                         <div className="flex flex-wrap gap-3 mt-8">
                             {["Next.js", "React", "TypeScript", "Tailwind", "Framer Motion", "Node.js"].map((tech, i) => (
-                                <span key={tech} className="px-5 py-2 clay-btn text-sm text-gray-300 hover:text-white cursor-default">
+                                <span key={tech} className="px-5 py-2 glass-btn text-sm text-gray-300 hover:text-slate-900 cursor-default">
                                     {tech}
                                 </span>
                             ))}
@@ -62,13 +62,13 @@ export default function About() {
                         className="relative flex justify-center items-center"
                     >
                         {/* Background Glow */}
-                        <div className="absolute w-[400px] h-[400px] bg-indigo-500/10 rounded-full blur-[100px] animate-pulse" />
+                        <div className="absolute w-[400px] h-[400px] bg-orange-950 rounded-full blur-[100px] animate-pulse" />
 
                         {/* Floating Terminal */}
                         <motion.div
                             animate={{ y: [0, -20, 0] }}
                             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                            className="relative w-full max-w-md clay-card overflow-hidden"
+                            className="relative w-full max-w-md glass-card overflow-hidden"
                         >
                             {/* Window Header */}
                             <div className="flex items-center gap-2 px-6 py-4 border-b border-white/5">
@@ -86,42 +86,42 @@ export default function About() {
                                 <div className="flex gap-2">
                                     <span className="text-pink-500">const</span>
                                     <span className="text-blue-400">createExperience</span>
-                                    <span className="text-white">=</span>
+                                    <span className="text-slate-900">=</span>
                                     <span className="text-yellow-400">async</span>
-                                    <span className="text-white">()</span>
-                                    <span className="text-white">=&gt;</span>
-                                    <span className="text-white">{`{`}</span>
+                                    <span className="text-slate-900">()</span>
+                                    <span className="text-slate-900">=&gt;</span>
+                                    <span className="text-slate-900">{`{`}</span>
                                 </div>
                                 <div className="pl-4 space-y-2">
                                     <div>
-                                        <span className="text-white">await</span>
+                                        <span className="text-slate-900">await</span>
                                         <span className="text-green-400"> market.dominate</span>
-                                        <span className="text-white">();</span>
+                                        <span className="text-slate-900">();</span>
                                     </div>
                                     <div>
-                                        <span className="text-white">return</span>
-                                        <span className="text-white">{`{`}</span>
+                                        <span className="text-slate-900">return</span>
+                                        <span className="text-slate-900">{`{`}</span>
                                     </div>
                                     <div className="pl-4">
                                         <span className="text-purple-400">speed:</span>
                                         <span className="text-orange-400"> "100ms"</span>
-                                        <span className="text-white">,</span>
+                                        <span className="text-slate-900">,</span>
                                     </div>
                                     <div className="pl-4">
                                         <span className="text-purple-400">design:</span>
                                         <span className="text-orange-400"> "God-Tier"</span>
-                                        <span className="text-white">,</span>
+                                        <span className="text-slate-900">,</span>
                                     </div>
                                     <div className="pl-4">
                                         <span className="text-purple-400">impact:</span>
                                         <span className="text-orange-400"> "Maximum"</span>
                                     </div>
                                     <div>
-                                        <span className="text-white">{`};`}</span>
+                                        <span className="text-slate-900">{`};`}</span>
                                     </div>
                                 </div>
                                 <div>
-                                    <span className="text-white">{`}`}</span>
+                                    <span className="text-slate-900">{`}`}</span>
                                 </div>
                             </div>
                         </motion.div>
@@ -130,15 +130,15 @@ export default function About() {
                         <motion.div
                             animate={{ y: [0, 30, 0], rotate: 360 }}
                             transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-                            className="absolute -right-8 -top-8 p-5 clay-card"
+                            className="absolute -right-8 -top-8 p-5 glass-card"
                         >
-                            <Rocket className="w-8 h-8 text-indigo-400" />
+                            <Rocket className="w-8 h-8 text-orange-500" />
                         </motion.div>
 
                         <motion.div
                             animate={{ y: [0, -40, 0], rotate: -12 }}
                             transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                            className="absolute -left-6 bottom-12 p-4 clay-card"
+                            className="absolute -left-6 bottom-12 p-4 glass-card"
                         >
                             <Zap className="w-6 h-6 text-yellow-400" />
                         </motion.div>
@@ -155,7 +155,7 @@ export default function About() {
                 >
                     {stats.map((stat, i) => (
                         <div key={i} className="text-center group">
-                            <h3 className="text-4xl md:text-5xl font-bold text-white mb-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-indigo-400 group-hover:to-fuchsia-400 transition-all">
+                            <h3 className="text-4xl md:text-5xl font-bold text-slate-900 mb-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-orange-400 group-hover:to-amber-400 transition-all">
                                 {stat.value}
                             </h3>
                             <p className="text-sm font-medium text-gray-500 uppercase tracking-widest group-hover:text-gray-300 transition-colors">

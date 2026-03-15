@@ -38,7 +38,7 @@ export default function ThemeToggle() {
                 className="relative flex items-center gap-2 p-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:shadow-[0_0_25px_rgba(255,255,255,0.2)] transition-shadow group overflow-hidden"
                 aria-label="Toggle Theme"
             >
-                <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute inset-0 bg-gradient-to-r from-orange-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                 <div className="relative z-10 flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-full overflow-hidden">
                     <AnimatePresence mode="wait" initial={false}>

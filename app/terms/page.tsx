@@ -73,7 +73,7 @@ export default function TermsOfService() {
                             If you have any questions about these Terms, please contact us:
                         </p>
                         <ul className="list-disc pl-5 space-y-2 mb-4">
-                            <li>By visiting this page on our website: <a href="/#contact" className="text-indigo-400 hover:text-indigo-300">Contact Section</a></li>
+                            <li>By visiting this page on our website: <a href="/#contact" className="text-orange-400 hover:text-indigo-300">Contact Section</a></li>
                         </ul>
                     </section>
                 </motion.div>

@@ -18,7 +18,7 @@ const services = [
     {
         title: "Web Development",
         subtitle: "(वेबसाइट डेवलपमेंट)",
-        icon: <Globe className="w-8 h-8 text-blue-600" />,
+        icon: <Globe className="w-8 h-8 text-orange-500" />,
         items: [
             { en: "Business Websites", hi: "शानदार बिज़नेस वेबसाइट" },
             { en: "News Portals", hi: "आपका अपना न्यूज़ पोर्टल" },
@@ -27,7 +27,7 @@ const services = [
             { en: "Custom Web Applications", hi: "आपके बिज़नेस के हिसाब से कस्टम वेब ऐप्स" },
             { en: "All Kinds of Web Apps", hi: "हर तरह के स्केलेबल वेब ऐप्स" },
         ],
-        accent: "bg-blue-50 border-blue-100",
+        accent: "bg-blue-50 border-orange-950",
         waMsg: "नमस्ते, मुझे 'Web Development (वेबसाइट डेवलपमेंट)' सर्विस के बारे में और जानकारी चाहिए।"
     },
     {
@@ -88,9 +88,9 @@ export default function JGPage() {
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 text-slate-800 selection:bg-blue-100 font-sans overflow-hidden">
+        <div className="min-h-screen bg-slate-50 text-slate-800 selection:bg-orange-950 font-sans overflow-hidden">
             {/* Background Glows (Light Mode version) */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-blue-100/50 blur-[120px] rounded-full pointer-events-none -z-10"></div>
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-orange-950/50 blur-[120px] rounded-full pointer-events-none -z-10"></div>
 
             <div className="max-w-6xl mx-auto px-6 py-20 relative z-10">
 
@@ -117,7 +117,7 @@ export default function JGPage() {
                         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-emerald-500"></div>
                         <p className="text-slate-500 text-sm uppercase tracking-widest mb-2 font-medium">Strategically Associated With</p>
                         <h2 className="text-xl md:text-2xl font-bold text-slate-900">The House of Jugal Geet Associated</h2>
-                        <p className="text-blue-600 font-bold mt-1">(JG Rajasthan Plus)</p>
+                        <p className="text-orange-500 font-bold mt-1">(JG Rajasthan Plus)</p>
                     </div>
                 </motion.div>
 
@@ -211,23 +211,23 @@ export default function JGPage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
-                    className="relative text-center p-12 rounded-3xl overflow-hidden bg-white border border-blue-100 shadow-sm"
+                    className="relative text-center p-12 rounded-3xl overflow-hidden bg-white border border-orange-950 shadow-sm"
                 >
                     <div className="absolute inset-0 bg-gradient-to-b from-blue-50/50 to-transparent -z-10"></div>
 
                     <h2 className="text-3xl font-extrabold text-slate-900 mb-2">Genius Developers</h2>
-                    <p className="text-blue-600 font-bold mb-8">Founder – Shiva</p>
+                    <p className="text-orange-500 font-bold mb-8">Founder – Shiva</p>
 
                     <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12">
-                        <a href="https://www.geniusdevelopers.space" target="_blank" rel="noreferrer" className="flex items-center gap-2 text-slate-600 hover:text-blue-600 font-medium transition-colors">
+                        <a href="https://www.geniusdevelopers.space" target="_blank" rel="noreferrer" className="flex items-center gap-2 text-slate-600 hover:text-orange-500 font-medium transition-colors">
                             <Globe className="w-5 h-5" />
                             <span>www.geniusdevelopers.space</span>
                         </a>
-                        <a href="tel:+918955256878" className="flex items-center gap-2 text-slate-600 hover:text-blue-600 font-medium transition-colors">
+                        <a href="tel:+918955256878" className="flex items-center gap-2 text-slate-600 hover:text-orange-500 font-medium transition-colors">
                             <Smartphone className="w-5 h-5" />
                             <span>+91 8955256878</span>
                         </a>
-                        <a href="tel:+919828116211" className="flex items-center gap-2 text-slate-600 hover:text-blue-600 font-medium transition-colors">
+                        <a href="tel:+919828116211" className="flex items-center gap-2 text-slate-600 hover:text-orange-500 font-medium transition-colors">
                             <Smartphone className="w-5 h-5" />
                             <span>+91 9828116211</span>
                         </a>

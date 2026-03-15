@@ -147,11 +147,11 @@ export default function Hero() {
     }, []);
 
     return (
-        <section className="relative h-screen flex items-center justify-center overflow-hidden bg-clay-base pt-20">
+        <section className="relative h-screen flex items-center justify-center overflow-hidden bg-glass-base pt-20">
             {/* 1. Dynamic Canvas Background */}
             <canvas
                 ref={canvasRef}
-                className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-indigo-950/40 via-black to-black"
+                className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-orange-950/40 via-black to-black"
             />
 
             {/* 2. Content */}
@@ -162,7 +162,7 @@ export default function Hero() {
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, ease: "easeOut" }}
-                    className="inline-flex items-center px-5 py-2.5 clay-btn text-sm font-medium text-gray-300 mb-8 pointer-events-auto"
+                    className="inline-flex items-center px-5 py-2.5 glass-btn text-sm font-medium text-gray-300 mb-8 pointer-events-auto"
                 >
                     <span className="relative flex h-2.5 w-2.5 mr-3">
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
@@ -176,7 +176,7 @@ export default function Hero() {
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 1, delay: 0.2 }}
-                    className="text-5xl md:text-7xl lg:text-9xl font-bold tracking-tighter text-white mb-6 font-space-grotesk mix-blend-screen"
+                    className="text-5xl md:text-7xl lg:text-9xl font-bold tracking-tighter text-slate-900 mb-6 font-space-grotesk mix-blend-screen"
                 >
                     Transform Your Vision Into <br />
                     <span
@@ -188,7 +188,7 @@ export default function Hero() {
                             words={["Market Dominance", "Digital Reality", "Global Success", "Revenue Machine"]}
                             typingSpeed={100}
                             deletingSpeed={50}
-                            textClassName="text-transparent bg-clip-text bg-gradient-to-r from-violet-500 via-fuchsia-400 to-indigo-500"
+                            textClassName="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-amber-400 to-orange-500 pb-2"
                             cursorClassName="bg-white h-[0.8em] w-[4px] md:w-[6px]"
                         />
                     </span>
@@ -201,7 +201,7 @@ export default function Hero() {
                     transition={{ duration: 0.8, delay: 0.5 }}
                     className="max-w-2xl mx-auto text-lg md:text-xl text-gray-400 mb-12 leading-relaxed"
                 >
-                    In the digital age, <span className="text-white font-semibold">your website is your greatest asset</span>. I engineer premium, high-converting digital experiences that turn visitors into <span className="text-indigo-400">revenue</span> and establish your industry authority.
+                    We craft <span className="text-slate-900 font-semibold">hyper-optimized digital solutions</span> that elevate your brand. From stunning web applications to scalable architectures, bringing your boldest ideas to life with <span className="text-orange-500">flawless execution</span>.
                 </motion.p>
 
                 {/* Buttons */}
@@ -213,7 +213,7 @@ export default function Hero() {
                 >
                     <Link
                         href="#work"
-                        className="group relative inline-flex h-14 items-center justify-center clay-btn clay-btn-primary px-10 font-bold text-white transition-all duration-300"
+                        className="group relative inline-flex h-14 items-center justify-center glass-btn glass-btn-primary px-10 font-bold text-slate-900 transition-all duration-300"
                     >
                         <span className="mr-2">See Proven Results</span>
                         <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
@@ -221,7 +221,7 @@ export default function Hero() {
 
                     <Link
                         href="#contact"
-                        className="group relative inline-flex h-14 items-center justify-center clay-btn px-10 font-medium text-white transition-all duration-300"
+                        className="group relative inline-flex h-14 items-center justify-center glass-btn px-10 font-medium text-slate-900 transition-all duration-300"
                     >
                         Elevate Your Brand
                     </Link>
@@ -229,8 +229,8 @@ export default function Hero() {
             </div>
 
             {/* Decorative Gradient Orbs (Fixed background) */}
-            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-600/20 rounded-full blur-[120px] mix-blend-screen pointer-events-none" />
-            <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-fuchsia-600/10 rounded-full blur-[150px] mix-blend-screen pointer-events-none" />
+            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-orange-600/20 rounded-full blur-[120px] mix-blend-screen pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-amber-600/10 rounded-full blur-[150px] mix-blend-screen pointer-events-none" />
 
             {/* Socials */}
             <div className="absolute bottom-10 left-10 hidden md:flex flex-col gap-6 z-20 pointer-events-auto">
@@ -244,7 +244,7 @@ export default function Hero() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1.5, duration: 1 }}
-                className="absolute bottom-10 left-1/2 -translate-x-1/2 text-white/30 flex flex-col items-center gap-2"
+                className="absolute bottom-10 left-1/2 -translate-x-1/2 text-slate-900/30 flex flex-col items-center gap-2"
             >
                 <span className="text-[10px] uppercase tracking-[0.2em]">Scroll</span>
                 <div className="w-[1px] h-12 bg-gradient-to-b from-white/0 via-white/50 to-white/0" />
@@ -260,7 +260,7 @@ function SocialLink({ href, icon }: { href: string; icon: React.ReactNode }) {
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            className="p-4 clay-btn text-gray-400 hover:text-white transition-all duration-300"
+            className="p-4 glass-btn text-gray-400 hover:text-slate-900 transition-all duration-300"
         >
             {icon}
         </a>
@@ -272,7 +272,7 @@ function Typewriter({
     typingSpeed = 150,
     deletingSpeed = 100,
     textClassName = "",
-    cursorClassName = "bg-indigo-500"
+    cursorClassName = "bg-orange-500"
 }: {
     words: string[],
     typingSpeed?: number,

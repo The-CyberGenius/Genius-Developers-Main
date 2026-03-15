@@ -36,10 +36,10 @@ export default function Contact() {
     const whatsAppLink = `https://wa.me/918955256878?text=${whatsAppMessage}`;
 
     return (
-        <section id="contact" className="py-16 bg-clay-base relative overflow-hidden">
+        <section id="contact" className="py-16 bg-glass-base relative overflow-hidden">
             {/* Decorative elements */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-indigo-600/10 blur-[100px] rounded-full -z-10 pointer-events-none" />
-            <div className="absolute bottom-0 right-0 w-[300px] h-[300px] bg-fuchsia-600/10 blur-[80px] rounded-full -z-10 pointer-events-none" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-orange-600/10 blur-[100px] rounded-full -z-10 pointer-events-none" />
+            <div className="absolute bottom-0 right-0 w-[300px] h-[300px] bg-amber-600/10 blur-[80px] rounded-full -z-10 pointer-events-none" />
 
             <div className="container px-4 md:px-6 mx-auto">
                 <motion.div
@@ -49,8 +49,8 @@ export default function Contact() {
                     transition={{ duration: 0.8 }}
                     className="text-center mb-12"
                 >
-                    <h2 className="text-3xl md:text-5xl font-bold font-space-grotesk mb-4 text-white pb-1">
-                        Stop Losing <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-fuchsia-400">Potential Customers</span>
+                    <h2 className="text-3xl md:text-5xl font-bold font-space-grotesk mb-4 text-slate-900 pb-1">
+                        Stop Losing <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-amber-400">Potential Customers</span>
                     </h2>
                     <p className="text-lg text-gray-400 max-w-2xl mx-auto">
                         In a crowded market, blending in is failing. Let&apos;s build a digital presence that demands attention.
@@ -66,24 +66,24 @@ export default function Contact() {
                         transition={{ duration: 0.6, delay: 0.1 }}
                         className="space-y-6 flex flex-col justify-center"
                     >
-                        <div className="p-6 md:p-8 clay-card relative overflow-hidden group">
-                            <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                        <div className="p-6 md:p-8 glass-card relative overflow-hidden group">
+                            <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
-                            <h3 className="text-xl font-bold text-white mb-6 relative z-10">Direct Connection</h3>
+                            <h3 className="text-xl font-bold text-slate-900 mb-6 relative z-10">Direct Connection</h3>
 
                             <div className="grid gap-4 relative z-10">
                                 <Link
                                     href="mailto:sshivaprajapat@gmail.com"
                                     className="flex items-center gap-4 p-3 rounded-xl hover:bg-white/5 transition-all group/item border border-transparent hover:border-white/5"
                                 >
-                                    <div className="p-3 bg-indigo-500/20 text-indigo-400 rounded-full group-hover/item:bg-indigo-500 group-hover/item:text-white transition-all duration-300">
+                                    <div className="p-3 bg-orange-500/20 text-orange-500 rounded-full group-hover/item:bg-orange-500 group-hover/item:text-slate-900 transition-all duration-300">
                                         <Mail className="w-5 h-5" />
                                     </div>
                                     <div>
-                                        <h4 className="text-base font-semibold text-white mb-0.5">Email</h4>
+                                        <h4 className="text-base font-semibold text-slate-900 mb-0.5">Email</h4>
                                         <p className="text-xs text-gray-500 group-hover/item:text-gray-300 transition-colors">Send a detailed inquiry</p>
                                     </div>
-                                    <div className="ml-auto opacity-0 group-hover/item:opacity-100 -translate-x-2 group-hover/item:translate-x-0 transition-all duration-300 text-indigo-400">
+                                    <div className="ml-auto opacity-0 group-hover/item:opacity-100 -translate-x-2 group-hover/item:translate-x-0 transition-all duration-300 text-orange-500">
                                         <Send className="w-4 h-4" />
                                     </div>
                                 </Link>
@@ -93,11 +93,11 @@ export default function Contact() {
                                     target="_blank"
                                     className="flex items-center gap-4 p-3 rounded-xl hover:bg-white/5 transition-all group/item border border-transparent hover:border-white/5"
                                 >
-                                    <div className="p-3 bg-green-500/20 text-green-400 rounded-full group-hover/item:bg-green-500 group-hover/item:text-white transition-all duration-300">
+                                    <div className="p-3 bg-green-500/20 text-green-400 rounded-full group-hover/item:bg-green-500 group-hover/item:text-slate-900 transition-all duration-300">
                                         <MessageCircle className="w-5 h-5" />
                                     </div>
                                     <div>
-                                        <h4 className="text-base font-semibold text-white mb-0.5">WhatsApp</h4>
+                                        <h4 className="text-base font-semibold text-slate-900 mb-0.5">WhatsApp</h4>
                                         <p className="text-xs text-gray-500 group-hover/item:text-gray-300 transition-colors">Immediate response</p>
                                     </div>
                                     <div className="ml-auto opacity-0 group-hover/item:opacity-100 -translate-x-2 group-hover/item:translate-x-0 transition-all duration-300 text-green-400">
@@ -110,7 +110,7 @@ export default function Contact() {
                                         <MapPin className="w-5 h-5" />
                                     </div>
                                     <div>
-                                        <h4 className="text-base font-semibold text-white mb-0.5">Location</h4>
+                                        <h4 className="text-base font-semibold text-slate-900 mb-0.5">Location</h4>
                                         <p className="text-xs text-gray-500">Based in India • Working Worldwide</p>
                                     </div>
                                 </div>
@@ -125,8 +125,8 @@ export default function Contact() {
                         >
                             <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent -translate-x-full group-hover:animate-shine" />
                             <div className="relative flex items-center justify-center gap-2 bg-black/10 rounded-lg py-3 transition-colors group-hover:bg-transparent">
-                                <MessageCircle className="w-5 h-5 text-white" />
-                                <span className="font-bold text-white text-base tracking-wide">Start Chat on WhatsApp</span>
+                                <MessageCircle className="w-5 h-5 text-slate-900" />
+                                <span className="font-bold text-slate-900 text-base tracking-wide">Start Chat on WhatsApp</span>
                             </div>
                         </Link>
                     </motion.div>
@@ -137,14 +137,14 @@ export default function Contact() {
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.6, delay: 0.2 }}
-                        className="p-6 md:p-8 clay-card relative"
+                        className="p-6 md:p-8 glass-card relative"
                     >
                         <div className="absolute top-0 right-0 p-6 opacity-10 pointer-events-none">
-                            <Send className="w-20 h-20 text-white" />
+                            <Send className="w-20 h-20 text-slate-900" />
                         </div>
 
                         <form onSubmit={handleSubmit} className="space-y-4 relative z-10">
-                            <h3 className="text-xl font-bold text-white mb-4">Send a Message</h3>
+                            <h3 className="text-xl font-bold text-slate-900 mb-4">Send a Message</h3>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                                 <div className="space-y-2">
@@ -153,7 +153,7 @@ export default function Contact() {
                                         type="text"
                                         id="name"
                                         required
-                                        className="w-full bg-black/20 shadow-[inset_0_4px_8px_rgba(0,0,0,0.5)] border border-white/5 rounded-xl px-4 py-3.5 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all"
+                                        className="w-full bg-black/20 shadow-[inset_0_4px_8px_rgba(0,0,0,0.5)] border border-white/5 rounded-xl px-4 py-3.5 text-sm text-slate-900 placeholder:text-gray-600 focus:outline-none focus:border-orange-500/50 focus:ring-1 focus:ring-orange-500/50 transition-all"
                                         placeholder="John Doe"
                                     />
                                 </div>
@@ -163,7 +163,7 @@ export default function Contact() {
                                         type="email"
                                         id="email"
                                         required
-                                        className="w-full bg-black/20 shadow-[inset_0_4px_8px_rgba(0,0,0,0.5)] border border-white/5 rounded-xl px-4 py-3.5 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all"
+                                        className="w-full bg-black/20 shadow-[inset_0_4px_8px_rgba(0,0,0,0.5)] border border-white/5 rounded-xl px-4 py-3.5 text-sm text-slate-900 placeholder:text-gray-600 focus:outline-none focus:border-orange-500/50 focus:ring-1 focus:ring-orange-500/50 transition-all"
                                         placeholder="john@example.com"
                                     />
                                 </div>
@@ -175,7 +175,7 @@ export default function Contact() {
                                     type="text"
                                     id="subject"
                                     required
-                                    className="w-full bg-black/20 shadow-[inset_0_4px_8px_rgba(0,0,0,0.5)] border border-white/5 rounded-xl px-4 py-3.5 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all"
+                                    className="w-full bg-black/20 shadow-[inset_0_4px_8px_rgba(0,0,0,0.5)] border border-white/5 rounded-xl px-4 py-3.5 text-sm text-slate-900 placeholder:text-gray-600 focus:outline-none focus:border-orange-500/50 focus:ring-1 focus:ring-orange-500/50 transition-all"
                                     placeholder="Project Proposal"
                                 />
                             </div>
@@ -186,7 +186,7 @@ export default function Contact() {
                                     id="message"
                                     required
                                     rows={4}
-                                    className="w-full bg-black/20 shadow-[inset_0_4px_8px_rgba(0,0,0,0.5)] border border-white/5 rounded-xl px-4 py-3.5 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all resize-none"
+                                    className="w-full bg-black/20 shadow-[inset_0_4px_8px_rgba(0,0,0,0.5)] border border-white/5 rounded-xl px-4 py-3.5 text-sm text-slate-900 placeholder:text-gray-600 focus:outline-none focus:border-orange-500/50 focus:ring-1 focus:ring-orange-500/50 transition-all resize-none"
                                     placeholder="Tell me about your vision..."
                                 />
                             </div>
@@ -194,7 +194,7 @@ export default function Contact() {
                             <button
                                 type="submit"
                                 disabled={formState !== 'idle'}
-                                className="w-full py-4 mt-2 clay-btn-primary font-bold text-base hover:text-white disabled:opacity-70 disabled:cursor-not-allowed group relative overflow-hidden"
+                                className="w-full py-4 mt-2 glass-btn-primary font-bold text-base hover:text-slate-900 disabled:opacity-70 disabled:cursor-not-allowed group relative overflow-hidden"
                             >
                                 <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
                                 <span className="relative flex items-center justify-center gap-2">
