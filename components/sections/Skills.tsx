@@ -23,7 +23,7 @@ const skills = [
 
 export default function Skills() {
     return (
-        <section className="py-20 md:py-32 bg-black overflow-hidden relative">
+        <section className="py-20 md:py-32 bg-clay-base overflow-hidden relative">
             {/* Background Glow */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-indigo-600/10 rounded-full blur-[80px] md:blur-[120px] pointer-events-none" />
 
@@ -67,7 +67,7 @@ export default function Skills() {
 
 function SkillCard({ skill }: { skill: typeof skills[0] }) {
     return (
-        <div className="relative group/card flex items-center justify-center gap-2 md:gap-3 px-4 py-2.5 md:px-8 md:py-4 bg-white/5 border border-white/10 rounded-full cursor-default transition-all duration-300 hover:bg-white/10 hover:border-white/30 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]">
+        <div className="relative group/card flex items-center justify-center gap-2 md:gap-3 px-6 py-3 md:px-8 md:py-4 clay-card cursor-default mb-4 mx-2">
             <skill.icon className="w-5 h-5 md:w-6 md:h-6 transition-colors duration-300 group-hover/card:text-white" style={{ color: skill.color }} />
             <span className="text-sm md:text-lg font-medium text-gray-300 group-hover/card:text-white transition-colors">
                 {skill.name}

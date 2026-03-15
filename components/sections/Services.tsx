@@ -57,7 +57,7 @@ const services = [
 
 export default function Services() {
     return (
-        <section id="services" className="py-24 relative overflow-hidden bg-black">
+        <section id="services" className="py-24 relative overflow-hidden bg-clay-base">
             {/* Background Elements */}
             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/5 rounded-full blur-[100px] pointer-events-none" />
             <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-600/5 rounded-full blur-[100px] pointer-events-none" />
@@ -85,10 +85,8 @@ export default function Services() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.1 }}
-                            className={`group relative p-8 rounded-3xl bg-white/5 border border-white/10 overflow-hidden transition-all duration-500 hover:bg-white/10 ${service.border}`}
+                            className="group relative p-8 clay-card flex flex-col items-start"
                         >
-                            {/* Hover Gradient Background */}
-                            <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
 
                             <div className="relative z-10 flex flex-col h-full">
                                 {/* Icon Header */}

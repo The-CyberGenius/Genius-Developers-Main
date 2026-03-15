@@ -8,12 +8,12 @@ export default function Footer() {
     const currentYear = new Date().getFullYear();
 
     return (
-        <footer className="bg-black border-t border-white/10 py-12">
+        <footer className="bg-clay-base border-t border-white/5 py-12">
             <div className="container px-4 md:px-6 mx-auto">
                 <div className="flex flex-col md:flex-row justify-between items-center mb-8">
                     <Link href="/" className="flex items-center space-x-2 group mb-4 md:mb-0">
-                        <div className="p-2 bg-primary/20 rounded-lg group-hover:bg-primary/30 transition-colors">
-                            <Code2 className="w-6 h-6 text-primary" />
+                        <div className="p-3 clay-card border-none bg-indigo-500/10">
+                            <Code2 className="w-6 h-6 text-indigo-400" />
                         </div>
                         <span className="font-bold text-xl tracking-tight text-white">
                             Shiva

@@ -147,7 +147,7 @@ export default function Hero() {
     }, []);
 
     return (
-        <section className="relative h-screen flex items-center justify-center overflow-hidden bg-black">
+        <section className="relative h-screen flex items-center justify-center overflow-hidden bg-clay-base pt-20">
             {/* 1. Dynamic Canvas Background */}
             <canvas
                 ref={canvasRef}
@@ -162,11 +162,11 @@ export default function Hero() {
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, ease: "easeOut" }}
-                    className="inline-flex items-center px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-sm font-medium text-gray-300 mb-8 pointer-events-auto hover:bg-white/10 transition-colors"
+                    className="inline-flex items-center px-5 py-2.5 clay-btn text-sm font-medium text-gray-300 mb-8 pointer-events-auto"
                 >
-                    <span className="relative flex h-2 w-2 mr-3">
+                    <span className="relative flex h-2.5 w-2.5 mr-3">
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                        <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]"></span>
                     </span>
                     Available for New Projects
                 </motion.div>
@@ -209,20 +209,19 @@ export default function Hero() {
                     initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.7 }}
-                    className="flex flex-col sm:flex-row items-center justify-center gap-6 pointer-events-auto"
+                    className="flex flex-col sm:flex-row items-center justify-center gap-6 pointer-events-auto mt-4"
                 >
                     <Link
                         href="#work"
-                        className="group relative inline-flex h-14 items-center justify-center overflow-hidden rounded-full bg-white text-black px-10 font-bold transition-all duration-300 hover:scale-110 hover:shadow-[0_0_40px_rgba(255,255,255,0.3)]"
+                        className="group relative inline-flex h-14 items-center justify-center clay-btn clay-btn-primary px-10 font-bold text-white transition-all duration-300"
                     >
                         <span className="mr-2">See Proven Results</span>
                         <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent w-1/2 h-full -translate-x-[200%] skew-x-12 group-hover:animate-shine" />
                     </Link>
 
                     <Link
                         href="#contact"
-                        className="group relative inline-flex h-14 items-center justify-center rounded-full border border-white/20 bg-white/5 px-10 font-medium text-white backdrop-blur-sm transition-all duration-300 hover:bg-white/10 hover:border-white/40 hover:scale-105"
+                        className="group relative inline-flex h-14 items-center justify-center clay-btn px-10 font-medium text-white transition-all duration-300"
                     >
                         Elevate Your Brand
                     </Link>
@@ -261,7 +260,7 @@ function SocialLink({ href, icon }: { href: string; icon: React.ReactNode }) {
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            className="p-3 rounded-full bg-white/5 border border-white/10 text-gray-400 hover:text-white hover:bg-indigo-500/20 hover:border-indigo-500/50 transition-all duration-300 hover:scale-125 hover:rotate-6 backdrop-blur-md"
+            className="p-4 clay-btn text-gray-400 hover:text-white transition-all duration-300"
         >
             {icon}
         </a>

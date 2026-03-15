@@ -69,7 +69,7 @@ export default function Work() {
     );
 
     return (
-        <section id="work" className="py-16 bg-black relative">
+        <section id="work" className="py-16 bg-clay-base relative">
             <div className="container px-4 md:px-6 mx-auto">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -91,9 +91,9 @@ export default function Work() {
                         <button
                             key={cat}
                             onClick={() => setFilter(cat)}
-                            className={`px-5 py-1.5 rounded-full text-xs font-medium transition-all duration-300 border ${filter === cat
-                                ? "bg-white text-black border-white shadow-[0_0_15px_rgba(255,255,255,0.2)]"
-                                : "bg-transparent text-gray-400 border-white/10 hover:border-white/30 hover:text-white"
+                            className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${filter === cat
+                                ? "clay-btn text-white shadow-[0_0_15px_rgba(255,255,255,0.1)]"
+                                : "bg-transparent text-gray-400 border border-white/10 hover:border-white/20 hover:text-white"
                                 }`}
                         >
                             {cat}
@@ -115,7 +115,7 @@ export default function Work() {
                                 exit={{ opacity: 0, scale: 0.95 }}
                                 transition={{ duration: 0.3 }}
                                 key={project.id}
-                                className="group relative bg-zinc-900/30 border border-white/10 rounded-2xl overflow-hidden hover:border-white/20 transition-all duration-500 hover:shadow-xl hover:shadow-indigo-500/10 flex flex-col"
+                                className="group relative clay-card overflow-hidden flex flex-col"
                             >
                                 {/* Image Area */}
                                 <Link href={project.demoLink} target="_blank" className="block aspect-[16/10] w-full bg-zinc-800 relative overflow-hidden">

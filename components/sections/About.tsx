@@ -13,7 +13,7 @@ const stats = [
 
 export default function About() {
     return (
-        <section id="about" className="py-24 relative bg-black overflow-hidden">
+        <section id="about" className="py-24 relative bg-clay-base overflow-hidden">
             {/* Background Ambience */}
             <div className="absolute top-0 right-0 w-1/2 h-full bg-indigo-600/5 blur-[150px] -z-10" />
             <div className="absolute bottom-0 left-0 w-1/2 h-full bg-fuchsia-600/5 blur-[150px] -z-10" />
@@ -46,7 +46,7 @@ export default function About() {
                         {/* Tech Stack Pills (Subtle) */}
                         <div className="flex flex-wrap gap-3 mt-8">
                             {["Next.js", "React", "TypeScript", "Tailwind", "Framer Motion", "Node.js"].map((tech, i) => (
-                                <span key={tech} className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm text-gray-300 hover:bg-white/10 hover:border-indigo-500/50 transition-all cursor-default">
+                                <span key={tech} className="px-5 py-2 clay-btn text-sm text-gray-300 hover:text-white cursor-default">
                                     {tech}
                                 </span>
                             ))}
@@ -68,10 +68,10 @@ export default function About() {
                         <motion.div
                             animate={{ y: [0, -20, 0] }}
                             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                            className="relative w-full max-w-md bg-zinc-900/90 border border-white/10 rounded-2xl shadow-2xl backdrop-blur-xl overflow-hidden"
+                            className="relative w-full max-w-md clay-card overflow-hidden"
                         >
                             {/* Window Header */}
-                            <div className="flex items-center gap-2 px-4 py-3 border-b border-white/5 bg-white/5">
+                            <div className="flex items-center gap-2 px-6 py-4 border-b border-white/5">
                                 <div className="w-3 h-3 rounded-full bg-red-500" />
                                 <div className="w-3 h-3 rounded-full bg-yellow-500" />
                                 <div className="w-3 h-3 rounded-full bg-green-500" />
@@ -130,7 +130,7 @@ export default function About() {
                         <motion.div
                             animate={{ y: [0, 30, 0], rotate: 360 }}
                             transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-                            className="absolute -right-8 -top-8 p-4 bg-zinc-800/80 backdrop-blur border border-white/10 rounded-2xl shadow-xl"
+                            className="absolute -right-8 -top-8 p-5 clay-card"
                         >
                             <Rocket className="w-8 h-8 text-indigo-400" />
                         </motion.div>
@@ -138,7 +138,7 @@ export default function About() {
                         <motion.div
                             animate={{ y: [0, -40, 0], rotate: -12 }}
                             transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                            className="absolute -left-6 bottom-12 p-3 bg-zinc-800/80 backdrop-blur border border-white/10 rounded-xl shadow-xl"
+                            className="absolute -left-6 bottom-12 p-4 clay-card"
                         >
                             <Zap className="w-6 h-6 text-yellow-400" />
                         </motion.div>

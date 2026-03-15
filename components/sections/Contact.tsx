@@ -36,7 +36,7 @@ export default function Contact() {
     const whatsAppLink = `https://wa.me/918955256878?text=${whatsAppMessage}`;
 
     return (
-        <section id="contact" className="py-16 bg-black relative overflow-hidden">
+        <section id="contact" className="py-16 bg-clay-base relative overflow-hidden">
             {/* Decorative elements */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-indigo-600/10 blur-[100px] rounded-full -z-10 pointer-events-none" />
             <div className="absolute bottom-0 right-0 w-[300px] h-[300px] bg-fuchsia-600/10 blur-[80px] rounded-full -z-10 pointer-events-none" />
@@ -66,8 +66,8 @@ export default function Contact() {
                         transition={{ duration: 0.6, delay: 0.1 }}
                         className="space-y-6 flex flex-col justify-center"
                     >
-                        <div className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md relative overflow-hidden group hover:border-white/20 transition-all duration-500">
-                            <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                        <div className="p-6 md:p-8 clay-card relative overflow-hidden group">
+                            <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
                             <h3 className="text-xl font-bold text-white mb-6 relative z-10">Direct Connection</h3>
 
@@ -137,7 +137,7 @@ export default function Contact() {
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.6, delay: 0.2 }}
-                        className="bg-zinc-900/50 border border-white/10 p-6 md:p-8 rounded-2xl backdrop-blur-sm relative"
+                        className="p-6 md:p-8 clay-card relative"
                     >
                         <div className="absolute top-0 right-0 p-6 opacity-10 pointer-events-none">
                             <Send className="w-20 h-20 text-white" />
@@ -146,47 +146,47 @@ export default function Contact() {
                         <form onSubmit={handleSubmit} className="space-y-4 relative z-10">
                             <h3 className="text-xl font-bold text-white mb-4">Send a Message</h3>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div className="space-y-1.5">
-                                    <label htmlFor="name" className="text-xs font-medium text-gray-400 ml-1">Your Name</label>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                                <div className="space-y-2">
+                                    <label htmlFor="name" className="text-xs font-semibold text-gray-400 tracking-wider uppercase ml-1">Your Name</label>
                                     <input
                                         type="text"
                                         id="name"
                                         required
-                                        className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-3 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all hover:bg-black/60"
+                                        className="w-full bg-black/20 shadow-[inset_0_4px_8px_rgba(0,0,0,0.5)] border border-white/5 rounded-xl px-4 py-3.5 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all"
                                         placeholder="John Doe"
                                     />
                                 </div>
-                                <div className="space-y-1.5">
-                                    <label htmlFor="email" className="text-xs font-medium text-gray-400 ml-1">Email Address</label>
+                                <div className="space-y-2">
+                                    <label htmlFor="email" className="text-xs font-semibold text-gray-400 tracking-wider uppercase ml-1">Email Address</label>
                                     <input
                                         type="email"
                                         id="email"
                                         required
-                                        className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-3 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all hover:bg-black/60"
+                                        className="w-full bg-black/20 shadow-[inset_0_4px_8px_rgba(0,0,0,0.5)] border border-white/5 rounded-xl px-4 py-3.5 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all"
                                         placeholder="john@example.com"
                                     />
                                 </div>
                             </div>
 
-                            <div className="space-y-1.5">
-                                <label htmlFor="subject" className="text-xs font-medium text-gray-400 ml-1">Subject</label>
+                            <div className="space-y-2">
+                                <label htmlFor="subject" className="text-xs font-semibold text-gray-400 tracking-wider uppercase ml-1">Subject</label>
                                 <input
                                     type="text"
                                     id="subject"
                                     required
-                                    className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-3 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all hover:bg-black/60"
+                                    className="w-full bg-black/20 shadow-[inset_0_4px_8px_rgba(0,0,0,0.5)] border border-white/5 rounded-xl px-4 py-3.5 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all"
                                     placeholder="Project Proposal"
                                 />
                             </div>
 
-                            <div className="space-y-1.5">
-                                <label htmlFor="message" className="text-xs font-medium text-gray-400 ml-1">Message</label>
+                            <div className="space-y-2">
+                                <label htmlFor="message" className="text-xs font-semibold text-gray-400 tracking-wider uppercase ml-1">Message</label>
                                 <textarea
                                     id="message"
                                     required
                                     rows={4}
-                                    className="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-3 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all hover:bg-black/60 resize-none"
+                                    className="w-full bg-black/20 shadow-[inset_0_4px_8px_rgba(0,0,0,0.5)] border border-white/5 rounded-xl px-4 py-3.5 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all resize-none"
                                     placeholder="Tell me about your vision..."
                                 />
                             </div>
@@ -194,7 +194,7 @@ export default function Contact() {
                             <button
                                 type="submit"
                                 disabled={formState !== 'idle'}
-                                className="w-full py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-bold text-base shadow-lg hover:shadow-indigo-500/30 transition-all transform hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-70 disabled:cursor-not-allowed group relative overflow-hidden"
+                                className="w-full py-4 mt-2 clay-btn-primary font-bold text-base hover:text-white disabled:opacity-70 disabled:cursor-not-allowed group relative overflow-hidden"
                             >
                                 <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
                                 <span className="relative flex items-center justify-center gap-2">
