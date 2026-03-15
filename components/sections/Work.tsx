@@ -57,6 +57,16 @@ const projects = [
         demoLink: "https://rohini-dresses-wears.vercel.app/",
         codeLink: "#"
     },
+    {
+        id: 6,
+        title: "JG News Plus",
+        category: "Web App",
+        image: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&q=80&w=1200", // News-related placeholder
+        description: "A modern, dynamic news and media platform engineered for rapid content delivery.",
+        tags: ["Next.js", "Media", "NewsPortal"],
+        demoLink: "https://jg-news-plus.vercel.app/",
+        codeLink: "#"
+    },
 ];
 
 const categories = ["All", "Web App", "Education", "Hospitality", "Ecommerce"];
