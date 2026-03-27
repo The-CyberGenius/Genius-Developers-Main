@@ -76,7 +76,7 @@ export default function Navbar() {
                             initial={{ opacity: 0, height: 0 }}
                             animate={{ opacity: 1, height: "auto" }}
                             exit={{ opacity: 0, height: 0 }}
-                            className="md:hidden bg-black/95 backdrop-blur-xl border-b border-white/10 overflow-hidden"
+                            className="md:hidden bg-[#1e1916]/95 backdrop-blur-xl border border-orange-500/10 rounded-b-3xl overflow-hidden shadow-lg"
                         >
                             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                                 {navItems.map((item) => (
@@ -84,7 +84,7 @@ export default function Navbar() {
                                         key={item.name}
                                         href={item.href}
                                         onClick={() => setIsOpen(false)}
-                                        className="text-gray-300 hover:text-primary block px-3 py-2 rounded-md text-base font-medium"
+                                        className="text-[#c9c2b9] hover:text-orange-400 block px-4 py-3 rounded-xl text-base font-medium transition-colors hover:bg-white/5"
                                     >
                                         {item.name}
                                     </Link>
@@ -93,7 +93,7 @@ export default function Navbar() {
                                     <Link
                                         href="#contact"
                                         onClick={() => setIsOpen(false)}
-                                        className="block w-full text-center bg-primary hover:bg-primary/90 text-slate-900 px-5 py-3 rounded-full text-base font-medium transition-colors shadow-[0_0_20px_rgba(139,92,246,0.5)]"
+                                        className="block w-full text-center bg-orange-500 hover:bg-orange-400 text-white px-5 py-3 rounded-full text-base font-medium transition-all shadow-[0_4px_14px_rgba(217,119,67,0.4)] hover:shadow-[0_6px_20px_rgba(217,119,67,0.5)]"
                                     >
                                         Hire Me
                                     </Link>
