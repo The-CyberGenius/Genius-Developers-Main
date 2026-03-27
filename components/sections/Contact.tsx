@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Mail, Phone, Send, MapPin, MessageCircle } from "lucide-react";
 import Link from "next/link";
 import { useState, FormEvent } from "react";
+import { siteConfig } from "@/lib/data";
 
 export default function Contact() {
     const [formState, setFormState] = useState<'idle' | 'submitting' | 'success'>('idle');
@@ -22,7 +23,7 @@ export default function Contact() {
         // Format WhatsApp message
         const text = `*New Inquiry from Website* 🚀\n\n*Name:* ${name}\n*Email:* ${email}\n*Subject:* ${subject}\n*Message:* ${message}`;
         const encodedText = encodeURIComponent(text);
-        const waLink = `https://wa.me/918955256878?text=${encodedText}`;
+        const waLink = `https://wa.me/${siteConfig.phone}?text=${encodedText}`;
 
         // Redirect to WhatsApp
         window.open(waLink, '_blank');
@@ -32,8 +33,8 @@ export default function Contact() {
         setTimeout(() => setFormState('idle'), 3000);
     };
 
-    const whatsAppMessage = encodeURIComponent("Hello Shiva, I want to discuss a project.");
-    const whatsAppLink = `https://wa.me/918955256878?text=${whatsAppMessage}`;
+    const whatsAppMessage = encodeURIComponent(siteConfig.whatsappMessage);
+    const whatsAppLink = `https://wa.me/${siteConfig.phone}?text=${whatsAppMessage}`;
 
     return (
         <section id="contact" className="py-16 bg-glass-base relative overflow-hidden">
@@ -73,7 +74,7 @@ export default function Contact() {
 
                             <div className="grid gap-4 relative z-10">
                                 <Link
-                                    href="mailto:sshivaprajapat@gmail.com"
+                                    href={`mailto:${siteConfig.email}`}
                                     className="flex items-center gap-4 p-3 rounded-xl hover:bg-white/5 transition-all group/item border border-transparent hover:border-white/5"
                                 >
                                     <div className="p-3 bg-orange-500/20 text-orange-500 rounded-full group-hover/item:bg-orange-500 group-hover/item:text-slate-900 transition-all duration-300">

@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Code2, Github, Linkedin, Instagram, Youtube } from "lucide-react";
+import { Github, Linkedin, Instagram, Youtube } from "lucide-react";
 import { FaXTwitter } from "react-icons/fa6";
+import { siteConfig, socialLinks } from "@/lib/data";
 
 export default function Footer() {
     const currentYear = new Date().getFullYear();
@@ -22,11 +23,11 @@ export default function Footer() {
                     </Link>
 
                     <div className="flex space-x-6">
-                        <SocialLink href="https://x.com/X_shiva2001" icon={<FaXTwitter className="w-5 h-5" />} />
-                        <SocialLink href="https://www.linkedin.com/in/balkrishan-prajapat-188314192/" icon={<Linkedin className="w-5 h-5" />} />
-                        <SocialLink href="https://github.com/The-CyberGenius" icon={<Github className="w-5 h-5" />} />
-                        <SocialLink href="https://www.instagram.com/i.shiva_01/" icon={<Instagram className="w-5 h-5" />} />
-                        <SocialLink href="https://www.youtube.com/@shiva2099" icon={<Youtube className="w-5 h-5" />} />
+                        <SocialLink href={socialLinks.twitter} icon={<FaXTwitter className="w-5 h-5" />} />
+                        <SocialLink href={socialLinks.linkedin} icon={<Linkedin className="w-5 h-5" />} />
+                        <SocialLink href={socialLinks.github} icon={<Github className="w-5 h-5" />} />
+                        <SocialLink href={socialLinks.instagram} icon={<Instagram className="w-5 h-5" />} />
+                        <SocialLink href={socialLinks.youtube} icon={<Youtube className="w-5 h-5" />} />
                     </div>
                 </div>
 

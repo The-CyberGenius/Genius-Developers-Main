@@ -3,16 +3,11 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, X, Code2 } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { cn } from "@/lib/utils";
+import { navItems, siteConfig } from "@/lib/data";
 
-const navItems = [
-    { name: "About", href: "#about" },
-    { name: "Work", href: "#work" },
-    { name: "Services", href: "#services" },
-    { name: "Contact", href: "#contact" },
-];
+
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);

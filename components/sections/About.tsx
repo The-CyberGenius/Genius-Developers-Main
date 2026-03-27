@@ -1,15 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Code, Terminal, Cpu, Globe, Rocket, Zap, Users } from "lucide-react";
+import { Terminal, Rocket, Zap } from "lucide-react";
+import { stats, siteConfig, techStack } from "@/lib/data";
 
-
-const stats = [
-    { label: "Years Experience", value: "3+" },
-    { label: "Projects Delivered", value: "25+" },
-    { label: "Client Satisfaction", value: "100%" },
-    { label: "Revenue Generated", value: "10x" }, // Abstract business impact
-];
 
 export default function About() {
     return (
@@ -36,16 +30,16 @@ export default function About() {
 
                         <div className="space-y-6 text-lg text-gray-400">
                             <p>
-                                I don&apos;t just write code; <span className="text-slate-900 font-medium">I architect revenue-generating engines.</span> In a digital landscape crowded with mediocrity, I build platforms that demand attention and convert visitors into loyal customers.
+                                {siteConfig.aboutParagraph1}
                             </p>
                             <p>
-                                My philosophy is simple: <span className="text-slate-900 font-medium">Speed wins, aesthetics sell, and precision scales.</span> Whether you need a high-performance web app or a brand-defining portfolio, I deliver solutions that put you leagues ahead of the competition.
+                                {siteConfig.aboutParagraph2}
                             </p>
                         </div>
 
                         {/* Tech Stack Pills (Subtle) */}
                         <div className="flex flex-wrap gap-3 mt-8">
-                            {["Next.js", "React", "TypeScript", "Tailwind", "Framer Motion", "Node.js"].map((tech, i) => (
+                            {techStack.map((tech) => (
                                 <span key={tech} className="px-5 py-2 glass-btn text-sm text-gray-300 hover:text-slate-900 cursor-default">
                                     {tech}
                                 </span>

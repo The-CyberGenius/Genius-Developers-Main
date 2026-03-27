@@ -5,69 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, Github, Globe } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-
-const projects = [
-    {
-        id: 1,
-        title: "Aapno Digital Studio",
-        category: "Web App",
-        image: "/projects/aapno-real.png",
-        description: "A premium photography studio portfolio with cinematic animations and booking system.",
-        tags: ["React", "GSAP", "Cinematic UI"],
-        demoLink: "https://aapnodigitalstudio.in",
-        codeLink: "#"
-    },
-    {
-        id: 2,
-        title: "Professor Adda",
-        category: "Education",
-        image: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&q=80&w=1200",
-        description: "Comprehensive educational platform offering courses and live classes for students.",
-        tags: ["Next.js", "LMS", "Education"],
-        demoLink: "https://professoradda.com",
-        codeLink: "#"
-    },
-    {
-        id: 3,
-        title: "Professor Adda Notes",
-        category: "Education",
-        image: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&q=80&w=1200",
-        description: "Digital resource hub for study materials, notes, and academic content.",
-        tags: ["Next.js", "Resource Hub", "Content"],
-        demoLink: "https://professoraddanotes.com/",
-        codeLink: "#"
-    },
-    {
-        id: 4,
-        title: "Ratan Mahal",
-        category: "Hospitality",
-        image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=1200",
-        description: "Luxury resort website showcasing amenities, rooms, and booking options.",
-        tags: ["Hospitality", "Booking", "Visuals"],
-        demoLink: "https://ratan-mahal.vercel.app/",
-        codeLink: "#"
-    },
-    {
-        id: 5,
-        title: "Rohini Dresses & Wears",
-        category: "Ecommerce",
-        image: "/projects/rohini-preview.png",
-        description: "A premium wholesale fashion platform for ethnic wear, uniforms, and fabrics with digital catalog.",
-        tags: ["Next.js", "Wholesale", "Ecommerce"],
-        demoLink: "https://rohini-dresses-wears.vercel.app/",
-        codeLink: "#"
-    },
-    {
-        id: 6,
-        title: "JG News Plus",
-        category: "Web App",
-        image: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&q=80&w=1200", // News-related placeholder
-        description: "A modern, dynamic news and media platform engineered for rapid content delivery.",
-        tags: ["Next.js", "Media", "NewsPortal"],
-        demoLink: "https://jg-news-plus.vercel.app/",
-        codeLink: "#"
-    },
-];
+import { projects, siteConfig } from "@/lib/data";
 
 const categories = ["All", "Web App", "Education", "Hospitality", "Ecommerce"];
 
