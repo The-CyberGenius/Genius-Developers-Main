@@ -126,7 +126,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120vw] h-[120vw] rounded-full bg-gradient-radial from-zinc-200/10 dark:from-zinc-800/10 to-transparent blur-3xl" />
 
             {/* Magical Floating Text Background - HIDDEN ON MOBILE FOR CLARITY */}
-            <div className="absolute inset-0 hidden md:flex items-center justify-center opacity-[0.02] dark:opacity-[0.04] pointer-events-none select-none overflow-hidden">
+            <div className="absolute inset-0 hidden md:flex items-start justify-center opacity-[0.02] dark:opacity-[0.04] pointer-events-none select-none overflow-hidden pt-[700px]">
               <motion.div
                 animate={{ x: ["0%", "-50%"] }}
                 transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
