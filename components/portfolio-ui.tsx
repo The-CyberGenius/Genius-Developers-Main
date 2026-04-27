@@ -15,7 +15,6 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
   const containerRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLDivElement>(null);
 
-  const theme = settings?.theme || "apple";
 
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -91,15 +90,17 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
     } catch (e) {}
   };
 
-  // Premium Theme Styles
+  const colorScheme = settings?.theme || "apple";
+
+  // Premium Theme Styles (ADAPTIVE DARK/LIGHT FOR ALL SCHEMES)
   const themeClasses = {
     apple: "bg-[#fafafa] dark:bg-[#050505] text-[#1a1a1a] dark:text-[#f5f5f7]",
-    midnight: "bg-[#020617] text-[#f1f5f9]",
-    neon: "bg-[#000000] text-[#00ffcc]",
-    forest: "bg-[#06120c] text-[#ecfdf5]",
-    ember: "bg-[#0f0505] text-[#fef2f2]",
-    gold: "bg-[#0c0a09] text-[#f5f5f4]",
-  }[theme as string] || "bg-[#fafafa] dark:bg-[#050505] text-[#1a1a1a] dark:text-[#f5f5f7]";
+    midnight: "bg-[#f1f5f9] dark:bg-[#020617] text-[#0f172a] dark:text-[#f1f5f9]",
+    neon: "bg-[#fafafa] dark:bg-[#000000] text-[#000000] dark:text-[#00ffcc]",
+    forest: "bg-[#f0fdf4] dark:bg-[#06120c] text-[#064e3b] dark:text-[#ecfdf5]",
+    ember: "bg-[#fef2f2] dark:bg-[#0f0505] text-[#7f1d1d] dark:text-[#fef2f2]",
+    gold: "bg-[#fafaf9] dark:bg-[#0c0a09] text-[#44403c] dark:text-[#f5f5f4]",
+  }[colorScheme as string] || "bg-[#fafafa] dark:bg-[#050505] text-[#1a1a1a] dark:text-[#f5f5f7]";
 
   const accentColor = {
     apple: "bg-[#1a1a1a] dark:bg-[#f5f5f7] text-white dark:text-black",
@@ -108,7 +109,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
     forest: "bg-[#10b981] text-white",
     ember: "bg-[#ef4444] text-white",
     gold: "bg-[#d4af37] text-black",
-  }[theme as string] || "bg-[#1a1a1a] dark:bg-[#f5f5f7] text-white dark:text-black";
+  }[colorScheme as string] || "bg-[#1a1a1a] dark:bg-[#f5f5f7] text-white dark:text-black";
 
   const [submitted, setSubmitted] = useState(false);
 
@@ -485,7 +486,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
       </section>
 
       {/* ── CONTACT (INTERNATIONAL PREMIUM) ───────────────────── */}
-      <section id="contact" className={`scroll-mt-20 py-16 md:py-32 px-6 md:px-12 relative z-30 ${theme === 'neon' ? 'bg-[#00ffcc] text-black' : 'bg-white dark:bg-[#050505] text-[#1a1a1a] dark:text-[#f5f5f7]'}`}>
+      <section id="contact" className={`scroll-mt-20 py-16 md:py-32 px-6 md:px-12 relative z-30 ${colorScheme === 'neon' ? 'bg-[#00ffcc] dark:bg-black text-black dark:text-[#00ffcc]' : 'bg-white dark:bg-[#050505] text-[#1a1a1a] dark:text-[#f5f5f7]'}`}>
         <div className="max-w-[1400px] mx-auto grid lg:grid-cols-12 gap-16 md:gap-32">
           
           {/* Left Side: Contact Cards */}
