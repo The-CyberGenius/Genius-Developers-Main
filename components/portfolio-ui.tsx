@@ -121,26 +121,26 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
       {/* ── CLEAN HERO ────────────────────────────────────── */}
       <div ref={heroRef} className="h-[120vh] relative">
         <div className="sticky top-0 h-screen flex flex-col justify-center px-6 md:px-12">
-          
+
           {/* Subtle Background Elements */}
           <motion.div style={{ scale: bgZoom, opacity: heroOpacity }} className="absolute inset-0 pointer-events-none -z-10">
-             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[100vw] rounded-full bg-gradient-radial from-zinc-100/10 dark:from-zinc-900/10 to-transparent blur-3xl" />
-             <div className="absolute inset-0 hidden md:flex items-center justify-center opacity-[0.01] dark:opacity-[0.03] overflow-hidden">
-                <motion.div animate={{ x: ["0%", "-50%"] }} transition={{ duration: 100, repeat: Infinity, ease: "linear" }} className="flex whitespace-nowrap text-[25vh] font-black uppercase gap-40">
-                  <span>Innovation</span><span>✦</span><span>Experience</span><span>✦</span><span>Design</span><span>✦</span>
-                </motion.div>
-             </div>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[100vw] rounded-full bg-gradient-radial from-zinc-100/10 dark:from-zinc-900/10 to-transparent blur-3xl" />
+            <div className="absolute inset-0 hidden md:flex items-center justify-center opacity-[0.01] dark:opacity-[0.03] overflow-hidden">
+              <motion.div animate={{ x: ["0%", "-50%"] }} transition={{ duration: 100, repeat: Infinity, ease: "linear" }} className="flex whitespace-nowrap text-[25vh] font-black uppercase gap-40">
+                <span>Innovation</span><span>✦</span><span>Experience</span><span>✦</span><span>Design</span><span>✦</span>
+              </motion.div>
+            </div>
           </motion.div>
 
           <motion.div style={{ opacity: heroOpacity, scale: heroScale, y: heroY }} className="max-w-[1400px] mx-auto w-full relative z-20">
-            <motion.div initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ delay: 0.2 }} className="mb-6">
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="mb-6">
               <span className="text-[10px] font-black uppercase tracking-[0.3em] opacity-40 border-l border-current pl-4">Full Stack Developer</span>
             </motion.div>
-            
+
             <motion.h1 style={{ x: titleX }} className="text-6xl sm:text-8xl md:text-9xl lg:text-[11vw] font-black tracking-tighter leading-[0.8] mb-4">
               {(data?.name || "Shiva").split(" ")[0]}
             </motion.h1>
-            
+
             {(data?.name || "").split(" ").length > 1 && (
               <motion.h1 style={{ x: subtitleX }} className="text-6xl sm:text-8xl md:text-9xl lg:text-[11vw] font-black tracking-tighter leading-[0.8] text-zinc-200 dark:text-zinc-800 mb-12">
                 {data.name.split(" ").slice(1).join(" ")}.
@@ -152,10 +152,10 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                 {data?.tagline || "I build high-performance digital solutions that drive impact."}
               </p>
               <div className="flex gap-4">
-                 <a href="#work" className={`px-8 py-4 rounded-full ${accentColor} font-black uppercase text-[10px] tracking-widest hover:scale-105 transition-all`}>View Work</a>
-                 {resume?.fileUrl && (
-                  <a href={resume.fileUrl} target="_blank" rel="noreferrer" className="px-8 py-4 rounded-full border border-current/10 font-black uppercase text-[10px] tracking-widest hover:bg-current/5 transition-all">CV</a>
-                 )}
+                <a href="#work" className={`px-8 py-4 rounded-full ${accentColor} font-black uppercase text-[10px] tracking-widest hover:scale-105 transition-all`}>View Work</a>
+                {resume?.fileUrl && (
+                  <a href={resume.fileUrl} target="_blank" rel="noreferrer" className="px-8 py-4 rounded-full border border-current/10 font-black uppercase text-[10px] tracking-widest hover:bg-current/5 transition-all">CV⬇️</a>
+                )}
               </div>
             </motion.div>
           </motion.div>
@@ -165,14 +165,14 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
       {/* ── PRETEXT SHOWCASE (MAGICAL INNOVATION) ──────────────── */}
       <section className="relative h-[250vh] bg-black text-white">
         <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
-          <motion.div 
+          <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
             className="relative z-10 text-center px-6"
           >
             <motion.p variants={fadeInUp} className="text-[10px] font-black uppercase tracking-[0.5em] text-zinc-500 mb-8">System Architecture</motion.p>
-            <motion.h2 
+            <motion.h2
               variants={staggerContainer}
               className="text-5xl sm:text-7xl md:text-8xl lg:text-[10vw] font-black tracking-tighter leading-none"
             >
@@ -184,10 +184,10 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
 
           {/* Background Magical Text */}
           <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none select-none">
-            <motion.div 
-               animate={{ rotate: 360 }}
-               transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
-               className="text-[40vh] font-black uppercase leading-none text-white whitespace-nowrap"
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
+              className="text-[40vh] font-black uppercase leading-none text-white whitespace-nowrap"
             >
               PRETEXT • SHOWCASE • INNOVATION • PRETEXT • SHOWCASE • INNOVATION •
             </motion.div>
@@ -196,7 +196,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
       </section>
 
       {/* ── TECH STRIP (DYNAMIC) ───────────────────────────── */}
-      <motion.section 
+      <motion.section
         variants={staggerContainer}
         initial="hidden"
         whileInView="visible"
@@ -204,46 +204,46 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
         className="relative z-30 py-12 md:py-24 border-y border-zinc-100 dark:border-zinc-900 bg-white dark:bg-black"
       >
         <div className="max-w-[1400px] mx-auto px-6 md:px-12">
-           <div className="flex flex-wrap justify-center gap-8 md:gap-16 opacity-40 hover:opacity-100 transition-opacity duration-700">
-              {["Next.js", "React", "TypeScript", "Node.js", "Tailwind", "MongoDB", "AI"].map((tech, i) => (
-                <motion.span key={tech} variants={fadeInUp} className="text-sm md:text-2xl font-black uppercase tracking-[0.3em]">{tech}</motion.span>
-              ))}
-           </div>
+          <div className="flex flex-wrap justify-center gap-8 md:gap-16 opacity-40 hover:opacity-100 transition-opacity duration-700">
+            {["Next.js", "React", "TypeScript", "Node.js", "Tailwind", "MongoDB", "AI"].map((tech, i) => (
+              <motion.span key={tech} variants={fadeInUp} className="text-sm md:text-2xl font-black uppercase tracking-[0.3em]">{tech}</motion.span>
+            ))}
+          </div>
         </div>
       </motion.section>
 
       {/* ── ABOUT (DYNAMIC REVEAL) ────────────────────────── */}
-      <motion.section 
+      <motion.section
         variants={staggerContainer}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
         className="py-24 md:py-64 px-6 md:px-12 bg-zinc-50 dark:bg-zinc-950"
       >
-         <div className="max-w-[1400px] mx-auto grid lg:grid-cols-12 gap-12 md:gap-24">
-            <motion.div variants={fadeInUp} className="lg:col-span-5">
-               <p className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 mb-8">Biography</p>
-               <h2 className="text-6xl md:text-9xl font-black tracking-tighter leading-[0.8] mb-10">Crafting<br />Legacy.</h2>
+        <div className="max-w-[1400px] mx-auto grid lg:grid-cols-12 gap-12 md:gap-24">
+          <motion.div variants={fadeInUp} className="lg:col-span-5">
+            <p className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 mb-8">Biography</p>
+            <h2 className="text-6xl md:text-9xl font-black tracking-tighter leading-[0.8] mb-10">Crafting<br />Legacy.</h2>
+          </motion.div>
+          <motion.div variants={fadeInUp} className="lg:col-span-7">
+            <p className="text-2xl md:text-5xl font-medium leading-[1.1] tracking-tight mb-12 opacity-80">
+              {data?.aboutText || "I transform complex challenges into elegant digital solutions with a focus on performance and user experience."}
+            </p>
+            <motion.div variants={staggerContainer} className="flex gap-8">
+              {data?.email && (
+                <motion.a variants={fadeInUp} href={`mailto:${data.email}`} className="text-[11px] font-black uppercase tracking-widest border-b-2 border-current pb-2 hover:opacity-50 transition-all">Let's Talk</motion.a>
+              )}
+              {data?.whatsapp && (
+                <motion.a variants={fadeInUp} href={data.whatsapp} target="_blank" rel="noreferrer" className="text-[11px] font-black uppercase tracking-widest border-b-2 border-current pb-2 hover:opacity-50 transition-all">WhatsApp</motion.a>
+              )}
             </motion.div>
-            <motion.div variants={fadeInUp} className="lg:col-span-7">
-               <p className="text-2xl md:text-5xl font-medium leading-[1.1] tracking-tight mb-12 opacity-80">
-                  {data?.aboutText || "I transform complex challenges into elegant digital solutions with a focus on performance and user experience."}
-               </p>
-               <motion.div variants={staggerContainer} className="flex gap-8">
-                  {data?.email && (
-                    <motion.a variants={fadeInUp} href={`mailto:${data.email}`} className="text-[11px] font-black uppercase tracking-widest border-b-2 border-current pb-2 hover:opacity-50 transition-all">Let's Talk</motion.a>
-                  )}
-                  {data?.whatsapp && (
-                    <motion.a variants={fadeInUp} href={data.whatsapp} target="_blank" rel="noreferrer" className="text-[11px] font-black uppercase tracking-widest border-b-2 border-current pb-2 hover:opacity-50 transition-all">WhatsApp</motion.a>
-                  )}
-               </motion.div>
-            </motion.div>
-         </div>
+          </motion.div>
+        </div>
       </motion.section>
 
       {/* ── PROJECTS (DYNAMIC LIST) ────────────────────────── */}
-      <motion.section 
-        id="work" 
+      <motion.section
+        id="work"
         variants={staggerContainer}
         initial="hidden"
         whileInView="visible"
@@ -255,31 +255,31 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
             <p className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 mb-6">Works</p>
             <h2 className="text-6xl md:text-[10rem] font-black tracking-tighter leading-[0.75] uppercase">Showcase.</h2>
           </motion.div>
-          
+
           <motion.div variants={staggerContainer} className="divide-y border-t border-zinc-100 dark:border-zinc-900">
             {(projects.length > 0 ? projects : [
               { title: "Digital Innovation", description: "State-of-the-art web experience.", tags: ["Next.js", "WebGL"] }
             ]).map((p: any, i: number) => (
-              <motion.a 
-                key={i} 
-                href={p.link || "#"} 
-                target="_blank" 
+              <motion.a
+                key={i}
+                href={p.link || "#"}
+                target="_blank"
                 rel="noreferrer"
                 variants={fadeInUp}
                 whileHover={{ x: 20 }}
                 className="py-16 md:py-24 flex flex-col md:flex-row md:items-center justify-between gap-12 group transition-all"
               >
                 <div className="flex gap-10 md:gap-20 items-start">
-                  <span className="text-zinc-200 dark:text-zinc-800 font-black text-2xl md:text-3xl pt-2">{String(i+1).padStart(2, "0")}</span>
+                  <span className="text-zinc-200 dark:text-zinc-800 font-black text-2xl md:text-3xl pt-2">{String(i + 1).padStart(2, "0")}</span>
                   <div>
                     <h3 className="text-4xl md:text-7xl font-black tracking-tighter mb-4 group-hover:opacity-40 transition-opacity uppercase">{p.title}</h3>
                     <p className="text-lg md:text-2xl opacity-50 max-w-3xl leading-relaxed">{p.description}</p>
                   </div>
                 </div>
                 <div className="flex gap-4">
-                   {(p.tags || []).slice(0, 3).map((t: string) => (
-                     <span key={t} className="px-5 py-2 rounded-full border border-current/10 text-[10px] font-black uppercase tracking-widest opacity-40">{t}</span>
-                   ))}
+                  {(p.tags || []).slice(0, 3).map((t: string) => (
+                    <span key={t} className="px-5 py-2 rounded-full border border-current/10 text-[10px] font-black uppercase tracking-widest opacity-40">{t}</span>
+                  ))}
                 </div>
               </motion.a>
             ))}
@@ -288,8 +288,8 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
       </motion.section>
 
       {/* ── SKILLS & SERVICES (DYNAMIC) ─────────────────── */}
-      <motion.section 
-        id="skills" 
+      <motion.section
+        id="skills"
         variants={staggerContainer}
         initial="hidden"
         whileInView="visible"
@@ -297,41 +297,41 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
         className="py-24 md:py-64 px-6 md:px-12 bg-zinc-50 dark:bg-zinc-950"
       >
         <div className="max-w-[1400px] mx-auto grid lg:grid-cols-2 gap-16 md:gap-32">
-           <motion.div variants={fadeInUp}>
-              <p className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 mb-12">Core Technologies</p>
-              <div className="space-y-16">
-                 {[...frontendSkills, ...backendSkills].slice(0, 6).map((s: any, i: number) => (
-                   <motion.div key={i} variants={fadeInUp}>
-                      <div className="flex justify-between items-end mb-6">
-                        <span className="text-2xl md:text-3xl font-black uppercase tracking-tighter">{s.name}</span>
-                        <span className="text-xs font-mono opacity-40">{s.proficiency}%</span>
-                      </div>
-                      <div className="h-2 w-full bg-zinc-200 dark:bg-zinc-800 rounded-full overflow-hidden">
-                         <motion.div initial={{ width: 0 }} whileInView={{ width: `${s.proficiency}%` }} transition={{ duration: 1.5, ease: "circOut" }} className="h-full bg-current" />
-                      </div>
-                   </motion.div>
-                 ))}
-              </div>
-            </motion.div>
+          <motion.div variants={fadeInUp}>
+            <p className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 mb-12">Core Technologies</p>
+            <div className="space-y-16">
+              {[...frontendSkills, ...backendSkills].slice(0, 6).map((s: any, i: number) => (
+                <motion.div key={i} variants={fadeInUp}>
+                  <div className="flex justify-between items-end mb-6">
+                    <span className="text-2xl md:text-3xl font-black uppercase tracking-tighter">{s.name}</span>
+                    <span className="text-xs font-mono opacity-40">{s.proficiency}%</span>
+                  </div>
+                  <div className="h-2 w-full bg-zinc-200 dark:bg-zinc-800 rounded-full overflow-hidden">
+                    <motion.div initial={{ width: 0 }} whileInView={{ width: `${s.proficiency}%` }} transition={{ duration: 1.5, ease: "circOut" }} className="h-full bg-current" />
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
 
-            <motion.div 
-              variants={fadeInUp}
-              className={`p-10 md:p-20 rounded-[3rem] ${accentColor} flex flex-col justify-between shadow-2xl shadow-black/10`}
-            >
-               <div>
-                 <h3 className="text-[10px] font-black uppercase tracking-[0.4em] opacity-40 mb-16">Services</h3>
-                 <div className="space-y-12">
-                   {services.slice(0, 4).map((s: any, i: number) => (
-                     <motion.div variants={fadeInUp} key={i}>
-                       <p className="text-3xl md:text-5xl font-black uppercase tracking-tighter mb-3">{s.title}</p>
-                       <p className="text-sm md:text-base opacity-60 max-w-sm leading-relaxed">{s.description}</p>
-                     </motion.div>
-                   ))}
-                 </div>
-               </div>
-               <motion.a whileHover={{ gap: "32px" }} href="#contact" className="mt-20 inline-flex items-center gap-4 font-black uppercase text-[11px] tracking-widest border-b-2 border-current pb-3 transition-all">Get Started <ArrowRight className="w-5 h-5" /></motion.a>
-            </motion.div>
-         </div>
+          <motion.div
+            variants={fadeInUp}
+            className={`p-10 md:p-20 rounded-[3rem] ${accentColor} flex flex-col justify-between shadow-2xl shadow-black/10`}
+          >
+            <div>
+              <h3 className="text-[10px] font-black uppercase tracking-[0.4em] opacity-40 mb-16">Services</h3>
+              <div className="space-y-12">
+                {services.slice(0, 4).map((s: any, i: number) => (
+                  <motion.div variants={fadeInUp} key={i}>
+                    <p className="text-3xl md:text-5xl font-black uppercase tracking-tighter mb-3">{s.title}</p>
+                    <p className="text-sm md:text-base opacity-60 max-w-sm leading-relaxed">{s.description}</p>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+            <motion.a whileHover={{ gap: "32px" }} href="#contact" className="mt-20 inline-flex items-center gap-4 font-black uppercase text-[11px] tracking-widest border-b-2 border-current pb-3 transition-all">Get Started <ArrowRight className="w-5 h-5" /></motion.a>
+          </motion.div>
+        </div>
       </motion.section>
 
       {/* ── CONTACT (DYNAMIC & FUNCTIONAL) ───────────────────── */}
@@ -371,7 +371,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
 
           <div className={`${theme === 'neon' ? 'bg-black/5' : 'bg-white/5 dark:bg-black/10'} backdrop-blur-2xl rounded-[2.5rem] md:rounded-[4rem] p-8 md:p-20 border border-current/5 flex flex-col justify-center`}>
             {submitted ? (
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 className="text-center space-y-8"
@@ -411,12 +411,12 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
 
       {/* ── FOOTER (CLEAN) ───────────────────────────────── */}
       <footer className="py-12 md:py-20 px-6 md:px-12 border-t border-zinc-100 dark:border-zinc-900 opacity-20">
-         <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between items-center gap-8 text-[9px] font-black uppercase tracking-widest">
-            <p>© {new Date().getFullYear()} — {(data?.name || "SHIVA").toUpperCase()}</p>
-            <div className="flex gap-8">
-               {['work', 'skills', 'contact'].map(i => <a key={i} href={`#${i}`} className="hover:underline">{i}</a>)}
-            </div>
-         </div>
+        <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between items-center gap-8 text-[9px] font-black uppercase tracking-widest">
+          <p>© {new Date().getFullYear()} — {(data?.name || "SHIVA").toUpperCase()}</p>
+          <div className="flex gap-8">
+            {['work', 'skills', 'contact'].map(i => <a key={i} href={`#${i}`} className="hover:underline">{i}</a>)}
+          </div>
+        </div>
       </footer>
     </div>
   );
