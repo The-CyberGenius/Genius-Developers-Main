@@ -100,23 +100,8 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
       <div className="fixed inset-0 pointer-events-none z-[999] opacity-[0.02] mix-blend-overlay" style={{ backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")' }} />
 
       {/* ── STYLISH NAV ─────────────────────────────────────── */}
-      <motion.header
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="fixed top-0 z-[100] w-full"
-      >
-        <div className="max-w-[1400px] mx-auto px-6 md:px-12 h-20 md:h-24 flex items-center justify-between backdrop-blur-sm bg-transparent">
-          <span className="font-black text-2xl md:text-3xl tracking-tighter italic serif">
-            {data?.name?.split(" ")[0] || "Shiva"}<span className="opacity-20 not-italic">.</span>
-          </span>
-          <nav className="hidden md:flex gap-10 lg:gap-14 text-[10px] font-black uppercase tracking-[0.3em] opacity-40">
-            {['work', 'skills', 'contact'].map((item) => (
-              <a key={item} href={`#${item}`} className="hover:opacity-100 transition-opacity hover:italic uppercase">{item}</a>
-            ))}
-            <Link href="/admin/login" className="hover:opacity-100 transition-opacity hover:italic">Admin</Link>
-          </nav>
-        </div>
-      </motion.header>
+      {/* Navbar Removed as per user request */}
+
 
       {/* ── HUMBLE HERO ────────────────────────────────────── */}
       <div ref={heroRef} className="h-[120vh] relative">
