@@ -136,16 +136,27 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
   // ── MOUSE REACTIVE LOGIC (PREMIUM PHYSICS) ──────────
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
+  const cursorX = useMotionValue(0);
+  const cursorY = useMotionValue(0);
+
   const titleXSpring = useSpring(mouseX, { damping: 40, stiffness: 250 });
   const titleYSpring = useSpring(mouseY, { damping: 40, stiffness: 250 });
+  const cursorXSpring = useSpring(cursorX, { damping: 20, stiffness: 100 });
+  const cursorYSpring = useSpring(cursorY, { damping: 20, stiffness: 100 });
 
   const handleMouseMove = (e: React.MouseEvent) => {
     const { clientX, clientY } = e;
     const { innerWidth, innerHeight } = window;
+    
+    // For Title Parallax
     const x = (clientX - innerWidth / 2) / 25;
     const y = (clientY - innerHeight / 2) / 25;
     mouseX.set(x);
     mouseY.set(y);
+
+    // For Cursor Glow
+    cursorX.set(clientX);
+    cursorY.set(clientY);
   };
 
   const handleMouseLeave = () => {
@@ -153,8 +164,10 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
     mouseY.set(0);
   };
 
-  // Parallax for Background Text
+  // Parallax for Background Layers
   const bgTextY = useTransform(smoothProgress, [0, 1], ["0%", "15%"]);
+  const linesY = useTransform(smoothProgress, [0, 1], ["0%", "30%"]);
+  const dotsY = useTransform(smoothProgress, [0, 1], ["0%", "-20%"]);
 
   return (
     <div 
@@ -163,6 +176,19 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
       onMouseLeave={handleMouseLeave}
       className={`${themeClasses} transition-colors duration-700 overflow-x-hidden selection:bg-zinc-500/30 relative text-base`}
     >
+
+      {/* ── CURSOR GLOW TRAIL (MAGICAL) ──────────────────── */}
+      {mounted && (
+        <motion.div
+          className="fixed pointer-events-none z-[100] w-64 h-64 bg-current/[0.03] blur-[80px] rounded-full"
+          style={{
+            x: cursorXSpring,
+            y: cursorYSpring,
+            translateX: "-50%",
+            translateY: "-50%",
+          }}
+        />
+      )}
 
       {/* ── PREMIUM NOISE OVERLAY ────────────────────────── */}
       <div className="fixed inset-0 pointer-events-none z-[999] opacity-[0.02] mix-blend-overlay" style={{ backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")' }} />
@@ -187,14 +213,6 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
           transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
           className="absolute bottom-1/4 -right-20 w-[600px] h-[600px] bg-current/5 blur-[180px] rounded-full" 
         />
-        <motion.div 
-          animate={{ 
-            x: [0, 50, -50, 0],
-            y: [0, 50, -50, 0],
-          }}
-          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-current/[0.02] blur-[200px] rounded-full" 
-        />
       </div>
 
 
@@ -206,12 +224,72 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
 
       {/* ── WORLD-CLASS HERO ────────────────────────────── */}
       <div ref={heroRef} className="h-[140vh] relative">
-        <div className="sticky top-0 h-screen flex flex-col justify-center px-6 md:px-12 overflow-hidden">
+        
+        {/* MAGICAL DEPTH LAYERS (LINES & DOTS) */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
           
-          {/* BACKGROUND BRANDING TEXT (FULL VISIBILITY) */}
+          {/* Layer 1: Subtle Grid Trace */}
+          <motion.div 
+            style={{ y: linesY }} 
+            className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]"
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+          >
+            <div className="absolute inset-0" style={{ backgroundImage: 'linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px)', backgroundSize: '100px 100px' }} />
+          </motion.div>
+
+          {/* Layer 2: Floating Magical Lines */}
+          <motion.div style={{ y: linesY }} className="absolute inset-0">
+             {[...Array(6)].map((_, i) => (
+               <motion.div
+                 key={i}
+                 className="absolute h-[1px] bg-current opacity-[0.05]"
+                 style={{
+                   width: '100%',
+                   top: `${20 + i * 15}%`,
+                   left: 0,
+                   rotate: -2 + i * 0.5
+                 }}
+                 animate={{
+                   x: ['-100%', '100%'],
+                 }}
+                 transition={{
+                   duration: 15 + i * 5,
+                   repeat: Infinity,
+                   ease: "linear",
+                   delay: i * 2
+                 }}
+               />
+             ))}
+          </motion.div>
+
+          {/* Layer 3: Particle Dotted Network */}
+          <motion.div style={{ y: dotsY }} className="absolute inset-0">
+            {[...Array(20)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute w-1 h-1 rounded-full bg-current opacity-[0.1]"
+                style={{
+                  top: `${Math.random() * 100}%`,
+                  left: `${Math.random() * 100}%`,
+                }}
+                animate={{
+                  y: [0, -20, 0],
+                  opacity: [0.1, 0.3, 0.1],
+                }}
+                transition={{
+                  duration: 5 + Math.random() * 5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: Math.random() * 5
+                }}
+              />
+            ))}
+          </motion.div>
+
+          {/* Layer 4: Background Branding Text */}
           <motion.div 
             style={{ y: bgTextY, opacity: heroOpacity }} 
-            className="absolute inset-0 pointer-events-none -z-10 flex items-center justify-center p-4 md:p-12"
+            className="absolute inset-0 flex items-center justify-center p-4 md:p-12"
           >
             <div className="w-full max-w-[90vw] mx-auto text-center">
               <h2 className="text-[clamp(2.5rem,10vw,20rem)] font-black opacity-[0.03] tracking-tighter select-none uppercase leading-[0.85] break-words">
@@ -219,6 +297,9 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
               </h2>
             </div>
           </motion.div>
+        </div>
+
+        <div className="sticky top-0 h-screen flex flex-col justify-center px-6 md:px-12 overflow-hidden">
 
           <motion.div style={{ opacity: heroOpacity, scale: heroScale, y: heroY }} className="max-w-[1500px] mx-auto w-full relative z-20">
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="mb-6 flex items-center gap-6">
