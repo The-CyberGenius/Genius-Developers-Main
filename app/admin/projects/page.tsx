@@ -7,7 +7,8 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
-import { Trash2, Edit, Plus, ExternalLink, Github } from "lucide-react";
+import { Trash2, Edit, Plus, ExternalLink } from "lucide-react";
+import { FaGithub } from "react-icons/fa";
 
 type Project = {
   _id: string;
@@ -214,7 +215,7 @@ export default function ProjectsManager() {
                       </div>
                       <div className="ml-auto flex gap-3 text-zinc-400">
                         {project.link && <a href={project.link} target="_blank" rel="noreferrer" className="hover:text-zinc-900 dark:hover:text-white"><ExternalLink className="w-4 h-4" /></a>}
-                        {project.github && <a href={project.github} target="_blank" rel="noreferrer" className="hover:text-zinc-900 dark:hover:text-white"><Github className="w-4 h-4" /></a>}
+                        {project.github && <a href={project.github} target="_blank" rel="noreferrer" className="hover:text-zinc-900 dark:hover:text-white"><FaGithub className="w-4 h-4" /></a>}
                       </div>
                     </div>
                   </div>

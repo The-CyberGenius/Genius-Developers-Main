@@ -133,7 +133,7 @@ export default function SkillsManager() {
               </div>
               <div className="space-y-2">
                 <Label>Category</Label>
-                <Select value={category} onValueChange={setCategory}>
+                <Select value={category} onValueChange={(val) => setCategory(val || "Frontend")}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select category" />
                   </SelectTrigger>
