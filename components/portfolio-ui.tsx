@@ -355,16 +355,15 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
         <div className="max-w-[1400px] mx-auto grid lg:grid-cols-2 gap-16 md:gap-32">
           <motion.div variants={fadeInUp}>
             <p className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 mb-12">Core Technologies</p>
-            <div className="space-y-16">
-              {[...frontendSkills, ...backendSkills].slice(0, 6).map((s: any, i: number) => (
-                <motion.div key={i} variants={fadeInUp}>
-                  <div className="flex justify-between items-end mb-6">
-                    <span className="text-2xl md:text-3xl font-black uppercase tracking-tighter">{s.name}</span>
-                    <span className="text-xs font-mono opacity-40">{s.proficiency}%</span>
-                  </div>
-                  <div className="h-2 w-full bg-zinc-200 dark:bg-zinc-800 rounded-full overflow-hidden">
-                    <motion.div initial={{ width: 0 }} whileInView={{ width: `${s.proficiency}%` }} transition={{ duration: 1.5, ease: "circOut" as const }} className="h-full bg-current" />
-                  </div>
+            <div className="flex flex-wrap gap-4 md:gap-6">
+              {[...frontendSkills, ...backendSkills].map((s: any, i: number) => (
+                <motion.div 
+                  key={i} 
+                  variants={fadeInUp}
+                  whileHover={{ scale: 1.05, rotate: [-1, 1, 0] }}
+                  className="px-8 py-5 md:px-12 md:py-8 rounded-full border border-current/10 bg-current/5 group hover:bg-current hover:text-background transition-all cursor-default"
+                >
+                  <span className="text-xl md:text-3xl font-black uppercase tracking-tighter">{s.name}</span>
                 </motion.div>
               ))}
             </div>
