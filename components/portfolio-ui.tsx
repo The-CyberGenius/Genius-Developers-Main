@@ -309,7 +309,27 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                    </motion.div>
                  ))}
               </div>
-      </section>
+            </motion.div>
+
+            <motion.div 
+              variants={fadeInUp}
+              className={`p-10 md:p-20 rounded-[3rem] ${accentColor} flex flex-col justify-between shadow-2xl shadow-black/10`}
+            >
+               <div>
+                 <h3 className="text-[10px] font-black uppercase tracking-[0.4em] opacity-40 mb-16">Services</h3>
+                 <div className="space-y-12">
+                   {services.slice(0, 4).map((s: any, i: number) => (
+                     <motion.div variants={fadeInUp} key={i}>
+                       <p className="text-3xl md:text-5xl font-black uppercase tracking-tighter mb-3">{s.title}</p>
+                       <p className="text-sm md:text-base opacity-60 max-w-sm leading-relaxed">{s.description}</p>
+                     </motion.div>
+                   ))}
+                 </div>
+               </div>
+               <motion.a whileHover={{ gap: "32px" }} href="#contact" className="mt-20 inline-flex items-center gap-4 font-black uppercase text-[11px] tracking-widest border-b-2 border-current pb-3 transition-all">Get Started <ArrowRight className="w-5 h-5" /></motion.a>
+            </motion.div>
+         </div>
+      </motion.section>
 
       {/* ── CONTACT (DYNAMIC & FUNCTIONAL) ───────────────────── */}
       <section id="contact" className={`py-24 md:py-64 px-6 md:px-12 ${theme === 'neon' ? 'bg-[#0ff] text-black' : 'bg-black dark:bg-white text-white dark:text-black'}`}>
@@ -363,7 +383,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                 <textarea required rows={4} value={formData.message} onChange={e => setFormData({ ...formData, message: e.target.value })}
                   className="w-full bg-transparent border-b border-current/10 py-4 md:py-6 text-xl md:text-3xl focus:outline-none focus:border-current transition-all resize-none placeholder:opacity-20" placeholder="Project details..." />
               </div>
-              <button type="submit" disabled={formLoading} className={`w-full py-6 md:py-8 rounded-full ${theme === 'neon' ? 'bg-black text-white' : 'bg-white dark:bg-black text-black dark:text-white'} font-black text-lg md:text-xl hover:scale-[1.02] active:scale-95 transition-all disabled:opacity-40 flex items-center justify-center gap-4 shadow-2xl shadow-black/20`}>
+              <button type="submit" disabled={formLoading} className={`w-full py-6 md:py-8 rounded-full ${theme === 'neon' ? 'bg-black text-white' : 'bg-white dark:bg-white text-black dark:text-black'} font-black text-lg md:text-xl hover:scale-[1.02] active:scale-95 transition-all disabled:opacity-40 flex items-center justify-center gap-4 shadow-2xl shadow-black/20 uppercase tracking-widest`}>
                 {formLoading ? <Loader2 className="animate-spin" /> : <><Send className="w-6 h-6" />Send Inquiry</>}
               </button>
             </form>
