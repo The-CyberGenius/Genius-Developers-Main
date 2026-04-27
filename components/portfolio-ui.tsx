@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring, Variants } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Download, Send, Loader2, Mail } from "lucide-react";
 import { FaGithub, FaLinkedin, FaTwitter, FaInstagram, FaYoutube, FaWhatsapp } from "react-icons/fa";
@@ -36,12 +36,12 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
   const bgZoom = useTransform(smoothProgress, [0, 1], [1, 1.1]);
 
   // Animation Variants for sections
-  const fadeInUp = {
+  const fadeInUp: Variants = {
     hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as const } }
   };
 
-  const staggerContainer = {
+  const staggerContainer: Variants = {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
   };
@@ -111,7 +111,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
           <motion.div style={{ scale: bgZoom, opacity: heroOpacity }} className="absolute inset-0 pointer-events-none -z-10">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[100vw] rounded-full bg-gradient-radial from-zinc-100/10 dark:from-zinc-900/10 to-transparent blur-3xl" />
             <div className="absolute inset-0 hidden md:flex items-center justify-center opacity-[0.01] dark:opacity-[0.03] overflow-hidden">
-              <motion.div animate={{ x: ["0%", "-50%"] }} transition={{ duration: 120, repeat: Infinity, ease: "linear" }} className="flex whitespace-nowrap text-[25vh] font-black uppercase gap-40">
+              <motion.div animate={{ x: ["0%", "-50%"] }} transition={{ duration: 120, repeat: Infinity, ease: "linear" as const }} className="flex whitespace-nowrap text-[25vh] font-black uppercase gap-40">
                 <span>Problem Solver</span><span>✦</span><span>Coder</span><span>✦</span><span>Builder</span><span>✦</span>
               </motion.div>
             </div>
@@ -175,7 +175,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
           <div className="absolute inset-0 flex items-center justify-center opacity-[0.02] pointer-events-none select-none">
             <motion.div
               animate={{ rotate: -360 }}
-              transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+              transition={{ duration: 60, repeat: Infinity, ease: "linear" as const }}
               className="text-[45vh] font-black uppercase leading-none text-white whitespace-nowrap"
             >
               HUMBLE • PROGRAMMER • CODER • HUMBLE • PROGRAMMER • CODER •
@@ -296,7 +296,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                     <span className="text-xs font-mono opacity-40">{s.proficiency}%</span>
                   </div>
                   <div className="h-2 w-full bg-zinc-200 dark:bg-zinc-800 rounded-full overflow-hidden">
-                    <motion.div initial={{ width: 0 }} whileInView={{ width: `${s.proficiency}%` }} transition={{ duration: 1.5, ease: "circOut" }} className="h-full bg-current" />
+                    <motion.div initial={{ width: 0 }} whileInView={{ width: `${s.proficiency}%` }} transition={{ duration: 1.5, ease: "circOut" as const }} className="h-full bg-current" />
                   </div>
                 </motion.div>
               ))}
