@@ -268,7 +268,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
 
-        className="py-24 md:py-64 px-6 md:px-12 bg-zinc-50 dark:bg-zinc-950 overflow-hidden"
+        className="py-16 md:py-32 px-6 md:px-12 bg-zinc-50 dark:bg-zinc-950 overflow-hidden"
       >
         <div className="max-w-[1400px] mx-auto grid lg:grid-cols-12 gap-12 md:gap-24">
           <motion.div variants={fadeInUp} className="lg:col-span-5">
@@ -299,7 +299,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
 
-        className="py-24 md:py-64 px-6 md:px-12 bg-white dark:bg-black overflow-hidden"
+        className="py-16 md:py-32 px-6 md:px-12 bg-white dark:bg-black overflow-hidden"
       >
         <div className="max-w-[1400px] mx-auto">
           <motion.div variants={fadeInUp} className="mb-24">
@@ -318,7 +318,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                 rel="noreferrer"
                 variants={fadeInUp}
                 whileHover={{ y: -10 }}
-                className="group relative flex flex-col justify-between p-10 md:p-16 rounded-[3rem] bg-zinc-50 dark:bg-zinc-950 border border-current/5 overflow-hidden transition-all duration-500 min-h-[400px] md:min-h-[500px]"
+                className="group relative flex flex-col justify-between p-6 md:p-10 rounded-[2rem] bg-zinc-50 dark:bg-zinc-950 border border-current/5 overflow-hidden transition-all duration-500 min-h-[300px] md:min-h-[400px]"
               >
                 <div className="absolute top-0 right-0 p-10 opacity-0 group-hover:opacity-20 transition-opacity">
                   <span className="text-[12rem] font-black tracking-tighter leading-none select-none">{String(i + 1).padStart(2, "0")}</span>
@@ -330,7 +330,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                       <span key={t} className="px-5 py-2 rounded-full bg-current/5 text-[9px] font-black uppercase tracking-widest opacity-60">{t}</span>
                     ))}
                   </div>
-                  <h3 className="text-4xl md:text-6xl font-black tracking-tighter leading-[0.9] uppercase group-hover:italic transition-all duration-500">{p.title}</h3>
+                  <h3 className="text-3xl md:text-5xl font-black tracking-tighter leading-[0.9] uppercase group-hover:italic transition-all duration-500">{p.title}</h3>
                 </div>
 
                 <div className="relative z-10 space-y-8 mt-12">
@@ -355,7 +355,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
-        className="py-24 md:py-64 px-6 md:px-12 bg-zinc-50 dark:bg-zinc-950"
+        className="py-16 md:py-32 px-6 md:px-12 bg-zinc-50 dark:bg-zinc-950"
       >
         <div className="max-w-[1400px] mx-auto grid lg:grid-cols-2 gap-16 md:gap-32">
           <motion.div variants={fadeInUp}>
@@ -376,14 +376,14 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
 
           <motion.div
             variants={fadeInUp}
-            className={`p-10 md:p-20 rounded-[3rem] ${accentColor} flex flex-col justify-between shadow-2xl shadow-black/10`}
+            className={`p-6 md:p-12 rounded-[2rem] ${accentColor} flex flex-col justify-between shadow-2xl shadow-black/10`}
           >
             <div>
               <h3 className="text-[10px] font-black uppercase tracking-[0.4em] opacity-40 mb-16">Services</h3>
               <div className="space-y-12">
                 {services.slice(0, 4).map((s: any, i: number) => (
                   <motion.div variants={fadeInUp} key={i}>
-                    <p className="text-3xl md:text-5xl font-black uppercase tracking-tighter mb-3">{s.title}</p>
+                    <p className="text-2xl md:text-4xl font-black uppercase tracking-tighter mb-2">{s.title}</p>
                     <p className="text-sm md:text-base opacity-60 max-w-sm leading-relaxed">{s.description}</p>
                   </motion.div>
                 ))}
@@ -395,7 +395,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
       </motion.section>
 
       {/* ── CONTACT (INTERNATIONAL PREMIUM) ───────────────────── */}
-      <section id="contact" className={`py-24 md:py-64 px-6 md:px-12 ${theme === 'neon' ? 'bg-[#00ffcc] text-black' : 'bg-white dark:bg-[#050505] text-[#1a1a1a] dark:text-[#f5f5f7]'}`}>
+      <section id="contact" className={`py-16 md:py-32 px-6 md:px-12 ${theme === 'neon' ? 'bg-[#00ffcc] text-black' : 'bg-white dark:bg-[#050505] text-[#1a1a1a] dark:text-[#f5f5f7]'}`}>
         <div className="max-w-[1400px] mx-auto grid lg:grid-cols-12 gap-16 md:gap-32">
           
           {/* Left Side: Contact Cards */}
@@ -414,7 +414,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                   href={data.whatsapp} 
                   target="_blank" 
                   rel="noreferrer" 
-                  className="flex items-center gap-8 p-8 md:p-10 rounded-[2.5rem] bg-zinc-50 dark:bg-zinc-900/50 border border-current/5 group transition-all"
+                  className="flex items-center gap-6 p-5 md:p-7 rounded-[1.5rem] bg-zinc-50 dark:bg-zinc-900/50 border border-current/5 group transition-all"
                 >
                   <div className="w-16 h-16 rounded-full bg-current/10 flex items-center justify-center group-hover:bg-current group-hover:text-background transition-colors">
                     <FaWhatsapp className="w-8 h-8" />
@@ -430,7 +430,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                   whileHover={{ scale: 1.02, y: -5 }}
                   whileTap={{ scale: 0.98 }}
                   href={`mailto:${data.email}`} 
-                  className="flex items-center gap-8 p-8 md:p-10 rounded-[2.5rem] bg-zinc-50 dark:bg-zinc-900/50 border border-current/5 group transition-all"
+                  className="flex items-center gap-6 p-5 md:p-7 rounded-[1.5rem] bg-zinc-50 dark:bg-zinc-900/50 border border-current/5 group transition-all"
                 >
                   <div className="w-16 h-16 rounded-full bg-current/10 flex items-center justify-center group-hover:bg-current group-hover:text-background transition-colors">
                     <Mail className="w-8 h-8" />
@@ -457,7 +457,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
 
           {/* Right Side: Form */}
           <div className="lg:col-span-7">
-            <div className={`backdrop-blur-3xl rounded-[3rem] md:rounded-[5rem] p-10 md:p-24 border border-current/10 bg-zinc-50/50 dark:bg-zinc-900/20 shadow-2xl shadow-black/5`}>
+            <div className={`backdrop-blur-3xl rounded-[2rem] md:rounded-[3rem] p-8 md:p-16 border border-current/10 bg-zinc-50/50 dark:bg-zinc-900/20 shadow-2xl shadow-black/5`}>
               {submitted ? (
                 <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center py-20 space-y-10">
                   <div className="w-32 h-32 rounded-full bg-current/10 flex items-center justify-center mx-auto">
@@ -474,7 +474,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                   <div className="space-y-4 group">
                     <label className="text-[10px] font-black uppercase tracking-[0.5em] opacity-30 group-focus-within:opacity-100 transition-opacity">Identification</label>
                     <input required value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full bg-transparent border-b border-current/10 py-6 text-xl md:text-4xl font-medium focus:outline-none focus:border-current transition-all placeholder:text-zinc-300 dark:placeholder:text-zinc-700" placeholder="Full Name" />
+                      className="w-full bg-transparent border-b border-current/10 py-4 text-xl md:text-2xl font-medium focus:outline-none focus:border-current transition-all placeholder:text-zinc-300 dark:placeholder:text-zinc-700" placeholder="Full Name" />
                   </div>
                   <div className="space-y-4 group">
                     <label className="text-[10px] font-black uppercase tracking-[0.5em] opacity-30 group-focus-within:opacity-100 transition-opacity">Communication</label>
