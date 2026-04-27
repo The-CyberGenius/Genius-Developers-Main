@@ -105,8 +105,8 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
       </motion.header>
 
       {/* ── STICKY HERO ───────────────────────────────────── */}
-      <div ref={heroRef} className="h-[250vh] relative">
-        <div className="sticky top-0 h-screen overflow-hidden flex flex-col justify-center px-6 md:px-12">
+      <div ref={heroRef} className="h-[160vh] relative">
+        <div className="sticky top-0 h-screen overflow-hidden flex flex-col justify-end pb-32 px-6 md:px-12">
           
           {/* Background Elements */}
           <motion.div 
@@ -119,11 +119,11 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
             )}
             
             {/* Magical Floating Text Background */}
-            <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] dark:opacity-[0.07] pointer-events-none select-none overflow-hidden">
+            <div className="absolute inset-0 flex items-center justify-center opacity-[0.02] dark:opacity-[0.05] pointer-events-none select-none overflow-hidden">
               <motion.div 
                 animate={{ x: ["0%", "-50%"] }}
-                transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
-                className="flex whitespace-nowrap text-[25vh] font-black uppercase gap-20"
+                transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
+                className="flex whitespace-nowrap text-[18vh] font-black uppercase gap-20"
               >
                 <span>Innovation</span><span>✦</span><span>Scalability</span><span>✦</span><span>Design</span><span>✦</span><span>Innovation</span><span>✦</span><span>Scalability</span><span>✦</span><span>Design</span><span>✦</span>
               </motion.div>
