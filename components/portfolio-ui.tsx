@@ -297,29 +297,42 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
             </motion.div>
             
             <div className="relative mb-8 perspective-[1000px]">
+              {/* SVG LIQUID FILTER */}
+              <svg className="absolute hidden">
+                <defs>
+                  <filter id="liquid-filter">
+                    <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="3" result="noise">
+                       <animate attributeName="baseFrequency" values="0.015;0.02;0.015" dur="10s" repeatCount="indefinite" />
+                    </feTurbulence>
+                    <feDisplacementMap in="SourceGraphic" in2="noise" scale="15" xChannelSelector="R" yChannelSelector="G" />
+                  </filter>
+                </defs>
+              </svg>
+
               <motion.h1 
                 style={{ 
                   x: titleXSpring, 
                   y: titleYSpring,
                   rotateX: useTransform(titleYSpring, [-20, 20], [5, -5]),
                   rotateY: useTransform(titleXSpring, [-20, 20], [-5, 5]),
-                  fontSize: `clamp(3rem, 10vw, ${data?.heroFontSize || 12}rem)`
+                  fontSize: `clamp(3rem, 10vw, ${data?.heroFontSize || 12}rem)`,
+                  filter: "url(#liquid-filter)"
                 }} 
-                className="font-black tracking-tighter leading-[0.75] flex flex-col select-none"
+                className="font-black tracking-tighter leading-[0.75] flex flex-col select-none filter-gpu transition-all duration-700 hover:filter-none"
               >
                 <motion.span 
-                  className="block"
-                  whileHover={{ skewX: -5, scale: 1.02 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                  className="block origin-left"
+                  whileHover={{ skewX: -15, scaleX: 1.1, scaleY: 0.9, y: 5 }}
+                  transition={{ type: "spring", stiffness: 150, damping: 10 }}
                 >
                   {(data?.name || "Shiva").split(" ")[0]}
                 </motion.span>
                 {data?.name?.split(" ").slice(1).map((part: string, i: number) => (
                   <motion.span 
                     key={i} 
-                    className="opacity-10 italic serif font-light ml-[0.1em]"
-                    whileHover={{ skewX: 5, scale: 1.02 }}
-                    transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                    className="opacity-10 italic serif font-light ml-[0.1em] origin-left"
+                    whileHover={{ skewX: 15, scaleX: 1.1, scaleY: 0.9, y: -5 }}
+                    transition={{ type: "spring", stiffness: 150, damping: 10 }}
                   >
                     {part}
                   </motion.span>
