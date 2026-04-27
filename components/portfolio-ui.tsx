@@ -159,133 +159,216 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
         </div>
       </div>
 
-      {/* ── TECH STRIP (CLEAN) ───────────────────────────── */}
-      <section className="relative z-30 py-12 md:py-20 border-y border-zinc-100 dark:border-zinc-900 bg-white dark:bg-black">
-        <div className="max-w-[1400px] mx-auto px-6 md:px-12 overflow-hidden">
-           <div className="flex flex-wrap justify-center gap-6 md:gap-12 opacity-40 grayscale hover:grayscale-0 transition-all duration-700">
-              {["Next.js", "React", "TypeScript", "Node.js", "Tailwind", "MongoDB", "AI"].map((tech) => (
-                <span key={tech} className="text-sm md:text-xl font-black uppercase tracking-[0.2em]">{tech}</span>
+      {/* ── PRETEXT SHOWCASE (MAGICAL INNOVATION) ──────────────── */}
+      <section className="relative h-[250vh] bg-black text-white">
+        <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="relative z-10 text-center px-6"
+          >
+            <motion.p variants={fadeInUp} className="text-[10px] font-black uppercase tracking-[0.5em] text-zinc-500 mb-8">System Architecture</motion.p>
+            <motion.h2 
+              variants={staggerContainer}
+              className="text-5xl sm:text-7xl md:text-8xl lg:text-[10vw] font-black tracking-tighter leading-none"
+            >
+              {["Building", "Digital", "Future."].map((word, i) => (
+                <motion.span key={i} variants={fadeInUp} className="inline-block mr-[0.2em]">{word}</motion.span>
               ))}
-           </div>
+            </motion.h2>
+          </motion.div>
+
+          {/* Background Magical Text */}
+          <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none select-none">
+            <motion.div 
+               animate={{ rotate: 360 }}
+               transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
+               className="text-[40vh] font-black uppercase leading-none text-white whitespace-nowrap"
+            >
+              PRETEXT • SHOWCASE • INNOVATION • PRETEXT • SHOWCASE • INNOVATION •
+            </motion.div>
+          </div>
         </div>
       </section>
 
-      {/* ── ABOUT (CLEAN) ────────────────────────────────── */}
-      <section className="py-24 md:py-48 px-6 md:px-12 bg-zinc-50 dark:bg-zinc-950">
+      {/* ── TECH STRIP (DYNAMIC) ───────────────────────────── */}
+      <motion.section 
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        className="relative z-30 py-12 md:py-24 border-y border-zinc-100 dark:border-zinc-900 bg-white dark:bg-black"
+      >
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12">
+           <div className="flex flex-wrap justify-center gap-8 md:gap-16 opacity-40 hover:opacity-100 transition-opacity duration-700">
+              {["Next.js", "React", "TypeScript", "Node.js", "Tailwind", "MongoDB", "AI"].map((tech, i) => (
+                <motion.span key={tech} variants={fadeInUp} className="text-sm md:text-2xl font-black uppercase tracking-[0.3em]">{tech}</motion.span>
+              ))}
+           </div>
+        </div>
+      </motion.section>
+
+      {/* ── ABOUT (DYNAMIC REVEAL) ────────────────────────── */}
+      <motion.section 
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        className="py-24 md:py-64 px-6 md:px-12 bg-zinc-50 dark:bg-zinc-950"
+      >
          <div className="max-w-[1400px] mx-auto grid lg:grid-cols-12 gap-12 md:gap-24">
-            <div className="lg:col-span-5">
-               <p className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 mb-8">About Me</p>
-               <h2 className="text-5xl md:text-7xl font-black tracking-tighter leading-none mb-10">Crafting<br />Excellence.</h2>
-            </div>
-            <div className="lg:col-span-7">
-               <p className="text-2xl md:text-4xl font-medium leading-[1.2] tracking-tight mb-12 opacity-80">
-                  {data?.aboutText || "Passionate developer focused on building scalable, user-centric web applications and AI-integrated systems."}
+            <motion.div variants={fadeInUp} className="lg:col-span-5">
+               <p className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 mb-8">Biography</p>
+               <h2 className="text-6xl md:text-9xl font-black tracking-tighter leading-[0.8] mb-10">Crafting<br />Legacy.</h2>
+            </motion.div>
+            <motion.div variants={fadeInUp} className="lg:col-span-7">
+               <p className="text-2xl md:text-5xl font-medium leading-[1.1] tracking-tight mb-12 opacity-80">
+                  {data?.aboutText || "I transform complex challenges into elegant digital solutions with a focus on performance and user experience."}
                </p>
-               <div className="flex gap-6">
+               <motion.div variants={staggerContainer} className="flex gap-8">
                   {data?.email && (
-                    <a href={`mailto:${data.email}`} className="text-[10px] font-black uppercase tracking-widest border-b-2 border-current pb-1 hover:opacity-50 transition-all">Get in touch</a>
+                    <motion.a variants={fadeInUp} href={`mailto:${data.email}`} className="text-[11px] font-black uppercase tracking-widest border-b-2 border-current pb-2 hover:opacity-50 transition-all">Let's Talk</motion.a>
                   )}
                   {data?.whatsapp && (
-                    <a href={data.whatsapp} target="_blank" rel="noreferrer" className="text-[10px] font-black uppercase tracking-widest border-b-2 border-current pb-1 hover:opacity-50 transition-all">WhatsApp</a>
+                    <motion.a variants={fadeInUp} href={data.whatsapp} target="_blank" rel="noreferrer" className="text-[11px] font-black uppercase tracking-widest border-b-2 border-current pb-2 hover:opacity-50 transition-all">WhatsApp</motion.a>
                   )}
-               </div>
-            </div>
+               </motion.div>
+            </motion.div>
          </div>
-      </section>
+      </motion.section>
 
-      {/* ── PROJECTS (CLEAN LIST) ────────────────────────── */}
-      <section id="work" className="py-24 md:py-48 px-6 md:px-12 bg-white dark:bg-black">
+      {/* ── PROJECTS (DYNAMIC LIST) ────────────────────────── */}
+      <motion.section 
+        id="work" 
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        className="py-24 md:py-64 px-6 md:px-12 bg-white dark:bg-black"
+      >
         <div className="max-w-[1400px] mx-auto">
-          <div className="mb-20">
-            <p className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 mb-6">Portfolio</p>
-            <h2 className="text-5xl md:text-8xl font-black tracking-tighter uppercase">Selected Works</h2>
-          </div>
+          <motion.div variants={fadeInUp} className="mb-24">
+            <p className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 mb-6">Works</p>
+            <h2 className="text-6xl md:text-[10rem] font-black tracking-tighter leading-[0.75] uppercase">Showcase.</h2>
+          </motion.div>
           
-          <div className="divide-y border-t border-zinc-100 dark:border-zinc-900">
+          <motion.div variants={staggerContainer} className="divide-y border-t border-zinc-100 dark:border-zinc-900">
             {(projects.length > 0 ? projects : [
-              { title: "Project Alpha", description: "Advanced web platform with AI features.", tags: ["Next.js", "AI"] }
+              { title: "Digital Innovation", description: "State-of-the-art web experience.", tags: ["Next.js", "WebGL"] }
             ]).map((p: any, i: number) => (
               <motion.a 
                 key={i} 
                 href={p.link || "#"} 
                 target="_blank" 
                 rel="noreferrer"
-                whileHover={{ x: 10 }}
-                className="py-12 md:py-20 flex flex-col md:flex-row md:items-center justify-between gap-8 group"
+                variants={fadeInUp}
+                whileHover={{ x: 20 }}
+                className="py-16 md:py-24 flex flex-col md:flex-row md:items-center justify-between gap-12 group transition-all"
               >
-                <div className="flex gap-8 md:gap-16 items-start">
-                  <span className="text-zinc-300 dark:text-zinc-800 font-black text-xl md:text-2xl pt-2">{String(i+1).padStart(2, "0")}</span>
+                <div className="flex gap-10 md:gap-20 items-start">
+                  <span className="text-zinc-200 dark:text-zinc-800 font-black text-2xl md:text-3xl pt-2">{String(i+1).padStart(2, "0")}</span>
                   <div>
-                    <h3 className="text-3xl md:text-6xl font-black tracking-tighter mb-4 group-hover:opacity-50 transition-opacity uppercase">{p.title}</h3>
-                    <p className="text-base md:text-xl opacity-50 max-w-2xl">{p.description}</p>
+                    <h3 className="text-4xl md:text-7xl font-black tracking-tighter mb-4 group-hover:opacity-40 transition-opacity uppercase">{p.title}</h3>
+                    <p className="text-lg md:text-2xl opacity-50 max-w-3xl leading-relaxed">{p.description}</p>
                   </div>
                 </div>
-                <div className="flex gap-3">
+                <div className="flex gap-4">
                    {(p.tags || []).slice(0, 3).map((t: string) => (
-                     <span key={t} className="px-4 py-1.5 rounded-full border border-current/10 text-[9px] font-black uppercase tracking-widest opacity-40">{t}</span>
+                     <span key={t} className="px-5 py-2 rounded-full border border-current/10 text-[10px] font-black uppercase tracking-widest opacity-40">{t}</span>
                    ))}
                 </div>
               </motion.a>
             ))}
-          </div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
-      {/* ── SKILLS & SERVICES (CLEAN CARDS) ──────────────── */}
-      <section id="skills" className="py-24 md:py-48 px-6 md:px-12 bg-zinc-50 dark:bg-zinc-950">
-        <div className="max-w-[1400px] mx-auto grid lg:grid-cols-2 gap-12 md:gap-24">
-           <div>
-              <p className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 mb-8">Technical Stack</p>
-              <div className="space-y-12">
+      {/* ── SKILLS & SERVICES (DYNAMIC) ─────────────────── */}
+      <motion.section 
+        id="skills" 
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        className="py-24 md:py-64 px-6 md:px-12 bg-zinc-50 dark:bg-zinc-950"
+      >
+        <div className="max-w-[1400px] mx-auto grid lg:grid-cols-2 gap-16 md:gap-32">
+           <motion.div variants={fadeInUp}>
+              <p className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 mb-12">Core Technologies</p>
+              <div className="space-y-16">
                  {[...frontendSkills, ...backendSkills].slice(0, 6).map((s: any, i: number) => (
-                   <div key={i}>
-                      <div className="flex justify-between items-end mb-4">
-                        <span className="text-xl md:text-2xl font-black uppercase tracking-tighter">{s.name}</span>
-                        <span className="text-[10px] font-mono opacity-40">{s.proficiency}%</span>
+                   <motion.div key={i} variants={fadeInUp}>
+                      <div className="flex justify-between items-end mb-6">
+                        <span className="text-2xl md:text-3xl font-black uppercase tracking-tighter">{s.name}</span>
+                        <span className="text-xs font-mono opacity-40">{s.proficiency}%</span>
                       </div>
-                      <div className="h-1 w-full bg-zinc-200 dark:bg-zinc-800 rounded-full overflow-hidden">
-                         <motion.div initial={{ width: 0 }} whileInView={{ width: `${s.proficiency}%` }} className="h-full bg-current" />
+                      <div className="h-2 w-full bg-zinc-200 dark:bg-zinc-800 rounded-full overflow-hidden">
+                         <motion.div initial={{ width: 0 }} whileInView={{ width: `${s.proficiency}%` }} transition={{ duration: 1.5, ease: "circOut" }} className="h-full bg-current" />
                       </div>
-                   </div>
+                   </motion.div>
                  ))}
               </div>
-           </div>
-           <div className={`p-8 md:p-16 rounded-[2rem] ${accentColor} flex flex-col justify-between`}>
-              <h3 className="text-[10px] font-black uppercase tracking-[0.4em] opacity-40 mb-12">Services</h3>
-              <div className="space-y-8">
-                {services.slice(0, 4).map((s: any, i: number) => (
-                  <div key={i}>
-                    <p className="text-2xl md:text-4xl font-black uppercase tracking-tighter mb-2">{s.title}</p>
-                    <p className="text-sm opacity-60 max-w-[300px] leading-relaxed">{s.description}</p>
-                  </div>
-                ))}
-              </div>
-              <a href="#contact" className="mt-16 inline-flex items-center gap-3 font-black uppercase text-[10px] tracking-widest border-b border-current pb-2 hover:gap-6 transition-all">Start Today <ArrowRight className="w-4 h-4" /></a>
-           </div>
-        </div>
       </section>
 
-      {/* ── CONTACT (CLEAN) ──────────────────────────────── */}
-      <section id="contact" className="py-24 md:py-48 px-6 md:px-12 bg-white dark:bg-black">
-         <div className="max-w-[1400px] mx-auto text-center">
-            <p className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 mb-10">Collaboration</p>
-            <h2 className="text-6xl md:text-9xl font-black tracking-tighter uppercase mb-20 leading-[0.8]">Let's Build<br />Something Great.</h2>
-            
-            <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-12">
-               <input required value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} 
-                 className="w-full bg-transparent border-b border-zinc-200 dark:border-zinc-800 py-6 text-2xl md:text-4xl focus:outline-none focus:border-current transition-all placeholder:opacity-20 text-center" placeholder="Your Name" />
-               <input required type="email" value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })} 
-                 className="w-full bg-transparent border-b border-zinc-200 dark:border-zinc-800 py-6 text-2xl md:text-4xl focus:outline-none focus:border-current transition-all placeholder:opacity-20 text-center" placeholder="Your Email" />
-               <button type="submit" disabled={formLoading} className={`w-full py-8 rounded-full ${accentColor} font-black text-xl md:text-2xl uppercase tracking-widest hover:scale-[1.02] transition-all disabled:opacity-50`}>
-                 {formLoading ? "Sending..." : "Send Inquiry"}
-               </button>
-            </form>
-            <div className="mt-32 flex flex-wrap justify-center gap-12 text-[10px] font-black uppercase tracking-widest opacity-40">
-               {data?.email && <a href={`mailto:${data.email}`} className="hover:opacity-100 transition-opacity">Email</a>}
-               {data?.socialLinks?.github && <a href={data.socialLinks.github} target="_blank" rel="noreferrer" className="hover:opacity-100 transition-opacity">GitHub</a>}
-               {data?.socialLinks?.linkedin && <a href={data.socialLinks.linkedin} target="_blank" rel="noreferrer" className="hover:opacity-100 transition-opacity">LinkedIn</a>}
+      {/* ── CONTACT (DYNAMIC & FUNCTIONAL) ───────────────────── */}
+      <section id="contact" className={`py-24 md:py-64 px-6 md:px-12 ${theme === 'neon' ? 'bg-[#0ff] text-black' : 'bg-black dark:bg-white text-white dark:text-black'}`}>
+        <div className="max-w-[1400px] mx-auto grid lg:grid-cols-2 gap-16 md:gap-32">
+          <div>
+            <p className="text-[10px] font-black uppercase tracking-[0.4em] opacity-40 mb-8 md:mb-12">Contact</p>
+            <h2 className="text-6xl sm:text-8xl md:text-[10rem] font-black tracking-tighter leading-[0.75] mb-12 md:mb-20">Start<br />Today.</h2>
+
+            <div className="space-y-8 md:space-y-12 mb-16 md:mb-24">
+              {data?.email && (
+                <a href={`mailto:${data.email}`} className="block text-2xl sm:text-4xl md:text-6xl font-bold hover:opacity-40 transition-opacity break-all underline decoration-1 underline-offset-[12px] decoration-current/20">
+                  {data.email}
+                </a>
+              )}
+              {data?.whatsapp && (
+                <a href={data.whatsapp} target="_blank" rel="noreferrer" className="flex items-center gap-4 md:gap-5 text-xl sm:text-3xl font-black group">
+                  <div className="w-12 md:w-16 h-12 md:h-16 rounded-full bg-current/5 flex items-center justify-center group-hover:bg-current group-hover:text-black dark:group-hover:text-white transition-all">
+                    <FaWhatsapp className="text-2xl md:text-3xl" />
+                  </div>
+                  Direct Message
+                </a>
+              )}
             </div>
-         </div>
+
+            <div className="flex gap-8 md:gap-10">
+              {[
+                { icon: <FaGithub />, link: data?.socialLinks?.github },
+                { icon: <FaLinkedin />, link: data?.socialLinks?.linkedin },
+                { icon: <FaTwitter />, link: data?.socialLinks?.twitter },
+                { icon: <FaInstagram />, link: data?.socialLinks?.instagram }
+              ].filter(s => s.link).map((s, i) => (
+                <a key={i} href={s.link} target="_blank" rel="noreferrer" className="text-2xl md:text-3xl hover:-translate-y-2 transition-transform opacity-60 hover:opacity-100">{s.icon}</a>
+              ))}
+            </div>
+          </div>
+
+          <div className={`${theme === 'neon' ? 'bg-black/5' : 'bg-white/5 dark:bg-black/10'} backdrop-blur-2xl rounded-[2.5rem] md:rounded-[4rem] p-8 md:p-20 border border-current/5`}>
+            <form onSubmit={handleSubmit} className="space-y-8 md:space-y-12">
+              <div className="space-y-4 md:space-y-6 group">
+                <label className="text-[10px] font-black uppercase tracking-[0.4em] opacity-30 group-focus-within:opacity-100 transition-opacity">Name</label>
+                <input required value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })}
+                  className="w-full bg-transparent border-b border-current/10 py-4 md:py-6 text-xl md:text-3xl focus:outline-none focus:border-current transition-all placeholder:opacity-20" placeholder="Your Name" />
+              </div>
+              <div className="space-y-4 md:space-y-6 group">
+                <label className="text-[10px] font-black uppercase tracking-[0.4em] opacity-30 group-focus-within:opacity-100 transition-opacity">Email</label>
+                <input required type="email" value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })}
+                  className="w-full bg-transparent border-b border-current/10 py-4 md:py-6 text-xl md:text-3xl focus:outline-none focus:border-current transition-all placeholder:opacity-20" placeholder="email@address.com" />
+              </div>
+              <div className="space-y-4 md:space-y-6 group">
+                <label className="text-[10px] font-black uppercase tracking-[0.4em] opacity-30 group-focus-within:opacity-100 transition-opacity">Brief</label>
+                <textarea required rows={4} value={formData.message} onChange={e => setFormData({ ...formData, message: e.target.value })}
+                  className="w-full bg-transparent border-b border-current/10 py-4 md:py-6 text-xl md:text-3xl focus:outline-none focus:border-current transition-all resize-none placeholder:opacity-20" placeholder="Project details..." />
+              </div>
+              <button type="submit" disabled={formLoading} className={`w-full py-6 md:py-8 rounded-full ${theme === 'neon' ? 'bg-black text-white' : 'bg-white dark:bg-black text-black dark:text-white'} font-black text-lg md:text-xl hover:scale-[1.02] active:scale-95 transition-all disabled:opacity-40 flex items-center justify-center gap-4 shadow-2xl shadow-black/20`}>
+                {formLoading ? <Loader2 className="animate-spin" /> : <><Send className="w-6 h-6" />Send Inquiry</>}
+              </button>
+            </form>
+          </div>
+        </div>
       </section>
 
       {/* ── FOOTER (CLEAN) ───────────────────────────────── */}
