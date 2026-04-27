@@ -117,6 +117,17 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
             {theme === 'neon' && (
               <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(#0ff 1px, transparent 0)', backgroundSize: '40px 40px' }} />
             )}
+            
+            {/* Magical Floating Text Background */}
+            <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] dark:opacity-[0.07] pointer-events-none select-none overflow-hidden">
+              <motion.div 
+                animate={{ x: ["0%", "-50%"] }}
+                transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+                className="flex whitespace-nowrap text-[25vh] font-black uppercase gap-20"
+              >
+                <span>Innovation</span><span>✦</span><span>Scalability</span><span>✦</span><span>Design</span><span>✦</span><span>Innovation</span><span>✦</span><span>Scalability</span><span>✦</span><span>Design</span><span>✦</span>
+              </motion.div>
+            </div>
           </motion.div>
 
           <motion.div
