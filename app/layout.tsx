@@ -10,7 +10,11 @@ export const metadata: Metadata = {
   title: "Shiva | Full-Stack Developer",
   description: "A world-class personal portfolio of a humble programmer and coder.",
   icons: {
-    icon: "/favicon.png",
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/favicon.png", type: "image/png" },
+    ],
+    apple: "/favicon.png",
   },
 };
 
