@@ -71,6 +71,8 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
     gold: "bg-[#d4af37] text-black",
   }[theme as string] || "bg-black dark:bg-white text-white dark:text-black";
 
+  const [submitted, setSubmitted] = useState(false);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormLoading(true);
@@ -81,6 +83,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
         body: JSON.stringify(formData),
       });
       if (res.ok) {
+        setSubmitted(true);
         toast.success("Message sent! I'll reply soon.");
         setFormData({ name: "", email: "", message: "" });
       } else {
@@ -366,27 +369,42 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
             </div>
           </div>
 
-          <div className={`${theme === 'neon' ? 'bg-black/5' : 'bg-white/5 dark:bg-black/10'} backdrop-blur-2xl rounded-[2.5rem] md:rounded-[4rem] p-8 md:p-20 border border-current/5`}>
-            <form onSubmit={handleSubmit} className="space-y-8 md:space-y-12">
-              <div className="space-y-4 md:space-y-6 group">
-                <label className="text-[10px] font-black uppercase tracking-[0.4em] opacity-30 group-focus-within:opacity-100 transition-opacity">Name</label>
-                <input required value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full bg-transparent border-b border-current/10 py-4 md:py-6 text-xl md:text-3xl focus:outline-none focus:border-current transition-all placeholder:opacity-20" placeholder="Your Name" />
-              </div>
-              <div className="space-y-4 md:space-y-6 group">
-                <label className="text-[10px] font-black uppercase tracking-[0.4em] opacity-30 group-focus-within:opacity-100 transition-opacity">Email</label>
-                <input required type="email" value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full bg-transparent border-b border-current/10 py-4 md:py-6 text-xl md:text-3xl focus:outline-none focus:border-current transition-all placeholder:opacity-20" placeholder="email@address.com" />
-              </div>
-              <div className="space-y-4 md:space-y-6 group">
-                <label className="text-[10px] font-black uppercase tracking-[0.4em] opacity-30 group-focus-within:opacity-100 transition-opacity">Brief</label>
-                <textarea required rows={4} value={formData.message} onChange={e => setFormData({ ...formData, message: e.target.value })}
-                  className="w-full bg-transparent border-b border-current/10 py-4 md:py-6 text-xl md:text-3xl focus:outline-none focus:border-current transition-all resize-none placeholder:opacity-20" placeholder="Project details..." />
-              </div>
-              <button type="submit" disabled={formLoading} className={`w-full py-6 md:py-8 rounded-full ${theme === 'neon' ? 'bg-black text-white' : 'bg-white dark:bg-white text-black dark:text-black'} font-black text-lg md:text-xl hover:scale-[1.02] active:scale-95 transition-all disabled:opacity-40 flex items-center justify-center gap-4 shadow-2xl shadow-black/20 uppercase tracking-widest`}>
-                {formLoading ? <Loader2 className="animate-spin" /> : <><Send className="w-6 h-6" />Send Inquiry</>}
-              </button>
-            </form>
+          <div className={`${theme === 'neon' ? 'bg-black/5' : 'bg-white/5 dark:bg-black/10'} backdrop-blur-2xl rounded-[2.5rem] md:rounded-[4rem] p-8 md:p-20 border border-current/5 flex flex-col justify-center`}>
+            {submitted ? (
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="text-center space-y-8"
+              >
+                <div className="w-24 h-24 rounded-full bg-current/10 flex items-center justify-center mx-auto mb-8">
+                  <Send className="w-10 h-10" />
+                </div>
+                <h3 className="text-4xl md:text-6xl font-black uppercase tracking-tighter">Message Received.</h3>
+                <p className="text-lg md:text-xl opacity-60 max-w-sm mx-auto">I'll review your inquiry and get back to you within 24 hours.</p>
+                <button onClick={() => setSubmitted(false)} className="text-[10px] font-black uppercase tracking-widest border-b border-current pb-2 hover:opacity-50 transition-opacity">Send another</button>
+              </motion.div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-8 md:space-y-12">
+                <div className="space-y-4 md:space-y-6 group">
+                  <label className="text-[10px] font-black uppercase tracking-[0.4em] opacity-30 group-focus-within:opacity-100 transition-opacity">Name</label>
+                  <input required value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })}
+                    className="w-full bg-transparent border-b border-current/10 py-4 md:py-6 text-xl md:text-3xl focus:outline-none focus:border-current transition-all placeholder:opacity-20" placeholder="Your Name" />
+                </div>
+                <div className="space-y-4 md:space-y-6 group">
+                  <label className="text-[10px] font-black uppercase tracking-[0.4em] opacity-30 group-focus-within:opacity-100 transition-opacity">Email</label>
+                  <input required type="email" value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })}
+                    className="w-full bg-transparent border-b border-current/10 py-4 md:py-6 text-xl md:text-3xl focus:outline-none focus:border-current transition-all placeholder:opacity-20" placeholder="email@address.com" />
+                </div>
+                <div className="space-y-4 md:space-y-6 group">
+                  <label className="text-[10px] font-black uppercase tracking-[0.4em] opacity-30 group-focus-within:opacity-100 transition-opacity">Brief</label>
+                  <textarea required rows={4} value={formData.message} onChange={e => setFormData({ ...formData, message: e.target.value })}
+                    className="w-full bg-transparent border-b border-current/10 py-4 md:py-6 text-xl md:text-3xl focus:outline-none focus:border-current transition-all resize-none placeholder:opacity-20" placeholder="Project details..." />
+                </div>
+                <button type="submit" disabled={formLoading} className={`w-full py-6 md:py-8 rounded-full ${theme === 'neon' ? 'bg-black text-white' : 'bg-white dark:bg-white text-black dark:text-black'} font-black text-lg md:text-xl hover:scale-[1.02] active:scale-95 transition-all disabled:opacity-40 flex items-center justify-center gap-4 shadow-2xl shadow-black/20 uppercase tracking-widest`}>
+                  {formLoading ? <Loader2 className="animate-spin" /> : <><Send className="w-6 h-6" />Send Inquiry</>}
+                </button>
+              </form>
+            )}
           </div>
         </div>
       </section>
