@@ -6,9 +6,14 @@ import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 
 async function getProfile() {
-  await connectToDatabase();
-  const profile = await Profile.findOne();
-  return profile;
+  try {
+    await connectToDatabase();
+    const profile = await Profile.findOne();
+    return profile;
+  } catch (error) {
+    console.error("Database error:", error);
+    return null;
+  }
 }
 
 export const revalidate = 0; // Disable caching for the dynamic parts for now, or use ISR
