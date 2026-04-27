@@ -5,9 +5,10 @@ export async function POST(req: Request) {
   try {
     const { password } = await req.json();
 
-    const adminPassword = process.env.ADMIN_PASSWORD;
+    // Use environment variable, fallback to "admin" if not set in Vercel
+    const adminPassword = process.env.ADMIN_PASSWORD || "admin";
 
-    if (!adminPassword || password !== adminPassword) {
+    if (password !== adminPassword) {
       return NextResponse.json(
         { error: "Invalid credentials" },
         { status: 401 }
