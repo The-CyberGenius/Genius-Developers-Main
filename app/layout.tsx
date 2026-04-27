@@ -7,8 +7,11 @@ import { Toaster } from "@/components/ui/sonner";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Premium Portfolio",
-  description: "A world-class premium personal portfolio.",
+  title: "Shiva | Full-Stack Developer",
+  description: "A world-class personal portfolio of a humble programmer and coder.",
+  icons: {
+    icon: "/favicon.png",
+  },
 };
 
 export default function RootLayout({

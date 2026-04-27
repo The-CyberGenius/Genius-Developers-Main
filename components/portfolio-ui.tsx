@@ -125,8 +125,35 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
       {/* ── PREMIUM NOISE OVERLAY ────────────────────────── */}
       <div className="fixed inset-0 pointer-events-none z-[999] opacity-[0.02] mix-blend-overlay" style={{ backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")' }} />
 
-      {/* ── STYLISH NAV ─────────────────────────────────────── */}
-      {/* Navbar Removed as per user request */}
+      {/* ── DYNAMIC BACKGROUND BLOBS (EMPTY SPACE ANIMATION) ── */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none -z-20">
+        <motion.div 
+          animate={{ 
+            x: [0, 100, -100, 0],
+            y: [0, -100, 100, 0],
+            scale: [1, 1.2, 0.8, 1]
+          }}
+          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+          className="absolute top-1/4 -left-20 w-[500px] h-[500px] bg-current/5 blur-[150px] rounded-full" 
+        />
+        <motion.div 
+          animate={{ 
+            x: [0, -150, 150, 0],
+            y: [0, 150, -150, 0],
+            scale: [1, 0.7, 1.3, 1]
+          }}
+          transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
+          className="absolute bottom-1/4 -right-20 w-[600px] h-[600px] bg-current/5 blur-[180px] rounded-full" 
+        />
+        <motion.div 
+          animate={{ 
+            x: [0, 50, -50, 0],
+            y: [0, 50, -50, 0],
+          }}
+          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-current/[0.02] blur-[200px] rounded-full" 
+        />
+      </div>
 
 
       {/* ── PROGRESS BAR ────────────────────────────────────── */}
