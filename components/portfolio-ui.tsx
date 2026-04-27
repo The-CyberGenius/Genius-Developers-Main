@@ -307,7 +307,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
             <h2 className="text-6xl md:text-[10rem] font-black tracking-tighter leading-[0.75] uppercase">Projects.</h2>
           </motion.div>
           
-          <motion.div variants={staggerContainer} className="divide-y border-t border-current/5">
+          <motion.div variants={staggerContainer} className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
             {(projects.length > 0 ? projects : [
               { title: "Elegant Logic", description: "Minimalist solution for maximum impact.", tags: ["Core", "Architecture"] }
             ]).map((p: any, i: number) => (
@@ -317,26 +317,31 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                 target="_blank"
                 rel="noreferrer"
                 variants={fadeInUp}
-                className="py-24 md:py-40 flex flex-col md:flex-row md:items-center justify-between gap-16 group relative overflow-hidden px-4 md:px-8"
+                whileHover={{ y: -10 }}
+                className="group relative flex flex-col justify-between p-10 md:p-16 rounded-[3rem] bg-zinc-50 dark:bg-zinc-950 border border-current/5 overflow-hidden transition-all duration-500 min-h-[400px] md:min-h-[500px]"
               >
-                <div className="absolute inset-0 bg-current/5 -translate-x-full group-hover:translate-x-0 transition-transform duration-700 ease-[cubic-bezier(0.23,1,0.32,1)]" />
-                <div className="flex gap-16 md:gap-32 items-start relative z-10">
-                  <span className="text-zinc-200 dark:text-zinc-800 font-black text-4xl md:text-7xl pt-4 group-hover:text-current group-hover:opacity-100 transition-all duration-500">{String(i + 1).padStart(2, "0")}</span>
-                  <div className="space-y-8">
-                    <h3 className="text-5xl md:text-[9rem] font-black tracking-tighter leading-[0.8] uppercase group-hover:italic transition-all duration-700">{p.title}</h3>
-                    <p className="text-2xl md:text-4xl opacity-40 group-hover:opacity-70 transition-opacity max-w-5xl leading-[1.1] font-medium">{p.description}</p>
-                    <div className="flex flex-wrap gap-4 pt-4">
-                      {(p.tags || []).slice(0, 3).map((t: string) => (
-                        <span key={t} className="px-8 py-3 rounded-full border border-current/10 text-[11px] font-black uppercase tracking-[0.3em] opacity-40 group-hover:opacity-100 transition-all">{t}</span>
-                      ))}
-                    </div>
+                <div className="absolute top-0 right-0 p-10 opacity-0 group-hover:opacity-20 transition-opacity">
+                  <span className="text-[12rem] font-black tracking-tighter leading-none select-none">{String(i + 1).padStart(2, "0")}</span>
+                </div>
+                
+                <div className="relative z-10 space-y-6">
+                  <div className="flex flex-wrap gap-3">
+                    {(p.tags || []).slice(0, 2).map((t: string) => (
+                      <span key={t} className="px-5 py-2 rounded-full bg-current/5 text-[9px] font-black uppercase tracking-widest opacity-60">{t}</span>
+                    ))}
+                  </div>
+                  <h3 className="text-4xl md:text-6xl font-black tracking-tighter leading-[0.9] uppercase group-hover:italic transition-all duration-500">{p.title}</h3>
+                </div>
+
+                <div className="relative z-10 space-y-8 mt-12">
+                  <p className="text-lg md:text-xl opacity-40 group-hover:opacity-70 transition-opacity font-medium leading-relaxed line-clamp-3">{p.description}</p>
+                  <div className="flex items-center gap-4 text-[10px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-500">
+                    View Project <ArrowUpRight className="w-4 h-4" />
                   </div>
                 </div>
-                <div className="relative z-10">
-                  <div className="w-16 h-16 md:w-24 md:h-24 rounded-full border border-current/20 flex items-center justify-center group-hover:bg-current group-hover:text-background transition-all duration-500 scale-0 group-hover:scale-100 rotate-45 group-hover:rotate-0">
-                    <ArrowUpRight className="w-8 h-8 md:w-12 md:h-12" />
-                  </div>
-                </div>
+
+                {/* Subtle Glow Effect */}
+                <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-current/5 blur-[100px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
               </motion.a>
             ))}
           </motion.div>
