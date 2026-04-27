@@ -65,7 +65,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
   };
 
   const [formLoading, setFormLoading] = useState(false);
-  const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" });
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
 
   const frontendSkills = skills.filter(s => s.category === "Frontend");
   const backendSkills = skills.filter(s => s.category === "Backend");
@@ -103,7 +103,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
       if (res.ok) {
         setSubmitted(true);
         toast.success("Message sent! I'll reply soon.");
-        setFormData({ name: "", email: "", subject: "", message: "" });
+        setFormData({ name: "", email: "", message: "" });
       } else {
         toast.error("Failed. Please try again.");
       }
@@ -391,11 +391,18 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
 
             <div className="space-y-8 md:space-y-12 mb-16 md:mb-24">
               {data?.email && (
-                <motion.a whileHover={funnyHover} href={`mailto:${data.email}`} className="flex items-center gap-4 md:gap-5 text-xl sm:text-3xl font-black group w-fit">
-                  <div className="w-12 md:w-16 h-12 md:h-16 rounded-full bg-current/5 flex items-center justify-center group-hover:bg-current group-hover:text-black dark:group-hover:text-white transition-all">
-                    <Mail className="w-6 md:w-8 h-6 md:h-8" />
+                <motion.a 
+                  whileHover={{ scale: 1.02, x: 10 }}
+                  href={`mailto:${data.email}`} 
+                  className="flex items-center gap-6 md:gap-8 text-2xl sm:text-4xl md:text-5xl font-black group w-fit"
+                >
+                  <div className="w-16 md:w-20 h-16 md:h-20 rounded-full bg-current/5 flex items-center justify-center group-hover:bg-current group-hover:text-black dark:group-hover:text-white transition-all shadow-xl shadow-current/5">
+                    <Mail className="w-8 md:w-10 h-8 md:h-10" />
                   </div>
-                  <span className="uppercase tracking-tighter group-hover:italic transition-all">Send Email</span>
+                  <div className="flex flex-col">
+                    <span className="uppercase tracking-tighter group-hover:italic transition-all">Send Email</span>
+                    <span className="text-[10px] font-black uppercase tracking-[0.3em] opacity-30 group-hover:opacity-100 transition-opacity">Expert Inquiry</span>
+                  </div>
                 </motion.a>
               )}
               {data?.whatsapp && (
@@ -446,11 +453,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                   <input required type="email" value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })}
                     className="w-full bg-transparent border-b border-current/10 py-4 md:py-6 text-xl md:text-3xl focus:outline-none focus:border-current transition-all placeholder:opacity-20" placeholder="email@address.com" />
                 </div>
-                <div className="space-y-4 md:space-y-6 group">
-                  <label className="text-[10px] font-black uppercase tracking-[0.4em] opacity-30 group-focus-within:opacity-100 transition-opacity">Subject</label>
-                  <input required value={formData.subject || ""} onChange={e => setFormData({ ...formData, subject: e.target.value })}
-                    className="w-full bg-transparent border-b border-current/10 py-4 md:py-6 text-xl md:text-3xl focus:outline-none focus:border-current transition-all placeholder:opacity-20" placeholder="General Inquiry" />
-                </div>
+
                 <div className="space-y-4 md:space-y-6 group">
                   <label className="text-[10px] font-black uppercase tracking-[0.4em] opacity-30 group-focus-within:opacity-100 transition-opacity">Your Message</label>
                   <textarea required rows={5} value={formData.message} onChange={e => setFormData({ ...formData, message: e.target.value })}
