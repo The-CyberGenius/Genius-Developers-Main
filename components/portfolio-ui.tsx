@@ -382,88 +382,104 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
         </div>
       </motion.section>
 
-      {/* ── CONTACT (DYNAMIC & FUNCTIONAL) ───────────────────── */}
-      <section id="contact" className={`py-24 md:py-64 px-6 md:px-12 ${theme === 'neon' ? 'bg-[#0ff] text-black' : 'bg-black dark:bg-white text-white dark:text-black'}`}>
-        <div className="max-w-[1400px] mx-auto grid lg:grid-cols-2 gap-16 md:gap-32">
-          <div>
-            <p className="text-[10px] font-black uppercase tracking-[0.4em] opacity-40 mb-8 md:mb-12">Contact</p>
-            <h2 className="text-6xl sm:text-8xl md:text-[10rem] font-black tracking-tighter leading-[0.75] mb-12 md:mb-20">Start<br />Today.</h2>
+      {/* ── CONTACT (INTERNATIONAL PREMIUM) ───────────────────── */}
+      <section id="contact" className={`py-24 md:py-64 px-6 md:px-12 ${theme === 'neon' ? 'bg-[#00ffcc] text-black' : 'bg-white dark:bg-[#050505] text-[#1a1a1a] dark:text-[#f5f5f7]'}`}>
+        <div className="max-w-[1400px] mx-auto grid lg:grid-cols-12 gap-16 md:gap-32">
+          
+          {/* Left Side: Contact Cards */}
+          <div className="lg:col-span-5 space-y-16">
+            <div>
+              <p className="text-[11px] font-black uppercase tracking-[0.6em] opacity-30 mb-8 md:mb-12">Connect</p>
+              <h2 className="text-7xl sm:text-8xl md:text-[10rem] font-black tracking-tighter leading-[0.75] mb-8">Start<br />Today<span className="opacity-10 italic serif">.</span></h2>
+              <p className="text-sm md:text-lg opacity-40 font-medium tracking-tight mb-16">Available for freelance work worldwide.</p>
+            </div>
 
-            <div className="space-y-8 md:space-y-12 mb-16 md:mb-24">
-              {data?.email && (
+            <div className="grid gap-4 md:gap-6">
+              {data?.whatsapp && (
                 <motion.a 
-                  whileHover={{ scale: 1.02, x: 10 }}
-                  href={`mailto:${data.email}`} 
-                  className="flex items-center gap-6 md:gap-8 text-2xl sm:text-4xl md:text-5xl font-black group w-fit"
+                  whileHover={{ scale: 1.02, y: -5 }}
+                  whileTap={{ scale: 0.98 }}
+                  href={data.whatsapp} 
+                  target="_blank" 
+                  rel="noreferrer" 
+                  className="flex items-center gap-8 p-8 md:p-10 rounded-[2.5rem] bg-zinc-50 dark:bg-zinc-900/50 border border-current/5 group transition-all"
                 >
-                  <div className="w-16 md:w-20 h-16 md:h-20 rounded-full bg-current/5 flex items-center justify-center group-hover:bg-current group-hover:text-black dark:group-hover:text-white transition-all shadow-xl shadow-current/5">
-                    <Mail className="w-8 md:w-10 h-8 md:h-10" />
+                  <div className="w-16 h-16 rounded-full bg-current/10 flex items-center justify-center group-hover:bg-current group-hover:text-background transition-colors">
+                    <FaWhatsapp className="w-8 h-8" />
                   </div>
-                  <div className="flex flex-col">
-                    <span className="uppercase tracking-tighter group-hover:italic transition-all">Send Email</span>
-                    <span className="text-[10px] font-black uppercase tracking-[0.3em] opacity-30 group-hover:opacity-100 transition-opacity">Expert Inquiry</span>
+                  <div>
+                    <span className="block text-2xl md:text-3xl font-black uppercase tracking-tighter group-hover:italic transition-all">Direct Message</span>
+                    <span className="text-[10px] font-bold uppercase tracking-[0.3em] opacity-30">WhatsApp Support</span>
                   </div>
                 </motion.a>
               )}
-              {data?.whatsapp && (
-                <motion.a whileHover={funnyHover} href={data.whatsapp} target="_blank" rel="noreferrer" className="flex items-center gap-4 md:gap-5 text-xl sm:text-3xl font-black group w-fit">
-                  <div className="w-12 md:w-16 h-12 md:h-16 rounded-full bg-current/5 flex items-center justify-center group-hover:bg-current group-hover:text-black dark:group-hover:text-white transition-all">
-                    <FaWhatsapp className="text-2xl md:text-3xl" />
+              {data?.email && (
+                <motion.a 
+                  whileHover={{ scale: 1.02, y: -5 }}
+                  whileTap={{ scale: 0.98 }}
+                  href={`mailto:${data.email}`} 
+                  className="flex items-center gap-8 p-8 md:p-10 rounded-[2.5rem] bg-zinc-50 dark:bg-zinc-900/50 border border-current/5 group transition-all"
+                >
+                  <div className="w-16 h-16 rounded-full bg-current/10 flex items-center justify-center group-hover:bg-current group-hover:text-background transition-colors">
+                    <Mail className="w-8 h-8" />
                   </div>
-                  <span className="uppercase tracking-tighter group-hover:italic transition-all">Direct Message</span>
+                  <div>
+                    <span className="block text-2xl md:text-3xl font-black uppercase tracking-tighter group-hover:italic transition-all">Send Email</span>
+                    <span className="text-[10px] font-bold uppercase tracking-[0.3em] opacity-30">Expert Inquiry</span>
+                  </div>
                 </motion.a>
               )}
             </div>
 
-            <div className="flex gap-8 md:gap-10">
+            <div className="flex gap-10 pt-8 border-t border-current/5">
               {[
                 { icon: <FaGithub />, link: data?.socialLinks?.github },
                 { icon: <FaLinkedin />, link: data?.socialLinks?.linkedin },
                 { icon: <FaTwitter />, link: data?.socialLinks?.twitter },
                 { icon: <FaInstagram />, link: data?.socialLinks?.instagram }
               ].filter(s => s.link).map((s, i) => (
-                <a key={i} href={s.link} target="_blank" rel="noreferrer" className="text-2xl md:text-3xl hover:-translate-y-2 transition-transform opacity-60 hover:opacity-100">{s.icon}</a>
+                <a key={i} href={s.link} target="_blank" rel="noreferrer" className="text-2xl md:text-3xl hover:-translate-y-2 transition-transform opacity-30 hover:opacity-100">{s.icon}</a>
               ))}
             </div>
           </div>
 
-          <div className={`${theme === 'neon' ? 'bg-black/5' : 'bg-white/5 dark:bg-black/10'} backdrop-blur-2xl rounded-[2.5rem] md:rounded-[4rem] p-8 md:p-20 border border-current/5 flex flex-col justify-center`}>
-            {submitted ? (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="text-center space-y-8"
-              >
-                <div className="w-24 h-24 rounded-full bg-current/10 flex items-center justify-center mx-auto mb-8">
-                  <Send className="w-10 h-10" />
-                </div>
-                <h3 className="text-4xl md:text-6xl font-black uppercase tracking-tighter">Message Received.</h3>
-                <p className="text-lg md:text-xl opacity-60 max-w-sm mx-auto">I'll review your inquiry and get back to you within 24 hours.</p>
-                <button onClick={() => setSubmitted(false)} className="text-[10px] font-black uppercase tracking-widest border-b border-current pb-2 hover:opacity-50 transition-opacity">Send another</button>
-              </motion.div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-8 md:space-y-12">
-                <div className="space-y-4 md:space-y-6 group">
-                  <label className="text-[10px] font-black uppercase tracking-[0.4em] opacity-30 group-focus-within:opacity-100 transition-opacity">Name</label>
-                  <input required value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full bg-transparent border-b border-current/10 py-4 md:py-6 text-xl md:text-3xl focus:outline-none focus:border-current transition-all placeholder:opacity-20" placeholder="Your Name" />
-                </div>
-                <div className="space-y-4 md:space-y-6 group">
-                  <label className="text-[10px] font-black uppercase tracking-[0.4em] opacity-30 group-focus-within:opacity-100 transition-opacity">Email</label>
-                  <input required type="email" value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full bg-transparent border-b border-current/10 py-4 md:py-6 text-xl md:text-3xl focus:outline-none focus:border-current transition-all placeholder:opacity-20" placeholder="email@address.com" />
-                </div>
-
-                <div className="space-y-4 md:space-y-6 group">
-                  <label className="text-[10px] font-black uppercase tracking-[0.4em] opacity-30 group-focus-within:opacity-100 transition-opacity">Your Message</label>
-                  <textarea required rows={5} value={formData.message} onChange={e => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full bg-current/[0.03] border border-current/10 rounded-2xl p-6 md:p-8 text-xl md:text-2xl focus:outline-none focus:border-current transition-all resize-none placeholder:opacity-20 min-h-[200px]" placeholder="Tell me about your project or just say hi..." />
-                </div>
-                <button type="submit" disabled={formLoading} className={`w-full py-6 md:py-8 rounded-full ${theme === 'neon' ? 'bg-black text-white' : 'bg-white dark:bg-white text-black dark:text-black'} font-black text-lg md:text-xl hover:scale-[1.02] active:scale-95 transition-all disabled:opacity-40 flex items-center justify-center gap-4 shadow-2xl shadow-black/20 uppercase tracking-widest`}>
-                  {formLoading ? <Loader2 className="animate-spin" /> : <><Send className="w-6 h-6" />Send Inquiry</>}
-                </button>
-              </form>
-            )}
+          {/* Right Side: Form */}
+          <div className="lg:col-span-7">
+            <div className={`backdrop-blur-3xl rounded-[3rem] md:rounded-[5rem] p-10 md:p-24 border border-current/10 bg-zinc-50/50 dark:bg-zinc-900/20 shadow-2xl shadow-black/5`}>
+              {submitted ? (
+                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center py-20 space-y-10">
+                  <div className="w-32 h-32 rounded-full bg-current/10 flex items-center justify-center mx-auto">
+                    <Send className="w-12 h-12" />
+                  </div>
+                  <div>
+                    <h3 className="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-4">Message Sent.</h3>
+                    <p className="text-lg md:text-xl opacity-40 max-w-sm mx-auto">I'll get back to you within 24 hours.</p>
+                  </div>
+                  <button onClick={() => setSubmitted(false)} className="text-[11px] font-black uppercase tracking-widest border-b-2 border-current pb-2 hover:opacity-50 transition-opacity">Send another</button>
+                </motion.div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-12 md:space-y-16">
+                  <div className="space-y-4 group">
+                    <label className="text-[10px] font-black uppercase tracking-[0.5em] opacity-30 group-focus-within:opacity-100 transition-opacity">Identification</label>
+                    <input required value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })}
+                      className="w-full bg-transparent border-b border-current/10 py-6 text-xl md:text-4xl font-medium focus:outline-none focus:border-current transition-all placeholder:text-zinc-300 dark:placeholder:text-zinc-700" placeholder="Full Name" />
+                  </div>
+                  <div className="space-y-4 group">
+                    <label className="text-[10px] font-black uppercase tracking-[0.5em] opacity-30 group-focus-within:opacity-100 transition-opacity">Communication</label>
+                    <input required type="email" value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })}
+                      className="w-full bg-transparent border-b border-current/10 py-6 text-xl md:text-4xl font-medium focus:outline-none focus:border-current transition-all placeholder:text-zinc-300 dark:placeholder:text-zinc-700" placeholder="Email Address" />
+                  </div>
+                  <div className="space-y-4 group">
+                    <label className="text-[10px] font-black uppercase tracking-[0.5em] opacity-30 group-focus-within:opacity-100 transition-opacity">The Brief</label>
+                    <textarea required rows={4} value={formData.message} onChange={e => setFormData({ ...formData, message: e.target.value })}
+                      className="w-full bg-transparent border-b border-current/10 py-6 text-xl md:text-4xl font-medium focus:outline-none focus:border-current transition-all resize-none placeholder:text-zinc-300 dark:placeholder:text-zinc-700" placeholder="Your Project Details..." />
+                  </div>
+                  <button type="submit" disabled={formLoading} className={`w-full py-8 md:py-12 rounded-[2rem] md:rounded-[3rem] ${accentColor} font-black text-xl md:text-2xl hover:scale-[1.02] active:scale-95 transition-all disabled:opacity-40 flex items-center justify-center gap-6 uppercase tracking-[0.2em] shadow-2xl shadow-current/10`}>
+                    {formLoading ? <Loader2 className="animate-spin" /> : <><Send className="w-8 h-8" />Send Message</>}
+                  </button>
+                </form>
+              )}
+            </div>
           </div>
         </div>
       </section>
