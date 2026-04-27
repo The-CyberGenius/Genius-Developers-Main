@@ -391,12 +391,15 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
 
             <div className="space-y-8 md:space-y-12 mb-16 md:mb-24">
               {data?.email && (
-                <a href={`mailto:${data.email}`} className="block text-2xl sm:text-4xl md:text-6xl font-bold hover:opacity-40 transition-opacity break-all underline decoration-1 underline-offset-[12px] decoration-current/20">
-                  {data.email}
-                </a>
+                <motion.a whileHover={funnyHover} href={`mailto:${data.email}`} className="flex items-center gap-4 md:gap-5 text-xl sm:text-3xl font-black group w-fit">
+                  <div className="w-12 md:w-16 h-12 md:h-16 rounded-full bg-current/5 flex items-center justify-center group-hover:bg-current group-hover:text-black dark:group-hover:text-white transition-all">
+                    <Mail className="w-6 md:w-8 h-6 md:h-8" />
+                  </div>
+                  <span className="uppercase tracking-tighter group-hover:italic transition-all">Send Email</span>
+                </motion.a>
               )}
               {data?.whatsapp && (
-                <a href={data.whatsapp} target="_blank" rel="noreferrer" className="flex items-center gap-4 md:gap-5 text-xl sm:text-3xl font-black group">
+                <motion.a whileHover={funnyHover} href={data.whatsapp} target="_blank" rel="noreferrer" className="flex items-center gap-4 md:gap-5 text-xl sm:text-3xl font-black group w-fit">
                   <div className="w-12 md:w-16 h-12 md:h-16 rounded-full bg-current/5 flex items-center justify-center group-hover:bg-current group-hover:text-black dark:group-hover:text-white transition-all">
                     <FaWhatsapp className="text-2xl md:text-3xl" />
                   </div>
