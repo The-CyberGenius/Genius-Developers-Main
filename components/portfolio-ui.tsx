@@ -198,13 +198,11 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
           {/* BACKGROUND BRANDING TEXT (FULL VISIBILITY) */}
           <motion.div 
             style={{ y: bgTextY, opacity: heroOpacity }} 
-            className="absolute inset-0 pointer-events-none -z-10 flex items-center justify-center p-4 md:p-12 overflow-hidden"
+            className="absolute inset-0 pointer-events-none -z-10 flex items-center justify-center p-4 md:p-12"
           >
-            <div className="w-full max-w-full text-center">
-              <h2 className="text-[clamp(3.5rem,14vw,25rem)] font-black opacity-[0.03] tracking-tighter select-none uppercase leading-[0.85] w-full break-words">
-                <span className="block md:inline">genius</span>
-                <span className="block md:inline">developers</span>
-                <span className="block md:inline">.space</span>
+            <div className="w-full max-w-[90vw] mx-auto text-center">
+              <h2 className="text-[clamp(2.5rem,10vw,20rem)] font-black opacity-[0.03] tracking-tighter select-none uppercase leading-[0.85] break-words">
+                genius developers<br className="md:hidden" />.space
               </h2>
             </div>
           </motion.div>
