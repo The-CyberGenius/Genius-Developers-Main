@@ -24,16 +24,16 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
   const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
 
   // Advanced Parallax values
-  const heroOpacity  = useTransform(smoothProgress, [0, 0.7], [1, 0]);
-  const heroScale    = useTransform(smoothProgress, [0, 0.7], [1, 0.85]);
-  const heroRotate   = useTransform(smoothProgress, [0, 0.7], [0, -2]);
-  const heroY        = useTransform(smoothProgress, [0, 0.7], ["0%", "-15%"]);
-  
-  const titleX       = useTransform(smoothProgress, [0, 0.7], ["0%", "-10%"]);
-  const subtitleX    = useTransform(smoothProgress, [0, 0.7], ["0%", "10%"]);
-  const taglineY     = useTransform(smoothProgress, [0, 0.5], ["0%", "50%"]);
+  const heroOpacity = useTransform(smoothProgress, [0, 0.7], [1, 0]);
+  const heroScale = useTransform(smoothProgress, [0, 0.7], [1, 0.85]);
+  const heroRotate = useTransform(smoothProgress, [0, 0.7], [0, -2]);
+  const heroY = useTransform(smoothProgress, [0, 0.7], ["0%", "-15%"]);
+
+  const titleX = useTransform(smoothProgress, [0, 0.7], ["0%", "-10%"]);
+  const subtitleX = useTransform(smoothProgress, [0, 0.7], ["0%", "10%"]);
+  const taglineY = useTransform(smoothProgress, [0, 0.5], ["0%", "50%"]);
   const taglineOpacity = useTransform(smoothProgress, [0, 0.4], [1, 0]);
-  
+
   const overlayOpacity = useTransform(smoothProgress, [0.5, 0.8], [0, 1]);
   const bgZoom = useTransform(smoothProgress, [0, 1], [1, 1.2]);
 
@@ -41,7 +41,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
 
   const frontendSkills = skills.filter(s => s.category === "Frontend");
-  const backendSkills  = skills.filter(s => s.category === "Backend");
+  const backendSkills = skills.filter(s => s.category === "Backend");
 
   // Theme Styles
   const themeClasses = {
@@ -83,7 +83,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
 
   return (
     <div ref={containerRef} className={`${themeClasses} transition-colors duration-700 overflow-x-hidden selection:bg-zinc-500/30 relative text-base sm:text-lg`}>
-      
+
       {/* ── PREMIUM NOISE OVERLAY ────────────────────────── */}
       <div className="fixed inset-0 pointer-events-none z-[999] opacity-[0.03] mix-blend-overlay" style={{ backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")' }} />
 
@@ -117,17 +117,17 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
       {/* ── STICKY HERO ───────────────────────────────────── */}
       <div ref={heroRef} className="h-[140vh] md:h-[160vh] relative">
         <div className="sticky top-0 h-screen overflow-hidden flex flex-col justify-end pb-20 md:pb-32 px-6 md:px-12">
-          
+
           {/* Background Elements */}
-          <motion.div 
+          <motion.div
             style={{ scale: bgZoom, opacity: heroOpacity }}
             className="absolute inset-0 pointer-events-none"
           >
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120vw] h-[120vw] rounded-full bg-gradient-radial from-zinc-200/10 dark:from-zinc-800/10 to-transparent blur-3xl" />
-            
+
             {/* Magical Floating Text Background - HIDDEN ON MOBILE FOR CLARITY */}
             <div className="absolute inset-0 hidden md:flex items-center justify-center opacity-[0.02] dark:opacity-[0.04] pointer-events-none select-none overflow-hidden">
-              <motion.div 
+              <motion.div
                 animate={{ x: ["0%", "-50%"] }}
                 transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
                 className="flex whitespace-nowrap text-[15vh] lg:text-[20vh] font-black uppercase gap-32"
@@ -194,8 +194,8 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                   {data?.tagline || "Full-Stack Developer & AI Integration Expert"}
                 </p>
                 <div className="flex items-center gap-4 mt-4 md:mt-6">
-                   <div className="h-px w-8 md:w-12 bg-zinc-300 dark:bg-zinc-800" />
-                   <p className="text-zinc-400 dark:text-zinc-500 text-[10px] md:text-xs font-black uppercase tracking-widest">{data?.location || "India • Working Worldwide"}</p>
+                  <div className="h-px w-8 md:w-12 bg-zinc-300 dark:bg-zinc-800" />
+                  <p className="text-zinc-400 dark:text-zinc-500 text-[10px] md:text-xs font-black uppercase tracking-widest">{data?.location || "India • Working Worldwide"}</p>
                 </div>
               </div>
               <div className="flex flex-wrap gap-4 md:gap-6">
@@ -204,7 +204,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                 </a>
                 {resume?.fileUrl && (
                   <a href={resume.fileUrl} target="_blank" rel="noreferrer" className="px-8 md:px-10 py-4 md:py-5 rounded-full border border-zinc-200 dark:border-zinc-800 font-black uppercase tracking-widest text-[9px] md:text-[10px] hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-all flex items-center gap-3">
-                    Resume <Download className="w-4 h-4" />
+                    CV <Download className="w-4 h-4" />
                   </a>
                 )}
               </div>
@@ -217,7 +217,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
       <section className="relative z-20 py-16 md:py-32 border-y border-zinc-100 dark:border-zinc-900 bg-zinc-50/50 dark:bg-zinc-950/50 backdrop-blur-3xl">
         <div className="max-w-[1400px] mx-auto px-6 md:px-12">
           <div className="grid lg:grid-cols-12 items-center gap-10 md:gap-16">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -258,13 +258,13 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
       {/* ── ABOUT (ADAPTIVE SPACING) ───────────────────────── */}
       <section className="py-24 md:py-64 px-6 md:px-12 relative">
         <div className="max-w-[1400px] mx-auto grid lg:grid-cols-2 gap-16 md:gap-32 items-start">
-          <motion.div initial={{ opacity:0, y:40 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true }} transition={{ duration:0.9 }}>
+          <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.9 }}>
             <p className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 mb-6 md:mb-10">Philosophy</p>
             <h2 className="text-5xl sm:text-7xl md:text-9xl font-black tracking-tighter leading-[0.8] mb-8 md:mb-12">
               Beyond<br /><span className="text-zinc-200 dark:text-zinc-800">The Pixel.</span>
             </h2>
           </motion.div>
-          <motion.div initial={{ opacity:0, y:40 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true }} transition={{ duration:0.9, delay:0.2 }}>
+          <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.9, delay: 0.2 }}>
             <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-medium leading-[1.2] mb-10 md:mb-16 tracking-tight">
               {data?.aboutText || "I build world-class digital products that scale, impress, and convert."}
             </p>
@@ -287,13 +287,13 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
       {/* ── PROJECTS (MOBILE OPTIMIZED) ────────────────────── */}
       <section id="work" className={`py-24 md:py-64 px-6 md:px-12 ${theme === 'neon' ? 'bg-black' : 'bg-black dark:bg-white'}`}>
         <div className="max-w-[1400px] mx-auto">
-          <motion.div initial={{ opacity:0, y:40 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true }} transition={{ duration:0.9 }} className="mb-16 md:mb-32">
+          <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.9 }} className="mb-16 md:mb-32">
             <p className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-500 mb-6 md:mb-8">Selected Works</p>
             <h2 className={`text-6xl sm:text-7xl md:text-8xl lg:text-[10rem] font-black tracking-tighter leading-[0.75] ${theme === 'neon' ? 'text-[#0ff]' : 'text-white dark:text-black'}`}>
               Featured<br />Archive.
             </h2>
           </motion.div>
- 
+
           <div className={`divide-y ${theme === 'neon' ? 'divide-[#0ff]/10' : 'divide-white/5 dark:divide-black/5'}`}>
             {(projects.length > 0 ? projects : [
               { title: "Portfolio 2024", description: "Premium portfolio built with Next.js and AI Integration.", tags: ["Next.js", "AI", "Framer"], link: "#" }
@@ -303,23 +303,23 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                 href={p.link || "#"}
                 target="_blank"
                 rel="noreferrer"
-                initial={{ opacity:0, y:30 }}
-                whileInView={{ opacity:1, y:0 }}
-                viewport={{ once:true }}
-                transition={{ duration:0.8, delay: i*0.1 }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: i * 0.1 }}
                 className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 md:gap-12 py-12 md:py-20 group relative overflow-hidden"
               >
                 <div className="flex items-center gap-8 md:gap-12 flex-1 relative z-10">
-                  <span className="text-zinc-800 font-black text-xl md:text-2xl w-8 md:w-12 shrink-0 group-hover:text-white dark:group-hover:text-black transition-colors">{String(i+1).padStart(2,"0")}</span>
+                  <span className="text-zinc-800 font-black text-xl md:text-2xl w-8 md:w-12 shrink-0 group-hover:text-white dark:group-hover:text-black transition-colors">{String(i + 1).padStart(2, "0")}</span>
                   <div>
                     <h3 className={`text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-black mb-3 md:mb-4 ${theme === 'neon' ? 'text-white group-hover:text-[#0ff]' : 'text-white dark:text-black group-hover:opacity-40'} transition-all tracking-tighter`}>{p.title}</h3>
                     <p className="text-zinc-500 text-base md:text-xl max-w-3xl leading-relaxed">{p.description}</p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-center gap-6 md:gap-8 relative z-10">
                   <div className="hidden sm:flex flex-wrap gap-2 md:gap-3">
-                    {(p.tags||[]).map((t:string,j:number)=>(
+                    {(p.tags || []).map((t: string, j: number) => (
                       <span key={j} className={`px-4 md:px-5 py-1.5 md:py-2 rounded-full border text-[8px] md:text-[10px] font-black uppercase tracking-widest ${theme === 'neon' ? 'border-[#0ff]/20 text-[#0ff]' : 'border-white/10 dark:border-black/10 text-white dark:text-black'}`}>{t}</span>
                     ))}
                   </div>
@@ -336,25 +336,25 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
       {/* ── SKILLS (RESPONSIVE CARDS) ─────────────────────── */}
       <section id="skills" className="py-24 md:py-64 px-6 md:px-12 bg-zinc-50 dark:bg-zinc-950">
         <div className="max-w-[1400px] mx-auto">
-          <motion.div initial={{ opacity:0, y:40 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true }} transition={{ duration:0.9 }} className="mb-16 md:mb-32">
+          <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.9 }} className="mb-16 md:mb-32">
             <p className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 mb-6 md:mb-8">Capabilities</p>
             <h2 className="text-5xl sm:text-7xl md:text-9xl font-black tracking-tighter leading-[0.8]">Mastered<br />Stack.</h2>
           </motion.div>
-          
+
           <div className="grid lg:grid-cols-3 gap-8 md:gap-12">
             <div className="lg:col-span-2 grid md:grid-cols-2 gap-8 md:gap-12">
               {[
                 { title: "Frontend Engineering", items: frontendSkills },
                 { title: "Backend Architecture", items: backendSkills }
               ].map((cat, idx) => (
-                <motion.div 
+                <motion.div
                   key={idx}
-                  initial={{ opacity:0, y:30 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true }} transition={{ duration:0.8, delay: idx*0.1 }}
+                  initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: idx * 0.1 }}
                   className="bg-white dark:bg-zinc-900/50 rounded-[2rem] md:rounded-[3rem] p-8 md:p-12 shadow-sm border border-zinc-100 dark:border-zinc-800"
                 >
                   <h3 className="text-zinc-400 text-[10px] font-black uppercase tracking-[0.4em] mb-8 md:mb-12">{cat.title}</h3>
                   <div className="space-y-8 md:space-y-10">
-                    {cat.items.map((s:any, i:number) => (
+                    {cat.items.map((s: any, i: number) => (
                       <div key={i}>
                         <div className="flex justify-between items-end mb-3 md:mb-4">
                           <span className="text-xl md:text-2xl font-bold flex items-center gap-3 md:gap-4">
@@ -363,7 +363,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                           <span className="text-zinc-400 font-mono text-[10px] md:text-xs">{s.proficiency}%</span>
                         </div>
                         <div className="h-1.5 md:h-2 w-full bg-zinc-100 dark:bg-zinc-800/50 rounded-full overflow-hidden">
-                          <motion.div 
+                          <motion.div
                             initial={{ width: 0 }}
                             whileInView={{ width: `${s.proficiency}%` }}
                             viewport={{ once: true }}
@@ -379,14 +379,14 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
             </div>
 
             {/* Services Card */}
-            <motion.div 
-              initial={{ opacity:0, y:30 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true }} transition={{ duration:0.8, delay: 0.2 }}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.2 }}
               className={`${accentColor} rounded-[2rem] md:rounded-[3rem] p-8 md:p-12 flex flex-col justify-between shadow-2xl shadow-black/10`}
             >
               <div>
                 <h3 className="text-[10px] font-black uppercase tracking-[0.4em] opacity-40 mb-10 md:mb-16">Services</h3>
                 <div className="space-y-8 md:space-y-12">
-                  {services.slice(0,4).map((s:any, i:number) => (
+                  {services.slice(0, 4).map((s: any, i: number) => (
                     <div key={i} className="group">
                       <p className="text-2xl sm:text-3xl md:text-4xl font-black mb-2 md:mb-3 group-hover:translate-x-3 transition-transform duration-500">{s.title}</p>
                       <p className="text-xs md:text-sm opacity-50 leading-relaxed max-w-[240px]">{s.description}</p>
@@ -395,7 +395,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                 </div>
               </div>
               <a href="#contact" className="mt-12 md:mt-16 inline-flex items-center gap-3 font-black uppercase tracking-[0.2em] text-[9px] md:text-[10px] hover:gap-6 transition-all group">
-                Let's Build Something <ArrowRight className="w-5 h-5 group-hover:rotate-[-45deg] transition-transform"/>
+                Let's Build Something <ArrowRight className="w-5 h-5 group-hover:rotate-[-45deg] transition-transform" />
               </a>
             </motion.div>
           </div>
@@ -408,7 +408,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
           <div>
             <p className="text-[10px] font-black uppercase tracking-[0.4em] opacity-40 mb-8 md:mb-12">Contact</p>
             <h2 className="text-6xl sm:text-8xl md:text-[10rem] font-black tracking-tighter leading-[0.75] mb-12 md:mb-20">Start<br />Today.</h2>
-            
+
             <div className="space-y-8 md:space-y-12 mb-16 md:mb-24">
               {data?.email && (
                 <a href={`mailto:${data.email}`} className="block text-2xl sm:text-4xl md:text-6xl font-bold hover:opacity-40 transition-opacity break-all underline decoration-1 underline-offset-[12px] decoration-current/20">
@@ -427,10 +427,10 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
 
             <div className="flex gap-8 md:gap-10">
               {[
-                { icon: <FaGithub/>, link: data?.socialLinks?.github },
-                { icon: <FaLinkedin/>, link: data?.socialLinks?.linkedin },
-                { icon: <FaTwitter/>, link: data?.socialLinks?.twitter },
-                { icon: <FaInstagram/>, link: data?.socialLinks?.instagram }
+                { icon: <FaGithub />, link: data?.socialLinks?.github },
+                { icon: <FaLinkedin />, link: data?.socialLinks?.linkedin },
+                { icon: <FaTwitter />, link: data?.socialLinks?.twitter },
+                { icon: <FaInstagram />, link: data?.socialLinks?.instagram }
               ].filter(s => s.link).map((s, i) => (
                 <a key={i} href={s.link} target="_blank" rel="noreferrer" className="text-2xl md:text-3xl hover:-translate-y-2 transition-transform opacity-60 hover:opacity-100">{s.icon}</a>
               ))}
@@ -441,21 +441,21 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
             <form onSubmit={handleSubmit} className="space-y-8 md:space-y-12">
               <div className="space-y-4 md:space-y-6 group">
                 <label className="text-[10px] font-black uppercase tracking-[0.4em] opacity-30 group-focus-within:opacity-100 transition-opacity">Name</label>
-                <input required value={formData.name} onChange={e=>setFormData({...formData,name:e.target.value})}
+                <input required value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })}
                   className="w-full bg-transparent border-b border-current/10 py-4 md:py-6 text-xl md:text-3xl focus:outline-none focus:border-current transition-all placeholder:opacity-20" placeholder="Your Name" />
               </div>
               <div className="space-y-4 md:space-y-6 group">
                 <label className="text-[10px] font-black uppercase tracking-[0.4em] opacity-30 group-focus-within:opacity-100 transition-opacity">Email</label>
-                <input required type="email" value={formData.email} onChange={e=>setFormData({...formData,email:e.target.value})}
+                <input required type="email" value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })}
                   className="w-full bg-transparent border-b border-current/10 py-4 md:py-6 text-xl md:text-3xl focus:outline-none focus:border-current transition-all placeholder:opacity-20" placeholder="email@address.com" />
               </div>
               <div className="space-y-4 md:space-y-6 group">
                 <label className="text-[10px] font-black uppercase tracking-[0.4em] opacity-30 group-focus-within:opacity-100 transition-opacity">Brief</label>
-                <textarea required rows={4} value={formData.message} onChange={e=>setFormData({...formData,message:e.target.value})}
+                <textarea required rows={4} value={formData.message} onChange={e => setFormData({ ...formData, message: e.target.value })}
                   className="w-full bg-transparent border-b border-current/10 py-4 md:py-6 text-xl md:text-3xl focus:outline-none focus:border-current transition-all resize-none placeholder:opacity-20" placeholder="Project details..." />
               </div>
               <button type="submit" disabled={formLoading} className={`w-full py-6 md:py-8 rounded-full ${theme === 'neon' ? 'bg-black text-white' : 'bg-white dark:bg-black text-black dark:text-white'} font-black text-lg md:text-xl hover:scale-[1.02] active:scale-95 transition-all disabled:opacity-40 flex items-center justify-center gap-4 shadow-2xl shadow-black/20`}>
-                {formLoading ? <Loader2 className="animate-spin"/> : <><Send className="w-6 h-6"/>Send Inquiry</>}
+                {formLoading ? <Loader2 className="animate-spin" /> : <><Send className="w-6 h-6" />Send Inquiry</>}
               </button>
             </form>
           </div>
@@ -475,8 +475,8 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
             ))}
           </div>
           <div className="md:text-right">
-             <p className="text-[9px] md:text-[10px] font-black uppercase tracking-widest">© {new Date().getFullYear()} — SHIVA</p>
-             <p className="text-[9px] opacity-50 mt-1 uppercase tracking-widest">All Rights Reserved</p>
+            <p className="text-[9px] md:text-[10px] font-black uppercase tracking-widest">© {new Date().getFullYear()} — SHIVA</p>
+            <p className="text-[9px] opacity-50 mt-1 uppercase tracking-widest">All Rights Reserved</p>
           </div>
         </div>
       </footer>
