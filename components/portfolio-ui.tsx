@@ -208,21 +208,22 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
           </motion.div>
 
           <motion.div style={{ opacity: heroOpacity, scale: heroScale, y: heroY }} className="max-w-[1500px] mx-auto w-full relative z-20">
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="mb-10 flex items-center gap-6">
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="mb-6 flex items-center gap-6">
                <span className="text-[11px] font-black uppercase tracking-[0.5em] opacity-30">Elite Portfolio — {new Date().getFullYear()}</span>
-               <div className="h-[1px] w-12 bg-current opacity-10" />
+               <div className="h-[1px] w-8 bg-current opacity-10" />
                <span className="text-[11px] font-black uppercase tracking-[0.5em] opacity-30 italic serif">{data?.location || "Global"}</span>
             </motion.div>
             
-            <div className="relative mb-16 perspective-[1000px]">
+            <div className="relative mb-8 perspective-[1000px]">
               <motion.h1 
                 style={{ 
                   x: titleXSpring, 
                   y: titleYSpring,
                   rotateX: useTransform(titleYSpring, [-20, 20], [5, -5]),
-                  rotateY: useTransform(titleXSpring, [-20, 20], [-5, 5])
+                  rotateY: useTransform(titleXSpring, [-20, 20], [-5, 5]),
+                  fontSize: `clamp(3rem, 10vw, ${data?.heroFontSize || 12}rem)`
                 }} 
-                className="text-[clamp(4rem,15vw,18rem)] font-black tracking-tighter leading-[0.75] flex flex-col select-none"
+                className="font-black tracking-tighter leading-[0.75] flex flex-col select-none"
               >
                 <motion.span 
                   className="block"
@@ -244,12 +245,12 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
               </motion.h1>
             </div>
 
-            <motion.div style={{ opacity: taglineOpacity }} className="flex flex-col md:flex-row md:items-end justify-between gap-16 max-w-7xl">
-              <div className="space-y-6">
-                <p className="text-2xl md:text-[clamp(2rem,4vw,4rem)] font-medium tracking-tight max-w-4xl leading-[1.05] opacity-90">
+            <motion.div style={{ opacity: taglineOpacity }} className="flex flex-col md:flex-row md:items-end justify-between gap-12 max-w-7xl">
+              <div className="space-y-4">
+                <p className="text-xl md:text-[clamp(1.5rem,3vw,3rem)] font-medium tracking-tight max-w-3xl leading-[1.1] opacity-90">
                   {data?.tagline || "I transform complex logic into elegant digital experiences."}
                 </p>
-                <p className="text-sm md:text-lg opacity-40 max-w-lg font-medium">
+                <p className="text-xs md:text-sm opacity-40 max-w-lg font-medium leading-relaxed">
                   {data?.aboutText?.slice(0, 150) || "Solving logic with humanity through world-class functional software design."}
                 </p>
               </div>

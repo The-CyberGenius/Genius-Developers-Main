@@ -90,7 +90,7 @@ export default function ProfilePage() {
         {/* Basic Information */}
         <Card>
           <CardHeader>
-            <CardTitle>Basic Information</CardTitle>
+            <CardTitle>Basic Information & Hero Style</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -105,6 +105,18 @@ export default function ProfilePage() {
                 />
               </div>
               <div className="space-y-2">
+                <Label htmlFor="heroFontSize">Hero Font Size (rem)</Label>
+                <Input
+                  id="heroFontSize"
+                  name="heroFontSize"
+                  type="number"
+                  step="0.5"
+                  value={profile?.heroFontSize || "12"}
+                  onChange={handleChange}
+                  placeholder="Default: 12"
+                />
+              </div>
+              <div className="space-y-2 md:col-span-2">
                 <Label htmlFor="tagline">Tagline</Label>
                 <Input
                   id="tagline"
