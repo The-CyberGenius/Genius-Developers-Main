@@ -53,8 +53,16 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
   };
 
   const staggerContainer: Variants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
+    hidden: { opacity: 0, scale: 0.98 },
+    visible: { 
+      opacity: 1, 
+      scale: 1,
+      transition: { 
+        staggerChildren: 0.15,
+        duration: 0.8,
+        ease: "easeOut"
+      } 
+    }
   };
 
   // Funny hover animation
@@ -259,7 +267,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
-        whileInView={{ scale: [0.98, 1], transition: { duration: 1 } }}
+
         className="py-24 md:py-64 px-6 md:px-12 bg-zinc-50 dark:bg-zinc-950 overflow-hidden"
       >
         <div className="max-w-[1400px] mx-auto grid lg:grid-cols-12 gap-12 md:gap-24">
@@ -290,7 +298,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
-        whileInView={{ scale: [0.98, 1], transition: { duration: 1 } }}
+
         className="py-24 md:py-64 px-6 md:px-12 bg-white dark:bg-black overflow-hidden"
       >
         <div className="max-w-[1400px] mx-auto">
