@@ -161,20 +161,22 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                 transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
                 className="text-[14vw] font-black tracking-tighter leading-[0.8] text-black dark:text-white"
               >
-                {(data?.name || "Balkrishan").split(" ")[0]}
+                {(data?.name || "Shiva").split(" ")[0]}
               </motion.h1>
             </div>
-            <div className="mb-12">
-              <motion.h1
-                style={{ x: subtitleX }}
-                initial={{ y: 100, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                className="text-[14vw] font-black tracking-tighter leading-[0.8] text-zinc-400 dark:text-zinc-500"
-              >
-                {(data?.name || "Prajapat").split(" ").slice(1).join(" ") || "Prajapat"}.
-              </motion.h1>
-            </div>
+            {(data?.name || "").split(" ").length > 1 && (
+              <div className="mb-12">
+                <motion.h1
+                  style={{ x: subtitleX }}
+                  initial={{ y: 100, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                  className="text-[14vw] font-black tracking-tighter leading-[0.8] text-zinc-400 dark:text-zinc-500"
+                >
+                  {data.name.split(" ").slice(1).join(" ")}.
+                </motion.h1>
+              </div>
+            )}
 
             <motion.div
               style={{ y: taglineY, opacity: taglineOpacity }}
