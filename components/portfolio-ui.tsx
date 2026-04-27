@@ -23,34 +23,27 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
 
   const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
 
-  // Advanced Parallax values (REFINED FOR DYNAMIC FEEL)
-  const heroOpacity = useTransform(smoothProgress, [0, 0.9], [1, 0]);
-  const heroScale = useTransform(smoothProgress, [0, 0.9], [1, 0.95]);
-  const heroRotate = useTransform(smoothProgress, [0, 0.7], [0, -2]);
-  const heroY = useTransform(smoothProgress, [0, 0.9], ["0%", "-5%"]);
+  // Advanced Parallax values (REFINED FOR CLEAN LOOK)
+  const heroOpacity = useTransform(smoothProgress, [0, 0.5], [1, 0]);
+  const heroScale = useTransform(smoothProgress, [0, 0.5], [1, 0.98]);
+  const heroY = useTransform(smoothProgress, [0, 0.5], ["0%", "-2%"]);
 
-  const titleX = useTransform(smoothProgress, [0, 0.8], ["0%", "-5%"]);
-  const subtitleX = useTransform(smoothProgress, [0, 0.8], ["0%", "5%"]);
-  const taglineY = useTransform(smoothProgress, [0, 0.5], ["0%", "50%"]);
-  const taglineOpacity = useTransform(smoothProgress, [0, 0.4], [1, 0]);
+  const titleX = useTransform(smoothProgress, [0, 0.5], ["0%", "-2%"]);
+  const subtitleX = useTransform(smoothProgress, [0, 0.5], ["0%", "2%"]);
+  const taglineOpacity = useTransform(smoothProgress, [0, 0.3], [1, 0]);
 
-  const overlayOpacity = useTransform(smoothProgress, [0.7, 1], [0, 0.8]);
-  const bgZoom = useTransform(smoothProgress, [0, 1], [1, 1.2]);
+  const overlayOpacity = useTransform(smoothProgress, [0.4, 0.6], [0, 1]);
+  const bgZoom = useTransform(smoothProgress, [0, 1], [1, 1.1]);
 
   // Animation Variants for sections
   const fadeInUp = {
-    hidden: { opacity: 0, y: 40 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
   };
 
   const staggerContainer = {
     hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
+    visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
   };
 
   const [formLoading, setFormLoading] = useState(false);
@@ -61,13 +54,13 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
 
   // Theme Styles
   const themeClasses = {
-    apple: "bg-[#fafafa] dark:bg-[#050505] text-black dark:text-white",
+    apple: "bg-white dark:bg-black text-black dark:text-white",
     midnight: "bg-[#0a0b1e] text-white",
     neon: "bg-black text-[#0ff]",
     forest: "bg-[#0c1a12] text-[#e0f2e9]",
     ember: "bg-[#1a0c0c] text-[#f2e0e0]",
     gold: "bg-[#0f0e0c] text-[#d4af37]",
-  }[theme as string] || "bg-[#fafafa] dark:bg-[#050505] text-black dark:text-white";
+  }[theme as string] || "bg-white dark:bg-black text-black dark:text-white";
 
   const accentColor = {
     apple: "bg-black dark:bg-white text-white dark:text-black",
@@ -98,418 +91,211 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
   };
 
   return (
-    <div ref={containerRef} className={`${themeClasses} transition-colors duration-700 overflow-x-hidden selection:bg-zinc-500/30 relative text-base sm:text-lg`}>
+    <div ref={containerRef} className={`${themeClasses} transition-colors duration-700 overflow-x-hidden selection:bg-zinc-500/30 relative text-base`}>
 
       {/* ── PREMIUM NOISE OVERLAY ────────────────────────── */}
-      <div className="fixed inset-0 pointer-events-none z-[999] opacity-[0.03] mix-blend-overlay" style={{ backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")' }} />
+      <div className="fixed inset-0 pointer-events-none z-[999] opacity-[0.02] mix-blend-overlay" style={{ backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")' }} />
 
       {/* ── FIXED NAV ─────────────────────────────────────── */}
       <motion.header
-        initial={{ opacity: 0, y: -20 }}
+        initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
-        className="fixed top-0 z-[100] w-full mix-blend-difference pointer-events-none"
+        className="fixed top-0 z-[100] w-full"
       >
-        <div className="max-w-[1400px] mx-auto px-6 md:px-12 h-20 md:h-24 flex items-center justify-between pointer-events-auto">
-          <span className="text-white font-black text-xl md:text-2xl tracking-tighter">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 h-20 md:h-24 flex items-center justify-between backdrop-blur-sm bg-transparent">
+          <span className="font-black text-xl md:text-2xl tracking-tighter">
             {(data?.name || "Shiva").split(" ")[0]}<span className="text-zinc-500">.</span>
           </span>
-          <nav className="hidden md:flex gap-8 lg:gap-12 text-[10px] font-black uppercase tracking-[0.3em] text-white/50">
+          <nav className="hidden md:flex gap-8 lg:gap-10 text-[9px] font-black uppercase tracking-[0.2em] opacity-60">
             {['work', 'skills', 'contact'].map((item) => (
-              <a key={item} href={`#${item}`} className="hover:text-white transition-colors relative group">
-                {item}
-                <span className="absolute -bottom-1 left-0 w-0 h-px bg-white transition-all group-hover:w-full" />
-              </a>
+              <a key={item} href={`#${item}`} className="hover:opacity-100 transition-opacity uppercase">{item}</a>
             ))}
-            <Link href="/admin/login" className="hover:text-white transition-colors">Admin</Link>
+            <Link href="/admin/login" className="hover:opacity-100 transition-opacity">Admin</Link>
           </nav>
-          {/* Mobile indicator (subtle) */}
-          <div className="md:hidden w-8 h-8 rounded-full border border-white/10 flex items-center justify-center">
-            <div className="w-1 h-1 rounded-full bg-white animate-pulse" />
-          </div>
         </div>
       </motion.header>
 
-      {/* ── STICKY HERO ───────────────────────────────────── */}
-      <div ref={heroRef} className="h-[140vh] md:h-[160vh] relative">
-        <div className="sticky top-0 h-screen overflow-hidden flex flex-col justify-end pb-20 md:pb-32 px-6 md:px-12">
-
-          {/* Background Elements */}
-          <motion.div
-            style={{ scale: bgZoom, opacity: heroOpacity }}
-            className="absolute inset-0 pointer-events-none"
-          >
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120vw] h-[120vw] rounded-full bg-gradient-radial from-zinc-200/10 dark:from-zinc-800/10 to-transparent blur-3xl" />
-
-            {/* Magical Floating Text Background - HIDDEN ON MOBILE FOR CLARITY */}
-            <div className="absolute inset-0 hidden md:flex items-start justify-center opacity-[0.02] dark:opacity-[0.04] pointer-events-none select-none overflow-hidden pt-[700px]">
-              <motion.div
-                animate={{ x: ["0%", "-50%"] }}
-                transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
-                className="flex whitespace-nowrap text-[15vh] lg:text-[20vh] font-black uppercase gap-32"
-              >
-                <span>Innovation</span><span>✦</span><span>Scalability</span><span>✦</span><span>Experience</span><span>✦</span><span>Innovation</span><span>✦</span><span>Scalability</span><span>✦</span><span>Experience</span><span>✦</span>
-              </motion.div>
-            </div>
+      {/* ── CLEAN HERO ────────────────────────────────────── */}
+      <div ref={heroRef} className="h-[120vh] relative">
+        <div className="sticky top-0 h-screen flex flex-col justify-center px-6 md:px-12">
+          
+          {/* Subtle Background Elements */}
+          <motion.div style={{ scale: bgZoom, opacity: heroOpacity }} className="absolute inset-0 pointer-events-none -z-10">
+             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[100vw] rounded-full bg-gradient-radial from-zinc-100/10 dark:from-zinc-900/10 to-transparent blur-3xl" />
+             <div className="absolute inset-0 hidden md:flex items-center justify-center opacity-[0.01] dark:opacity-[0.03] overflow-hidden">
+                <motion.div animate={{ x: ["0%", "-50%"] }} transition={{ duration: 100, repeat: Infinity, ease: "linear" }} className="flex whitespace-nowrap text-[25vh] font-black uppercase gap-40">
+                  <span>Innovation</span><span>✦</span><span>Experience</span><span>✦</span><span>Design</span><span>✦</span>
+                </motion.div>
+             </div>
           </motion.div>
 
-          <motion.div
-            style={{ opacity: overlayOpacity }}
-            className="absolute inset-0 bg-black pointer-events-none z-10"
-          />
-
-          <motion.div
-            style={{ opacity: heroOpacity, scale: heroScale, y: heroY, rotate: heroRotate }}
-            className="relative z-20 max-w-[1400px] mx-auto w-full"
-          >
-            {/* Status badge */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.7, delay: 0.1 }}
-              className="mb-6 md:mb-10"
-            >
-              <span className={`inline-flex items-center gap-3 px-4 md:px-5 py-2 md:py-2.5 rounded-full border border-zinc-200 dark:border-zinc-800 text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] ${theme === 'neon' ? 'border-[#0ff]/30 text-[#0ff]' : 'text-zinc-500'}`}>
-                <span className={`w-1.5 h-1.5 rounded-full animate-ping ${theme === 'neon' ? 'bg-[#0ff]' : 'bg-green-500'}`} />
-                {theme === 'neon' ? 'SYSTEM_ONLINE' : 'Available for premium projects'}
-              </span>
+          <motion.div style={{ opacity: heroOpacity, scale: heroScale, y: heroY }} className="max-w-[1400px] mx-auto w-full relative z-20">
+            <motion.div initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ delay: 0.2 }} className="mb-6">
+              <span className="text-[10px] font-black uppercase tracking-[0.3em] opacity-40 border-l border-current pl-4">Full Stack Developer</span>
             </motion.div>
-
-            {/* Main title with responsive sizing */}
-            <div className="mb-1 md:mb-2">
-              <motion.h1
-                style={{ x: titleX }}
-                initial={{ y: 50, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                className="text-6xl sm:text-7xl md:text-8xl lg:text-[12vw] font-black tracking-tighter leading-[0.8] text-black dark:text-white"
-              >
-                {(data?.name || "Shiva").split(" ")[0]}
-              </motion.h1>
-            </div>
+            
+            <motion.h1 style={{ x: titleX }} className="text-6xl sm:text-8xl md:text-9xl lg:text-[11vw] font-black tracking-tighter leading-[0.8] mb-4">
+              {(data?.name || "Shiva").split(" ")[0]}
+            </motion.h1>
+            
             {(data?.name || "").split(" ").length > 1 && (
-              <div className="mb-10 md:mb-16">
-                <motion.h1
-                  style={{ x: subtitleX }}
-                  initial={{ y: 50, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                  className="text-6xl sm:text-7xl md:text-8xl lg:text-[12vw] font-black tracking-tighter leading-[0.8] text-zinc-300 dark:text-zinc-800"
-                >
-                  {data.name.split(" ").slice(1).join(" ")}.
-                </motion.h1>
-              </div>
+              <motion.h1 style={{ x: subtitleX }} className="text-6xl sm:text-8xl md:text-9xl lg:text-[11vw] font-black tracking-tighter leading-[0.8] text-zinc-200 dark:text-zinc-800 mb-12">
+                {data.name.split(" ").slice(1).join(" ")}.
+              </motion.h1>
             )}
 
-            <motion.div
-              style={{ y: taglineY, opacity: taglineOpacity }}
-              className="flex flex-col md:flex-row md:items-end justify-between gap-8 md:gap-12"
-            >
-              <div className="max-w-2xl">
-                <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-tight tracking-tight">
-                  {data?.tagline || "Full-Stack Developer & AI Integration Expert"}
-                </p>
-                <div className="flex items-center gap-4 mt-4 md:mt-6">
-                  <div className="h-px w-8 md:w-12 bg-zinc-300 dark:bg-zinc-800" />
-                  <p className="text-zinc-400 dark:text-zinc-500 text-[10px] md:text-xs font-black uppercase tracking-widest">{data?.location || "India • Working Worldwide"}</p>
-                </div>
-              </div>
-              <div className="flex flex-wrap gap-4 md:gap-6">
-                <a href="#work" className={`px-8 md:px-10 py-4 md:py-5 rounded-full ${accentColor} font-black uppercase tracking-widest text-[9px] md:text-[10px] hover:scale-105 transition-all shadow-2xl shadow-black/10 flex items-center gap-3`}>
-                  View Work <ArrowRight className="w-4 h-4" />
-                </a>
-                {resume?.fileUrl && (
-                  <a href={resume.fileUrl} target="_blank" rel="noreferrer" className="px-8 md:px-10 py-4 md:py-5 rounded-full border border-zinc-200 dark:border-zinc-800 font-black uppercase tracking-widest text-[9px] md:text-[10px] hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-all flex items-center gap-3">
-                    CV <Download className="w-4 h-4" />
-                  </a>
-                )}
+            <motion.div style={{ opacity: taglineOpacity }} className="flex flex-col md:flex-row md:items-center justify-between gap-8 max-w-5xl">
+              <p className="text-xl md:text-2xl font-medium tracking-tight max-w-xl opacity-70">
+                {data?.tagline || "I build high-performance digital solutions that drive impact."}
+              </p>
+              <div className="flex gap-4">
+                 <a href="#work" className={`px-8 py-4 rounded-full ${accentColor} font-black uppercase text-[10px] tracking-widest hover:scale-105 transition-all`}>View Work</a>
+                 {resume?.fileUrl && (
+                  <a href={resume.fileUrl} target="_blank" rel="noreferrer" className="px-8 py-4 rounded-full border border-current/10 font-black uppercase text-[10px] tracking-widest hover:bg-current/5 transition-all">CV</a>
+                 )}
               </div>
             </motion.div>
           </motion.div>
         </div>
       </div>
 
-      {/* ── TECH STACK (DYNAMIC REVEAL) ──────────────────── */}
-      <motion.section 
-        variants={staggerContainer}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        className="relative z-20 py-16 md:py-32 border-y border-zinc-100 dark:border-zinc-900 bg-zinc-50/50 dark:bg-zinc-950/50 backdrop-blur-3xl"
-      >
-        <div className="max-w-[1400px] mx-auto px-6 md:px-12">
-          <div className="grid lg:grid-cols-12 items-center gap-10 md:gap-16">
-            <motion.div variants={fadeInUp} className="lg:col-span-4">
-              <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 mb-4 md:mb-6">Expertise</h3>
-              <p className="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight tracking-tighter">Architecting digital solutions with precision.</p>
-            </motion.div>
-
-            <motion.div variants={staggerContainer} className="lg:col-span-8 flex flex-wrap justify-start lg:justify-end gap-2 md:gap-4">
-              {[
-                { name: "Next.js", color: "border-black/10 dark:border-white/10", icon: "✦" },
-                { name: "React", color: "border-blue-500/20 text-blue-500", icon: "⚛" },
-                { name: "TypeScript", color: "border-blue-600/20 text-blue-600", icon: "TS" },
-                { name: "Node.js", color: "border-green-500/20 text-green-500", icon: "⬢" },
-                { name: "Tailwind", color: "border-cyan-500/20 text-cyan-500", icon: "≈" },
-                { name: "MongoDB", color: "border-emerald-500/20 text-emerald-500", icon: "🍃" },
-                { name: "AI Agents", color: "border-purple-500/20 text-purple-500", icon: "✧" },
-              ].map((tech, i) => (
-                <motion.div
-                  key={i}
-                  variants={fadeInUp}
-                  whileHover={{ y: -5, borderColor: "rgba(100,100,100,0.5)", scale: 1.05 }}
-                  className={`flex items-center gap-3 px-4 md:px-6 py-3 md:py-4 rounded-xl md:rounded-2xl border ${tech.color} bg-white dark:bg-zinc-900 font-bold shadow-sm transition-all`}
-                >
-                  <span className="text-lg md:text-xl">{tech.icon}</span>
-                  <span className="text-[9px] md:text-[10px] uppercase tracking-widest">{tech.name}</span>
-                </motion.div>
+      {/* ── TECH STRIP (CLEAN) ───────────────────────────── */}
+      <section className="relative z-30 py-12 md:py-20 border-y border-zinc-100 dark:border-zinc-900 bg-white dark:bg-black">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 overflow-hidden">
+           <div className="flex flex-wrap justify-center gap-6 md:gap-12 opacity-40 grayscale hover:grayscale-0 transition-all duration-700">
+              {["Next.js", "React", "TypeScript", "Node.js", "Tailwind", "MongoDB", "AI"].map((tech) => (
+                <span key={tech} className="text-sm md:text-xl font-black uppercase tracking-[0.2em]">{tech}</span>
               ))}
-            </motion.div>
-          </div>
+           </div>
         </div>
-      </motion.section>
+      </section>
 
-      {/* ── ABOUT (DYNAMIC REVEAL) ───────────────────────── */}
-      <motion.section 
-        variants={staggerContainer}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        className="py-24 md:py-64 px-6 md:px-12 relative"
-      >
-        <div className="max-w-[1400px] mx-auto grid lg:grid-cols-2 gap-16 md:gap-32 items-start">
-          <motion.div variants={fadeInUp}>
-            <p className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 mb-6 md:mb-10">Philosophy</p>
-            <h2 className="text-5xl sm:text-7xl md:text-9xl font-black tracking-tighter leading-[0.8] mb-8 md:mb-12">
-              Beyond<br /><span className="text-zinc-200 dark:text-zinc-800">The Pixel.</span>
-            </h2>
-          </motion.div>
-          <motion.div variants={fadeInUp}>
-            <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-medium leading-[1.2] mb-10 md:mb-16 tracking-tight">
-              {data?.aboutText || "I build world-class digital products that scale, impress, and convert."}
-            </p>
-            <div className="flex flex-wrap gap-4 md:gap-6">
-              {data?.email && (
-                <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href={`mailto:${data.email}`} className={`inline-flex items-center gap-3 px-8 md:px-10 py-4 md:py-5 border border-zinc-200 dark:border-zinc-800 rounded-full text-[9px] md:text-[10px] font-black uppercase tracking-widest hover:${accentColor} transition-all`}>
-                  <Mail className="w-4 h-4" /> Start a Project
-                </motion.a>
-              )}
-              {data?.whatsapp && (
-                <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href={data.whatsapp} target="_blank" rel="noreferrer" className={`inline-flex items-center gap-3 px-8 md:px-10 py-4 md:py-5 border border-zinc-200 dark:border-zinc-800 rounded-full text-[9px] md:text-[10px] font-black uppercase tracking-widest hover:bg-green-500 hover:text-white hover:border-green-500 transition-all`}>
-                  <FaWhatsapp className="w-4 h-4" /> WhatsApp
-                </motion.a>
-              )}
+      {/* ── ABOUT (CLEAN) ────────────────────────────────── */}
+      <section className="py-24 md:py-48 px-6 md:px-12 bg-zinc-50 dark:bg-zinc-950">
+         <div className="max-w-[1400px] mx-auto grid lg:grid-cols-12 gap-12 md:gap-24">
+            <div className="lg:col-span-5">
+               <p className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 mb-8">About Me</p>
+               <h2 className="text-5xl md:text-7xl font-black tracking-tighter leading-none mb-10">Crafting<br />Excellence.</h2>
             </div>
-          </motion.div>
-        </div>
-      </motion.section>
+            <div className="lg:col-span-7">
+               <p className="text-2xl md:text-4xl font-medium leading-[1.2] tracking-tight mb-12 opacity-80">
+                  {data?.aboutText || "Passionate developer focused on building scalable, user-centric web applications and AI-integrated systems."}
+               </p>
+               <div className="flex gap-6">
+                  {data?.email && (
+                    <a href={`mailto:${data.email}`} className="text-[10px] font-black uppercase tracking-widest border-b-2 border-current pb-1 hover:opacity-50 transition-all">Get in touch</a>
+                  )}
+                  {data?.whatsapp && (
+                    <a href={data.whatsapp} target="_blank" rel="noreferrer" className="text-[10px] font-black uppercase tracking-widest border-b-2 border-current pb-1 hover:opacity-50 transition-all">WhatsApp</a>
+                  )}
+               </div>
+            </div>
+         </div>
+      </section>
 
-      {/* ── PROJECTS (DYNAMIC REVEAL) ────────────────────── */}
-      <motion.section 
-        id="work" 
-        variants={staggerContainer}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        className={`py-24 md:py-64 px-6 md:px-12 ${theme === 'neon' ? 'bg-black' : 'bg-black dark:bg-white'}`}
-      >
+      {/* ── PROJECTS (CLEAN LIST) ────────────────────────── */}
+      <section id="work" className="py-24 md:py-48 px-6 md:px-12 bg-white dark:bg-black">
         <div className="max-w-[1400px] mx-auto">
-          <motion.div variants={fadeInUp} className="mb-16 md:mb-32">
-            <p className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-500 mb-6 md:mb-8">Selected Works</p>
-            <h2 className={`text-6xl sm:text-7xl md:text-8xl lg:text-[10rem] font-black tracking-tighter leading-[0.75] ${theme === 'neon' ? 'text-[#0ff]' : 'text-white dark:text-black'}`}>
-              Featured<br />Archive.
-            </h2>
-          </motion.div>
-
-          <motion.div variants={staggerContainer} className={`divide-y ${theme === 'neon' ? 'divide-[#0ff]/10' : 'divide-white/5 dark:divide-black/5'}`}>
+          <div className="mb-20">
+            <p className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 mb-6">Portfolio</p>
+            <h2 className="text-5xl md:text-8xl font-black tracking-tighter uppercase">Selected Works</h2>
+          </div>
+          
+          <div className="divide-y border-t border-zinc-100 dark:border-zinc-900">
             {(projects.length > 0 ? projects : [
-              { title: "Portfolio 2024", description: "Premium portfolio built with Next.js and AI Integration.", tags: ["Next.js", "AI", "Framer"], link: "#" }
+              { title: "Project Alpha", description: "Advanced web platform with AI features.", tags: ["Next.js", "AI"] }
             ]).map((p: any, i: number) => (
-              <motion.a
-                key={i}
-                href={p.link || "#"}
-                target="_blank"
+              <motion.a 
+                key={i} 
+                href={p.link || "#"} 
+                target="_blank" 
                 rel="noreferrer"
-                variants={fadeInUp}
-                className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 md:gap-12 py-12 md:py-20 group relative overflow-hidden"
+                whileHover={{ x: 10 }}
+                className="py-12 md:py-20 flex flex-col md:flex-row md:items-center justify-between gap-8 group"
               >
-                <div className="flex items-center gap-8 md:gap-12 flex-1 relative z-10">
-                  <span className="text-zinc-800 font-black text-xl md:text-2xl w-8 md:w-12 shrink-0 group-hover:text-white dark:group-hover:text-black transition-colors">{String(i + 1).padStart(2, "0")}</span>
+                <div className="flex gap-8 md:gap-16 items-start">
+                  <span className="text-zinc-300 dark:text-zinc-800 font-black text-xl md:text-2xl pt-2">{String(i+1).padStart(2, "0")}</span>
                   <div>
-                    <h3 className={`text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-black mb-3 md:mb-4 ${theme === 'neon' ? 'text-white group-hover:text-[#0ff]' : 'text-white dark:text-black group-hover:opacity-40'} transition-all tracking-tighter`}>{p.title}</h3>
-                    <p className="text-zinc-500 text-base md:text-xl max-w-3xl leading-relaxed">{p.description}</p>
+                    <h3 className="text-3xl md:text-6xl font-black tracking-tighter mb-4 group-hover:opacity-50 transition-opacity uppercase">{p.title}</h3>
+                    <p className="text-base md:text-xl opacity-50 max-w-2xl">{p.description}</p>
                   </div>
                 </div>
-
-                <div className="flex items-center gap-6 md:gap-8 relative z-10">
-                  <div className="hidden sm:flex flex-wrap gap-2 md:gap-3">
-                    {(p.tags || []).map((t: string, j: number) => (
-                      <span key={j} className={`px-4 md:px-5 py-1.5 md:py-2 rounded-full border text-[8px] md:text-[10px] font-black uppercase tracking-widest ${theme === 'neon' ? 'border-[#0ff]/20 text-[#0ff]' : 'border-white/10 dark:border-black/10 text-white dark:text-black'}`}>{t}</span>
-                    ))}
-                  </div>
-                  <div className={`w-14 md:w-20 h-14 md:h-20 rounded-full border flex items-center justify-center transition-all duration-500 group-hover:scale-110 ${theme === 'neon' ? 'border-[#0ff]/20 group-hover:bg-[#0ff] group-hover:text-black' : 'border-white/10 dark:border-black/10 group-hover:bg-white dark:group-hover:bg-black group-hover:text-black dark:group-hover:text-white'}`}>
-                    <ArrowUpRight className="w-6 md:w-8 h-6 md:h-8" />
-                  </div>
+                <div className="flex gap-3">
+                   {(p.tags || []).slice(0, 3).map((t: string) => (
+                     <span key={t} className="px-4 py-1.5 rounded-full border border-current/10 text-[9px] font-black uppercase tracking-widest opacity-40">{t}</span>
+                   ))}
                 </div>
               </motion.a>
             ))}
-          </motion.div>
-        </div>
-      </motion.section>
-
-      {/* ── SKILLS (DYNAMIC REVEAL) ─────────────────────── */}
-      <motion.section 
-        id="skills" 
-        variants={staggerContainer}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        className="py-24 md:py-64 px-6 md:px-12 bg-zinc-50 dark:bg-zinc-950"
-      >
-        <div className="max-w-[1400px] mx-auto">
-          <motion.div variants={fadeInUp} className="mb-16 md:mb-32">
-            <p className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 mb-6 md:mb-8">Capabilities</p>
-            <h2 className="text-5xl sm:text-7xl md:text-9xl font-black tracking-tighter leading-[0.8]">Mastered<br />Stack.</h2>
-          </motion.div>
-
-          <div className="grid lg:grid-cols-3 gap-8 md:gap-12">
-            <div className="lg:col-span-2 grid md:grid-cols-2 gap-8 md:gap-12">
-              {[
-                { title: "Frontend Engineering", items: frontendSkills },
-                { title: "Backend Architecture", items: backendSkills }
-              ].map((cat, idx) => (
-                <motion.div
-                  key={idx}
-                  variants={fadeInUp}
-                  className="bg-white dark:bg-zinc-900/50 rounded-[2rem] md:rounded-[3rem] p-8 md:p-12 shadow-sm border border-zinc-100 dark:border-zinc-800"
-                >
-                  <h3 className="text-zinc-400 text-[10px] font-black uppercase tracking-[0.4em] mb-8 md:mb-12">{cat.title}</h3>
-                  <div className="space-y-8 md:space-y-10">
-                    {cat.items.map((s: any, i: number) => (
-                      <div key={i}>
-                        <div className="flex justify-between items-end mb-3 md:mb-4">
-                          <span className="text-xl md:text-2xl font-bold flex items-center gap-3 md:gap-4">
-                            <span className="text-2xl md:text-3xl grayscale">{s.icon}</span> {s.name}
-                          </span>
-                          <span className="text-zinc-400 font-mono text-[10px] md:text-xs">{s.proficiency}%</span>
-                        </div>
-                        <div className="h-1.5 md:h-2 w-full bg-zinc-100 dark:bg-zinc-800/50 rounded-full overflow-hidden">
-                          <motion.div
-                            initial={{ width: 0 }}
-                            whileInView={{ width: `${s.proficiency}%` }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
-                            className={`h-full ${theme === 'neon' ? 'bg-[#0ff]' : 'bg-black dark:bg-white shadow-[0_0_20px_rgba(255,255,255,0.3)]'}`}
-                          />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Services Card */}
-            <motion.div
-              variants={fadeInUp}
-              className={`${accentColor} rounded-[2rem] md:rounded-[3rem] p-8 md:p-12 flex flex-col justify-between shadow-2xl shadow-black/10`}
-            >
-              <div>
-                <h3 className="text-[10px] font-black uppercase tracking-[0.4em] opacity-40 mb-10 md:mb-16">Services</h3>
-                <div className="space-y-8 md:space-y-12">
-                  {services.slice(0, 4).map((s: any, i: number) => (
-                    <motion.div variants={fadeInUp} key={i} className="group">
-                      <p className="text-2xl sm:text-3xl md:text-4xl font-black mb-2 md:mb-3 group-hover:translate-x-3 transition-transform duration-500">{s.title}</p>
-                      <p className="text-xs md:text-sm opacity-50 leading-relaxed max-w-[240px]">{s.description}</p>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-              <motion.a whileHover={{ gap: "24px" }} href="#contact" className="mt-12 md:mt-16 inline-flex items-center gap-3 font-black uppercase tracking-[0.2em] text-[9px] md:text-[10px] transition-all group">
-                Let's Build Something <ArrowRight className="w-5 h-5 group-hover:rotate-[-45deg] transition-transform" />
-              </motion.a>
-            </motion.div>
-          </div>
-        </div>
-      </motion.section>
-
-      {/* ── CONTACT (MOBILE OPTIMIZED) ───────────────────── */}
-      <section id="contact" className={`py-24 md:py-64 px-6 md:px-12 ${theme === 'neon' ? 'bg-[#0ff] text-black' : 'bg-black dark:bg-white text-white dark:text-black'}`}>
-        <div className="max-w-[1400px] mx-auto grid lg:grid-cols-2 gap-16 md:gap-32">
-          <div>
-            <p className="text-[10px] font-black uppercase tracking-[0.4em] opacity-40 mb-8 md:mb-12">Contact</p>
-            <h2 className="text-6xl sm:text-8xl md:text-[10rem] font-black tracking-tighter leading-[0.75] mb-12 md:mb-20">Start<br />Today.</h2>
-
-            <div className="space-y-8 md:space-y-12 mb-16 md:mb-24">
-              {data?.email && (
-                <a href={`mailto:${data.email}`} className="block text-2xl sm:text-4xl md:text-6xl font-bold hover:opacity-40 transition-opacity break-all underline decoration-1 underline-offset-[12px] decoration-current/20">
-                  {data.email}
-                </a>
-              )}
-              {data?.whatsapp && (
-                <a href={data.whatsapp} target="_blank" rel="noreferrer" className="flex items-center gap-4 md:gap-5 text-xl sm:text-3xl font-black group">
-                  <div className="w-12 md:w-16 h-12 md:h-16 rounded-full bg-current/5 flex items-center justify-center group-hover:bg-current group-hover:text-black dark:group-hover:text-white transition-all">
-                    <FaWhatsapp className="text-2xl md:text-3xl" />
-                  </div>
-                  Direct Message
-                </a>
-              )}
-            </div>
-
-            <div className="flex gap-8 md:gap-10">
-              {[
-                { icon: <FaGithub />, link: data?.socialLinks?.github },
-                { icon: <FaLinkedin />, link: data?.socialLinks?.linkedin },
-                { icon: <FaTwitter />, link: data?.socialLinks?.twitter },
-                { icon: <FaInstagram />, link: data?.socialLinks?.instagram }
-              ].filter(s => s.link).map((s, i) => (
-                <a key={i} href={s.link} target="_blank" rel="noreferrer" className="text-2xl md:text-3xl hover:-translate-y-2 transition-transform opacity-60 hover:opacity-100">{s.icon}</a>
-              ))}
-            </div>
-          </div>
-
-          <div className={`${theme === 'neon' ? 'bg-black/5' : 'bg-white/5 dark:bg-black/10'} backdrop-blur-2xl rounded-[2.5rem] md:rounded-[4rem] p-8 md:p-20 border border-current/5`}>
-            <form onSubmit={handleSubmit} className="space-y-8 md:space-y-12">
-              <div className="space-y-4 md:space-y-6 group">
-                <label className="text-[10px] font-black uppercase tracking-[0.4em] opacity-30 group-focus-within:opacity-100 transition-opacity">Name</label>
-                <input required value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full bg-transparent border-b border-current/10 py-4 md:py-6 text-xl md:text-3xl focus:outline-none focus:border-current transition-all placeholder:opacity-20" placeholder="Your Name" />
-              </div>
-              <div className="space-y-4 md:space-y-6 group">
-                <label className="text-[10px] font-black uppercase tracking-[0.4em] opacity-30 group-focus-within:opacity-100 transition-opacity">Email</label>
-                <input required type="email" value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full bg-transparent border-b border-current/10 py-4 md:py-6 text-xl md:text-3xl focus:outline-none focus:border-current transition-all placeholder:opacity-20" placeholder="email@address.com" />
-              </div>
-              <div className="space-y-4 md:space-y-6 group">
-                <label className="text-[10px] font-black uppercase tracking-[0.4em] opacity-30 group-focus-within:opacity-100 transition-opacity">Brief</label>
-                <textarea required rows={4} value={formData.message} onChange={e => setFormData({ ...formData, message: e.target.value })}
-                  className="w-full bg-transparent border-b border-current/10 py-4 md:py-6 text-xl md:text-3xl focus:outline-none focus:border-current transition-all resize-none placeholder:opacity-20" placeholder="Project details..." />
-              </div>
-              <button type="submit" disabled={formLoading} className={`w-full py-6 md:py-8 rounded-full ${theme === 'neon' ? 'bg-black text-white' : 'bg-white dark:bg-black text-black dark:text-white'} font-black text-lg md:text-xl hover:scale-[1.02] active:scale-95 transition-all disabled:opacity-40 flex items-center justify-center gap-4 shadow-2xl shadow-black/20`}>
-                {formLoading ? <Loader2 className="animate-spin" /> : <><Send className="w-6 h-6" />Send Inquiry</>}
-              </button>
-            </form>
           </div>
         </div>
       </section>
 
-      {/* ── FOOTER (ADAPTIVE) ─────────────────────────────── */}
-      <footer className="py-20 md:py-32 px-6 md:px-12 border-t border-zinc-100 dark:border-zinc-900 opacity-40">
-        <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between items-center gap-10 md:gap-12 text-center md:text-left">
-          <div>
-            <p className="font-black text-3xl md:text-4xl tracking-tighter mb-2">{(data?.name || "Shiva").split(" ")[0]}<span className="text-zinc-500">.</span></p>
-            <p className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.3em]">Crafting Digital Excellence</p>
-          </div>
-          <div className="flex flex-wrap justify-center gap-8 md:gap-12 text-[9px] md:text-[10px] font-black uppercase tracking-widest">
-            {['work', 'skills', 'contact'].map(item => (
-              <a key={item} href={`#${item}`} className="hover:underline underline-offset-8 transition-all uppercase tracking-widest" key={item}>{item}</a>
-            ))}
-          </div>
-          <div className="md:text-right">
-            <p className="text-[9px] md:text-[10px] font-black uppercase tracking-widest">© {new Date().getFullYear()} — SHIVA</p>
-            <p className="text-[9px] opacity-50 mt-1 uppercase tracking-widest">All Rights Reserved</p>
-          </div>
+      {/* ── SKILLS & SERVICES (CLEAN CARDS) ──────────────── */}
+      <section id="skills" className="py-24 md:py-48 px-6 md:px-12 bg-zinc-50 dark:bg-zinc-950">
+        <div className="max-w-[1400px] mx-auto grid lg:grid-cols-2 gap-12 md:gap-24">
+           <div>
+              <p className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 mb-8">Technical Stack</p>
+              <div className="space-y-12">
+                 {[...frontendSkills, ...backendSkills].slice(0, 6).map((s: any, i: number) => (
+                   <div key={i}>
+                      <div className="flex justify-between items-end mb-4">
+                        <span className="text-xl md:text-2xl font-black uppercase tracking-tighter">{s.name}</span>
+                        <span className="text-[10px] font-mono opacity-40">{s.proficiency}%</span>
+                      </div>
+                      <div className="h-1 w-full bg-zinc-200 dark:bg-zinc-800 rounded-full overflow-hidden">
+                         <motion.div initial={{ width: 0 }} whileInView={{ width: `${s.proficiency}%` }} className="h-full bg-current" />
+                      </div>
+                   </div>
+                 ))}
+              </div>
+           </div>
+           <div className={`p-8 md:p-16 rounded-[2rem] ${accentColor} flex flex-col justify-between`}>
+              <h3 className="text-[10px] font-black uppercase tracking-[0.4em] opacity-40 mb-12">Services</h3>
+              <div className="space-y-8">
+                {services.slice(0, 4).map((s: any, i: number) => (
+                  <div key={i}>
+                    <p className="text-2xl md:text-4xl font-black uppercase tracking-tighter mb-2">{s.title}</p>
+                    <p className="text-sm opacity-60 max-w-[300px] leading-relaxed">{s.description}</p>
+                  </div>
+                ))}
+              </div>
+              <a href="#contact" className="mt-16 inline-flex items-center gap-3 font-black uppercase text-[10px] tracking-widest border-b border-current pb-2 hover:gap-6 transition-all">Start Today <ArrowRight className="w-4 h-4" /></a>
+           </div>
         </div>
+      </section>
+
+      {/* ── CONTACT (CLEAN) ──────────────────────────────── */}
+      <section id="contact" className="py-24 md:py-48 px-6 md:px-12 bg-white dark:bg-black">
+         <div className="max-w-[1400px] mx-auto text-center">
+            <p className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 mb-10">Collaboration</p>
+            <h2 className="text-6xl md:text-9xl font-black tracking-tighter uppercase mb-20 leading-[0.8]">Let's Build<br />Something Great.</h2>
+            
+            <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-12">
+               <input required value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} 
+                 className="w-full bg-transparent border-b border-zinc-200 dark:border-zinc-800 py-6 text-2xl md:text-4xl focus:outline-none focus:border-current transition-all placeholder:opacity-20 text-center" placeholder="Your Name" />
+               <input required type="email" value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })} 
+                 className="w-full bg-transparent border-b border-zinc-200 dark:border-zinc-800 py-6 text-2xl md:text-4xl focus:outline-none focus:border-current transition-all placeholder:opacity-20 text-center" placeholder="Your Email" />
+               <button type="submit" disabled={formLoading} className={`w-full py-8 rounded-full ${accentColor} font-black text-xl md:text-2xl uppercase tracking-widest hover:scale-[1.02] transition-all disabled:opacity-50`}>
+                 {formLoading ? "Sending..." : "Send Inquiry"}
+               </button>
+            </form>
+            <div className="mt-32 flex flex-wrap justify-center gap-12 text-[10px] font-black uppercase tracking-widest opacity-40">
+               {data?.email && <a href={`mailto:${data.email}`} className="hover:opacity-100 transition-opacity">Email</a>}
+               {data?.socialLinks?.github && <a href={data.socialLinks.github} target="_blank" rel="noreferrer" className="hover:opacity-100 transition-opacity">GitHub</a>}
+               {data?.socialLinks?.linkedin && <a href={data.socialLinks.linkedin} target="_blank" rel="noreferrer" className="hover:opacity-100 transition-opacity">LinkedIn</a>}
+            </div>
+         </div>
+      </section>
+
+      {/* ── FOOTER (CLEAN) ───────────────────────────────── */}
+      <footer className="py-12 md:py-20 px-6 md:px-12 border-t border-zinc-100 dark:border-zinc-900 opacity-20">
+         <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between items-center gap-8 text-[9px] font-black uppercase tracking-widest">
+            <p>© {new Date().getFullYear()} — {(data?.name || "SHIVA").toUpperCase()}</p>
+            <div className="flex gap-8">
+               {['work', 'skills', 'contact'].map(i => <a key={i} href={`#${i}`} className="hover:underline">{i}</a>)}
+            </div>
+         </div>
       </footer>
     </div>
   );
