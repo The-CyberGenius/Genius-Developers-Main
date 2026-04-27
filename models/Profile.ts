@@ -19,6 +19,7 @@ export interface IProfile extends Document {
   yearsExperience: string;
   projectsDelivered: string;
   technologiesMastered: string;
+  whatsapp: string;
 }
 
 const ProfileSchema: Schema = new Schema(
@@ -41,6 +42,7 @@ const ProfileSchema: Schema = new Schema(
     yearsExperience: { type: String, default: "3+" },
     projectsDelivered: { type: String, default: "25+" },
     technologiesMastered: { type: String, default: "15+" },
+    whatsapp: { type: String, default: "" },
   },
   { timestamps: true }
 );

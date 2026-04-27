@@ -158,6 +158,16 @@ export default function ProfilePage() {
                 />
               </div>
               <div className="space-y-2">
+                <Label htmlFor="whatsapp">WhatsApp URL</Label>
+                <Input
+                  id="whatsapp"
+                  name="whatsapp"
+                  value={profile?.whatsapp || ""}
+                  onChange={handleChange}
+                  placeholder="https://wa.me/91XXXXXXXXXX"
+                />
+              </div>
+              <div className="space-y-2">
                 <Label htmlFor="location">Location</Label>
                 <Input
                   id="location"
