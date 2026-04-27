@@ -15,7 +15,7 @@ export default function PortfolioUI({ data, skills, services, projects }: { data
   const backendSkills = skills.filter(s => s.category === "Backend");
 
   return (
-    <div className="min-h-screen bg-[#fafafa] dark:bg-black text-black dark:text-white selection:bg-black selection:text-white dark:selection:bg-white dark:selection:text-black font-sans">
+    <div className="min-h-screen text-black dark:text-white selection:bg-black selection:text-white dark:selection:bg-white dark:selection:text-black font-sans">
       
       {/* Ultra-minimal Header */}
       <header className="fixed top-0 z-50 w-full mix-blend-difference text-white">
@@ -42,7 +42,7 @@ export default function PortfolioUI({ data, skills, services, projects }: { data
         {/* Cinematic Hero */}
         <motion.section 
           style={{ opacity: heroOpacity, scale: heroScale }}
-          className="h-screen flex flex-col justify-center px-6 relative sticky top-0 -z-10"
+          className="h-screen flex flex-col justify-center px-6 relative sticky top-0 z-0"
         >
           <div className="container mx-auto max-w-7xl">
             <motion.div 
@@ -51,7 +51,7 @@ export default function PortfolioUI({ data, skills, services, projects }: { data
               transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }} // Apple-like easeOut
             >
               <h1 className="text-[12vw] leading-[0.85] font-bold tracking-tighter mb-8">
-                {data.name.split(' ')[0]}<br/>
+                {(data?.name || "Shiva").split(' ')[0]}<br/>
                 <span className="text-zinc-400 dark:text-zinc-600">Design.</span><br/>
                 Code.
               </h1>
