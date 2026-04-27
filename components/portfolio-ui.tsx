@@ -297,45 +297,52 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
             </motion.div>
             
             <div className="relative mb-8 perspective-[1000px]">
-              {/* SVG LIQUID FILTER */}
-              <svg className="absolute hidden">
-                <defs>
-                  <filter id="liquid-filter">
-                    <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="3" result="noise">
-                       <animate attributeName="baseFrequency" values="0.015;0.02;0.015" dur="10s" repeatCount="indefinite" />
-                    </feTurbulence>
-                    <feDisplacementMap in="SourceGraphic" in2="noise" scale="15" xChannelSelector="R" yChannelSelector="G" />
-                  </filter>
-                </defs>
-              </svg>
-
               <motion.h1 
                 style={{ 
                   x: titleXSpring, 
                   y: titleYSpring,
                   rotateX: useTransform(titleYSpring, [-20, 20], [5, -5]),
                   rotateY: useTransform(titleXSpring, [-20, 20], [-5, 5]),
-                  fontSize: `clamp(3rem, 10vw, ${data?.heroFontSize || 12}rem)`,
-                  filter: "url(#liquid-filter)"
+                  fontSize: `clamp(3rem, 10vw, ${data?.heroFontSize || 12}rem)`
                 }} 
-                className="font-black tracking-tighter leading-[0.75] flex flex-col select-none filter-gpu transition-all duration-700 hover:filter-none"
+                className="font-black tracking-tighter leading-[0.75] flex flex-col select-none"
               >
-                <motion.span 
-                  className="block origin-left"
-                  whileHover={{ skewX: -15, scaleX: 1.1, scaleY: 0.9, y: 5 }}
-                  transition={{ type: "spring", stiffness: 150, damping: 10 }}
-                >
-                  {(data?.name || "Shiva").split(" ")[0]}
-                </motion.span>
+                <div className="flex overflow-visible h-[1.1em]">
+                  {(data?.name?.split(" ")[0] || "Shiva").split("").map((char: string, i: number) => (
+                    <motion.span
+                      key={i}
+                      className="inline-block cursor-default"
+                      whileHover={{ 
+                        y: -40,
+                        scale: 1.4,
+                        rotate: Math.random() * 20 - 10,
+                        transition: { type: "spring", stiffness: 400, damping: 10 }
+                      }}
+                      initial={{ y: 0 }}
+                      animate={{ y: 0 }}
+                    >
+                      {char}
+                    </motion.span>
+                  ))}
+                </div>
+                
                 {data?.name?.split(" ").slice(1).map((part: string, i: number) => (
-                  <motion.span 
-                    key={i} 
-                    className="opacity-10 italic serif font-light ml-[0.1em] origin-left"
-                    whileHover={{ skewX: 15, scaleX: 1.1, scaleY: 0.9, y: -5 }}
-                    transition={{ type: "spring", stiffness: 150, damping: 10 }}
-                  >
-                    {part}
-                  </motion.span>
+                  <div key={i} className="flex overflow-visible h-[0.9em] opacity-10 italic serif font-light ml-[0.1em]">
+                    {part.split("").map((char: string, j: number) => (
+                      <motion.span
+                        key={j}
+                        className="inline-block cursor-default"
+                        whileHover={{ 
+                          y: 20,
+                          scale: 1.2,
+                          rotate: Math.random() * 10 - 5,
+                          transition: { type: "spring", stiffness: 400, damping: 10 }
+                        }}
+                      >
+                        {char}
+                      </motion.span>
+                    ))}
+                  </div>
                 ))}
               </motion.h1>
             </div>
