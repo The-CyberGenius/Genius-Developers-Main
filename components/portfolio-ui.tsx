@@ -70,24 +70,24 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
   const frontendSkills = skills.filter(s => s.category === "Frontend");
   const backendSkills = skills.filter(s => s.category === "Backend");
 
-  // Theme Styles
+  // Premium Theme Styles
   const themeClasses = {
-    apple: "bg-white dark:bg-black text-black dark:text-white",
-    midnight: "bg-[#0a0b1e] text-white",
-    neon: "bg-black text-[#0ff]",
-    forest: "bg-[#0c1a12] text-[#e0f2e9]",
-    ember: "bg-[#1a0c0c] text-[#f2e0e0]",
-    gold: "bg-[#0f0e0c] text-[#d4af37]",
-  }[theme as string] || "bg-white dark:bg-black text-black dark:text-white";
+    apple: "bg-[#fafafa] dark:bg-[#050505] text-[#1a1a1a] dark:text-[#f5f5f7]",
+    midnight: "bg-[#020617] text-[#f1f5f9]",
+    neon: "bg-[#000000] text-[#00ffcc]",
+    forest: "bg-[#06120c] text-[#ecfdf5]",
+    ember: "bg-[#0f0505] text-[#fef2f2]",
+    gold: "bg-[#0c0a09] text-[#f5f5f4]",
+  }[theme as string] || "bg-[#fafafa] dark:bg-[#050505] text-[#1a1a1a] dark:text-[#f5f5f7]";
 
   const accentColor = {
-    apple: "bg-black dark:bg-white text-white dark:text-black",
-    midnight: "bg-[#4f46e5] text-white",
-    neon: "bg-[#0ff] text-black",
-    forest: "bg-[#2d5a44] text-white",
-    ember: "bg-[#b91c1c] text-white",
+    apple: "bg-[#1a1a1a] dark:bg-[#f5f5f7] text-white dark:text-black",
+    midnight: "bg-[#6366f1] text-white",
+    neon: "bg-[#00ffcc] text-black",
+    forest: "bg-[#10b981] text-white",
+    ember: "bg-[#ef4444] text-white",
     gold: "bg-[#d4af37] text-black",
-  }[theme as string] || "bg-black dark:bg-white text-white dark:text-black";
+  }[theme as string] || "bg-[#1a1a1a] dark:bg-[#f5f5f7] text-white dark:text-black";
 
   const [submitted, setSubmitted] = useState(false);
 
@@ -403,8 +403,8 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                   <div className="w-12 md:w-16 h-12 md:h-16 rounded-full bg-current/5 flex items-center justify-center group-hover:bg-current group-hover:text-black dark:group-hover:text-white transition-all">
                     <FaWhatsapp className="text-2xl md:text-3xl" />
                   </div>
-                  Direct Message
-                </a>
+                  <span className="uppercase tracking-tighter group-hover:italic transition-all">Direct Message</span>
+                </motion.a>
               )}
             </div>
 
