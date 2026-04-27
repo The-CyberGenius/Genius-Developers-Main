@@ -128,7 +128,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume }
                 transition={{ duration: 1.1, delay: 0.07, ease: [0.16, 1, 0.3, 1] }}
                 className="text-[13vw] font-black tracking-tighter leading-[0.85] text-zinc-300 dark:text-zinc-700"
               >
-                Prajapat.
+                {(data?.name || "Prajapat").split(" ").slice(1).join(" ") || "Prajapat"}.
               </motion.h1>
             </div>
 
