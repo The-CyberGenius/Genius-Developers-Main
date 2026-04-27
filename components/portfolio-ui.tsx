@@ -23,19 +23,35 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
 
   const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
 
-  // Advanced Parallax values
-  const heroOpacity = useTransform(smoothProgress, [0, 0.7], [1, 0]);
-  const heroScale = useTransform(smoothProgress, [0, 0.7], [1, 0.85]);
+  // Advanced Parallax values (REFINED FOR DYNAMIC FEEL)
+  const heroOpacity = useTransform(smoothProgress, [0, 0.9], [1, 0]);
+  const heroScale = useTransform(smoothProgress, [0, 0.9], [1, 0.95]);
   const heroRotate = useTransform(smoothProgress, [0, 0.7], [0, -2]);
-  const heroY = useTransform(smoothProgress, [0, 0.7], ["0%", "-15%"]);
+  const heroY = useTransform(smoothProgress, [0, 0.9], ["0%", "-5%"]);
 
-  const titleX = useTransform(smoothProgress, [0, 0.7], ["0%", "-10%"]);
-  const subtitleX = useTransform(smoothProgress, [0, 0.7], ["0%", "10%"]);
+  const titleX = useTransform(smoothProgress, [0, 0.8], ["0%", "-5%"]);
+  const subtitleX = useTransform(smoothProgress, [0, 0.8], ["0%", "5%"]);
   const taglineY = useTransform(smoothProgress, [0, 0.5], ["0%", "50%"]);
   const taglineOpacity = useTransform(smoothProgress, [0, 0.4], [1, 0]);
 
-  const overlayOpacity = useTransform(smoothProgress, [0.5, 0.8], [0, 1]);
+  const overlayOpacity = useTransform(smoothProgress, [0.7, 1], [0, 0.8]);
   const bgZoom = useTransform(smoothProgress, [0, 1], [1, 1.2]);
+
+  // Animation Variants for sections
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 40 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
+  };
+
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
 
   const [formLoading, setFormLoading] = useState(false);
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
@@ -213,21 +229,22 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
         </div>
       </div>
 
-      {/* ── TECH STACK (OPTIMIZED) ────────────────────────── */}
-      <section className="relative z-20 py-16 md:py-32 border-y border-zinc-100 dark:border-zinc-900 bg-zinc-50/50 dark:bg-zinc-950/50 backdrop-blur-3xl">
+      {/* ── TECH STACK (DYNAMIC REVEAL) ──────────────────── */}
+      <motion.section 
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        className="relative z-20 py-16 md:py-32 border-y border-zinc-100 dark:border-zinc-900 bg-zinc-50/50 dark:bg-zinc-950/50 backdrop-blur-3xl"
+      >
         <div className="max-w-[1400px] mx-auto px-6 md:px-12">
           <div className="grid lg:grid-cols-12 items-center gap-10 md:gap-16">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="lg:col-span-4"
-            >
+            <motion.div variants={fadeInUp} className="lg:col-span-4">
               <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 mb-4 md:mb-6">Expertise</h3>
               <p className="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight tracking-tighter">Architecting digital solutions with precision.</p>
             </motion.div>
 
-            <div className="lg:col-span-8 flex flex-wrap justify-start lg:justify-end gap-2 md:gap-4">
+            <motion.div variants={staggerContainer} className="lg:col-span-8 flex flex-wrap justify-start lg:justify-end gap-2 md:gap-4">
               {[
                 { name: "Next.js", color: "border-black/10 dark:border-white/10", icon: "✦" },
                 { name: "React", color: "border-blue-500/20 text-blue-500", icon: "⚛" },
@@ -239,62 +256,72 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
               ].map((tech, i) => (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  whileHover={{ y: -5, borderColor: "rgba(100,100,100,0.5)" }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.05 }}
+                  variants={fadeInUp}
+                  whileHover={{ y: -5, borderColor: "rgba(100,100,100,0.5)", scale: 1.05 }}
                   className={`flex items-center gap-3 px-4 md:px-6 py-3 md:py-4 rounded-xl md:rounded-2xl border ${tech.color} bg-white dark:bg-zinc-900 font-bold shadow-sm transition-all`}
                 >
                   <span className="text-lg md:text-xl">{tech.icon}</span>
                   <span className="text-[9px] md:text-[10px] uppercase tracking-widest">{tech.name}</span>
                 </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
-      {/* ── ABOUT (ADAPTIVE SPACING) ───────────────────────── */}
-      <section className="py-24 md:py-64 px-6 md:px-12 relative">
+      {/* ── ABOUT (DYNAMIC REVEAL) ───────────────────────── */}
+      <motion.section 
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        className="py-24 md:py-64 px-6 md:px-12 relative"
+      >
         <div className="max-w-[1400px] mx-auto grid lg:grid-cols-2 gap-16 md:gap-32 items-start">
-          <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.9 }}>
+          <motion.div variants={fadeInUp}>
             <p className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 mb-6 md:mb-10">Philosophy</p>
             <h2 className="text-5xl sm:text-7xl md:text-9xl font-black tracking-tighter leading-[0.8] mb-8 md:mb-12">
               Beyond<br /><span className="text-zinc-200 dark:text-zinc-800">The Pixel.</span>
             </h2>
           </motion.div>
-          <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.9, delay: 0.2 }}>
+          <motion.div variants={fadeInUp}>
             <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-medium leading-[1.2] mb-10 md:mb-16 tracking-tight">
               {data?.aboutText || "I build world-class digital products that scale, impress, and convert."}
             </p>
             <div className="flex flex-wrap gap-4 md:gap-6">
               {data?.email && (
-                <a href={`mailto:${data.email}`} className={`inline-flex items-center gap-3 px-8 md:px-10 py-4 md:py-5 border border-zinc-200 dark:border-zinc-800 rounded-full text-[9px] md:text-[10px] font-black uppercase tracking-widest hover:${accentColor} transition-all`}>
+                <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href={`mailto:${data.email}`} className={`inline-flex items-center gap-3 px-8 md:px-10 py-4 md:py-5 border border-zinc-200 dark:border-zinc-800 rounded-full text-[9px] md:text-[10px] font-black uppercase tracking-widest hover:${accentColor} transition-all`}>
                   <Mail className="w-4 h-4" /> Start a Project
-                </a>
+                </motion.a>
               )}
               {data?.whatsapp && (
-                <a href={data.whatsapp} target="_blank" rel="noreferrer" className={`inline-flex items-center gap-3 px-8 md:px-10 py-4 md:py-5 border border-zinc-200 dark:border-zinc-800 rounded-full text-[9px] md:text-[10px] font-black uppercase tracking-widest hover:bg-green-500 hover:text-white hover:border-green-500 transition-all`}>
+                <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href={data.whatsapp} target="_blank" rel="noreferrer" className={`inline-flex items-center gap-3 px-8 md:px-10 py-4 md:py-5 border border-zinc-200 dark:border-zinc-800 rounded-full text-[9px] md:text-[10px] font-black uppercase tracking-widest hover:bg-green-500 hover:text-white hover:border-green-500 transition-all`}>
                   <FaWhatsapp className="w-4 h-4" /> WhatsApp
-                </a>
+                </motion.a>
               )}
             </div>
           </motion.div>
         </div>
-      </section>
+      </motion.section>
 
-      {/* ── PROJECTS (MOBILE OPTIMIZED) ────────────────────── */}
-      <section id="work" className={`py-24 md:py-64 px-6 md:px-12 ${theme === 'neon' ? 'bg-black' : 'bg-black dark:bg-white'}`}>
+      {/* ── PROJECTS (DYNAMIC REVEAL) ────────────────────── */}
+      <motion.section 
+        id="work" 
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        className={`py-24 md:py-64 px-6 md:px-12 ${theme === 'neon' ? 'bg-black' : 'bg-black dark:bg-white'}`}
+      >
         <div className="max-w-[1400px] mx-auto">
-          <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.9 }} className="mb-16 md:mb-32">
+          <motion.div variants={fadeInUp} className="mb-16 md:mb-32">
             <p className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-500 mb-6 md:mb-8">Selected Works</p>
             <h2 className={`text-6xl sm:text-7xl md:text-8xl lg:text-[10rem] font-black tracking-tighter leading-[0.75] ${theme === 'neon' ? 'text-[#0ff]' : 'text-white dark:text-black'}`}>
               Featured<br />Archive.
             </h2>
           </motion.div>
 
-          <div className={`divide-y ${theme === 'neon' ? 'divide-[#0ff]/10' : 'divide-white/5 dark:divide-black/5'}`}>
+          <motion.div variants={staggerContainer} className={`divide-y ${theme === 'neon' ? 'divide-[#0ff]/10' : 'divide-white/5 dark:divide-black/5'}`}>
             {(projects.length > 0 ? projects : [
               { title: "Portfolio 2024", description: "Premium portfolio built with Next.js and AI Integration.", tags: ["Next.js", "AI", "Framer"], link: "#" }
             ]).map((p: any, i: number) => (
@@ -303,10 +330,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                 href={p.link || "#"}
                 target="_blank"
                 rel="noreferrer"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: i * 0.1 }}
+                variants={fadeInUp}
                 className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 md:gap-12 py-12 md:py-20 group relative overflow-hidden"
               >
                 <div className="flex items-center gap-8 md:gap-12 flex-1 relative z-10">
@@ -329,14 +353,21 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                 </div>
               </motion.a>
             ))}
-          </div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
-      {/* ── SKILLS (RESPONSIVE CARDS) ─────────────────────── */}
-      <section id="skills" className="py-24 md:py-64 px-6 md:px-12 bg-zinc-50 dark:bg-zinc-950">
+      {/* ── SKILLS (DYNAMIC REVEAL) ─────────────────────── */}
+      <motion.section 
+        id="skills" 
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        className="py-24 md:py-64 px-6 md:px-12 bg-zinc-50 dark:bg-zinc-950"
+      >
         <div className="max-w-[1400px] mx-auto">
-          <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.9 }} className="mb-16 md:mb-32">
+          <motion.div variants={fadeInUp} className="mb-16 md:mb-32">
             <p className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 mb-6 md:mb-8">Capabilities</p>
             <h2 className="text-5xl sm:text-7xl md:text-9xl font-black tracking-tighter leading-[0.8]">Mastered<br />Stack.</h2>
           </motion.div>
@@ -349,7 +380,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
               ].map((cat, idx) => (
                 <motion.div
                   key={idx}
-                  initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: idx * 0.1 }}
+                  variants={fadeInUp}
                   className="bg-white dark:bg-zinc-900/50 rounded-[2rem] md:rounded-[3rem] p-8 md:p-12 shadow-sm border border-zinc-100 dark:border-zinc-800"
                 >
                   <h3 className="text-zinc-400 text-[10px] font-black uppercase tracking-[0.4em] mb-8 md:mb-12">{cat.title}</h3>
@@ -380,27 +411,27 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
 
             {/* Services Card */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.2 }}
+              variants={fadeInUp}
               className={`${accentColor} rounded-[2rem] md:rounded-[3rem] p-8 md:p-12 flex flex-col justify-between shadow-2xl shadow-black/10`}
             >
               <div>
                 <h3 className="text-[10px] font-black uppercase tracking-[0.4em] opacity-40 mb-10 md:mb-16">Services</h3>
                 <div className="space-y-8 md:space-y-12">
                   {services.slice(0, 4).map((s: any, i: number) => (
-                    <div key={i} className="group">
+                    <motion.div variants={fadeInUp} key={i} className="group">
                       <p className="text-2xl sm:text-3xl md:text-4xl font-black mb-2 md:mb-3 group-hover:translate-x-3 transition-transform duration-500">{s.title}</p>
                       <p className="text-xs md:text-sm opacity-50 leading-relaxed max-w-[240px]">{s.description}</p>
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
               </div>
-              <a href="#contact" className="mt-12 md:mt-16 inline-flex items-center gap-3 font-black uppercase tracking-[0.2em] text-[9px] md:text-[10px] hover:gap-6 transition-all group">
+              <motion.a whileHover={{ gap: "24px" }} href="#contact" className="mt-12 md:mt-16 inline-flex items-center gap-3 font-black uppercase tracking-[0.2em] text-[9px] md:text-[10px] transition-all group">
                 Let's Build Something <ArrowRight className="w-5 h-5 group-hover:rotate-[-45deg] transition-transform" />
-              </a>
+              </motion.a>
             </motion.div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* ── CONTACT (MOBILE OPTIMIZED) ───────────────────── */}
       <section id="contact" className={`py-24 md:py-64 px-6 md:px-12 ${theme === 'neon' ? 'bg-[#0ff] text-black' : 'bg-black dark:bg-white text-white dark:text-black'}`}>
