@@ -47,7 +47,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
   };
 
   const [formLoading, setFormLoading] = useState(false);
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" });
 
   const frontendSkills = skills.filter(s => s.category === "Frontend");
   const backendSkills = skills.filter(s => s.category === "Backend");
@@ -85,7 +85,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
       if (res.ok) {
         setSubmitted(true);
         toast.success("Message sent! I'll reply soon.");
-        setFormData({ name: "", email: "", message: "" });
+        setFormData({ name: "", email: "", subject: "", message: "" });
       } else {
         toast.error("Failed. Please try again.");
       }
@@ -400,9 +400,14 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                     className="w-full bg-transparent border-b border-current/10 py-4 md:py-6 text-xl md:text-3xl focus:outline-none focus:border-current transition-all placeholder:opacity-20" placeholder="email@address.com" />
                 </div>
                 <div className="space-y-4 md:space-y-6 group">
-                  <label className="text-[10px] font-black uppercase tracking-[0.4em] opacity-30 group-focus-within:opacity-100 transition-opacity">Brief</label>
-                  <textarea required rows={4} value={formData.message} onChange={e => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full bg-transparent border-b border-current/10 py-4 md:py-6 text-xl md:text-3xl focus:outline-none focus:border-current transition-all resize-none placeholder:opacity-20" placeholder="Project details..." />
+                  <label className="text-[10px] font-black uppercase tracking-[0.4em] opacity-30 group-focus-within:opacity-100 transition-opacity">Subject</label>
+                  <input required value={formData.subject || ""} onChange={e => setFormData({ ...formData, subject: e.target.value })}
+                    className="w-full bg-transparent border-b border-current/10 py-4 md:py-6 text-xl md:text-3xl focus:outline-none focus:border-current transition-all placeholder:opacity-20" placeholder="General Inquiry" />
+                </div>
+                <div className="space-y-4 md:space-y-6 group">
+                  <label className="text-[10px] font-black uppercase tracking-[0.4em] opacity-30 group-focus-within:opacity-100 transition-opacity">Your Message</label>
+                  <textarea required rows={5} value={formData.message} onChange={e => setFormData({ ...formData, message: e.target.value })}
+                    className="w-full bg-current/[0.03] border border-current/10 rounded-2xl p-6 md:p-8 text-xl md:text-2xl focus:outline-none focus:border-current transition-all resize-none placeholder:opacity-20 min-h-[200px]" placeholder="Tell me about your project or just say hi..." />
                 </div>
                 <button type="submit" disabled={formLoading} className={`w-full py-6 md:py-8 rounded-full ${theme === 'neon' ? 'bg-black text-white' : 'bg-white dark:bg-white text-black dark:text-black'} font-black text-lg md:text-xl hover:scale-[1.02] active:scale-95 transition-all disabled:opacity-40 flex items-center justify-center gap-4 shadow-2xl shadow-black/20 uppercase tracking-widest`}>
                   {formLoading ? <Loader2 className="animate-spin" /> : <><Send className="w-6 h-6" />Send Inquiry</>}
