@@ -190,23 +190,50 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
         </div>
       </div>
 
-      {/* ── MARQUEE ───────────────────────────────────────── */}
-      <div className={`relative z-20 ${theme === 'neon' ? 'bg-[#0ff] text-black' : 'bg-black dark:bg-white text-white dark:text-black'} py-6 overflow-hidden`}>
-        <motion.div
-          animate={{ x: ["0%", "-50%"] }}
-          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-          className="flex whitespace-nowrap gap-16 text-xs font-black uppercase tracking-[0.3em]"
-        >
-          {[...Array(8)].map((_, i) => (
-            <span key={i} className="flex gap-16 shrink-0">
-              <span>Next.js 16</span><span>·</span><span>React 19</span><span>·</span>
-              <span>Node.js</span><span>·</span><span>MongoDB</span><span>·</span>
-              <span>TypeScript</span><span>·</span><span>AI Agents</span><span>·</span>
-              <span>High Performance</span><span>·</span>
-            </span>
-          ))}
-        </motion.div>
-      </div>
+      {/* ── TECH STACK (PREMIUM REPLACEMENT FOR MARQUEE) ──────────────── */}
+      <section className="relative z-20 py-24 overflow-hidden">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-12">
+            <motion.div 
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="max-w-md"
+            >
+              <h3 className="text-sm font-black uppercase tracking-[0.4em] text-zinc-400 mb-4">Core Engine</h3>
+              <p className="text-3xl font-bold leading-tight">Powered by the latest high-performance technologies.</p>
+            </motion.div>
+
+            <div className="flex flex-wrap justify-center gap-4 md:gap-6">
+              {[
+                { name: "Next.js 15", color: "bg-black text-white", icon: "✦" },
+                { name: "React 19", color: "bg-blue-500/10 text-blue-500", icon: "⚛" },
+                { name: "TypeScript", color: "bg-blue-600/10 text-blue-600", icon: "TS" },
+                { name: "Tailwind", color: "bg-cyan-500/10 text-cyan-500", icon: "≈" },
+                { name: "Node.js", color: "bg-green-500/10 text-green-500", icon: "⬢" },
+                { name: "MongoDB", color: "bg-emerald-500/10 text-emerald-500", icon: "🍃" },
+                { name: "AI Agents", color: "bg-purple-500/10 text-purple-500", icon: "✧" },
+              ].map((tech, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                  whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                  whileHover={{ y: -5, scale: 1.05 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1, type: "spring", stiffness: 200 }}
+                  className={`flex items-center gap-3 px-6 py-4 rounded-2xl border border-current/10 font-bold ${tech.color} shadow-lg shadow-black/5 backdrop-blur-sm`}
+                >
+                  <span className="text-xl">{tech.icon}</span>
+                  <span className="text-sm tracking-tight">{tech.name}</span>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Decorative background blur for the tech section */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-px bg-gradient-to-r from-transparent via-zinc-200 dark:via-zinc-800 to-transparent opacity-50" />
+      </section>
 
       {/* ── ABOUT ─────────────────────────────────────────── */}
       <section className="py-48 px-6 md:px-12 relative">
