@@ -1,15 +1,19 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 export interface ISkill extends Document {
+  name: string;
   category: string;
-  items: string[];
+  icon: string;
+  proficiency: number;
   order: number;
 }
 
 const SkillSchema: Schema = new Schema(
   {
-    category: { type: String, required: true },
-    items: [{ type: String }],
+    name: { type: String, required: true },
+    category: { type: String, required: true, default: "Frontend" },
+    icon: { type: String, default: "" },
+    proficiency: { type: Number, default: 80 },
     order: { type: Number, default: 0 },
   },
   { timestamps: true }
