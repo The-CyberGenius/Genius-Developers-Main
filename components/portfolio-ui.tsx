@@ -1,7 +1,8 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useScroll, useTransform, useSpring, Variants } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring, Variants, useMotionValue } from "framer-motion";
+import { useEffect } from "react";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Download, Send, Loader2, Mail } from "lucide-react";
 import { FaGithub, FaLinkedin, FaTwitter, FaInstagram, FaYoutube, FaWhatsapp } from "react-icons/fa";
@@ -119,8 +120,36 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
     finally { setFormLoading(false); }
   };
 
+  // ── MOUSE REACTIVE LOGIC (PREMIUM PHYSICS) ──────────
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const titleXSpring = useSpring(mouseX, { damping: 40, stiffness: 250 });
+  const titleYSpring = useSpring(mouseY, { damping: 40, stiffness: 250 });
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const { clientX, clientY } = e;
+    const { innerWidth, innerHeight } = window;
+    const x = (clientX - innerWidth / 2) / 25;
+    const y = (clientY - innerHeight / 2) / 25;
+    mouseX.set(x);
+    mouseY.set(y);
+  };
+
+  const handleMouseLeave = () => {
+    mouseX.set(0);
+    mouseY.set(0);
+  };
+
+  // Parallax for Background Text
+  const bgTextY = useTransform(smoothProgress, [0, 1], ["0%", "15%"]);
+
   return (
-    <div ref={containerRef} className={`${themeClasses} transition-colors duration-700 overflow-x-hidden selection:bg-zinc-500/30 relative text-base`}>
+    <div 
+      ref={containerRef} 
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className={`${themeClasses} transition-colors duration-700 overflow-x-hidden selection:bg-zinc-500/30 relative text-base`}
+    >
 
       {/* ── PREMIUM NOISE OVERLAY ────────────────────────── */}
       <div className="fixed inset-0 pointer-events-none z-[999] opacity-[0.02] mix-blend-overlay" style={{ backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")' }} />
@@ -162,48 +191,64 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
         style={{ scaleX: scrollYProgress }}
       />
 
-      {/* ── HUMBLE ARTISTIC HERO ────────────────────────────── */}
+      {/* ── WORLD-CLASS HERO ────────────────────────────── */}
       <div ref={heroRef} className="h-[140vh] relative">
-        <div className="sticky top-0 h-screen flex flex-col justify-center px-6 md:px-12">
+        <div className="sticky top-0 h-screen flex flex-col justify-center px-6 md:px-12 overflow-hidden">
           
-          {/* Background Text Art (FUNNY WOBBLE) */}
+          {/* BACKGROUND BRANDING TEXT (FULL VISIBILITY) */}
           <motion.div 
-            style={{ scale: bgZoom, opacity: heroOpacity }} 
-            animate={{ 
-              x: [0, 10, -10, 5, 0],
-              y: [0, -5, 5, -2, 0]
-            }}
-            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute inset-0 pointer-events-none -z-10 flex items-center justify-center"
+            style={{ y: bgTextY, opacity: heroOpacity }} 
+            className="absolute inset-0 pointer-events-none -z-10 flex items-center justify-center p-12"
           >
-            <div className="text-[30vw] font-black opacity-[0.02] tracking-tighter select-none">
-              {(data?.name || "SHIVA").toUpperCase()}
+            <div className="text-[clamp(10rem,20vw,35rem)] font-black opacity-[0.03] tracking-tighter select-none uppercase leading-[0.8] break-all text-center">
+              genius<br />developers<br />.space
             </div>
           </motion.div>
 
           <motion.div style={{ opacity: heroOpacity, scale: heroScale, y: heroY }} className="max-w-[1500px] mx-auto w-full relative z-20">
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="mb-10 flex items-center gap-6">
-               <span className="text-[11px] font-black uppercase tracking-[0.5em] opacity-30">Portfolio — {new Date().getFullYear()}</span>
+               <span className="text-[11px] font-black uppercase tracking-[0.5em] opacity-30">Elite Portfolio — {new Date().getFullYear()}</span>
                <div className="h-[1px] w-12 bg-current opacity-10" />
-               <span className="text-[11px] font-black uppercase tracking-[0.5em] opacity-30 italic serif">{data?.location || "India"}</span>
+               <span className="text-[11px] font-black uppercase tracking-[0.5em] opacity-30 italic serif">{data?.location || "Global"}</span>
             </motion.div>
             
-            <div className="relative mb-16">
-              <motion.h1 style={{ x: titleX }} className="text-8xl sm:text-9xl md:text-[12rem] lg:text-[15vw] font-black tracking-tighter leading-[0.7] flex flex-col">
-                <span>{(data?.name || "Shiva").split(" ")[0]}</span>
+            <div className="relative mb-16 perspective-[1000px]">
+              <motion.h1 
+                style={{ 
+                  x: titleXSpring, 
+                  y: titleYSpring,
+                  rotateX: useTransform(titleYSpring, [-20, 20], [5, -5]),
+                  rotateY: useTransform(titleXSpring, [-20, 20], [-5, 5])
+                }} 
+                className="text-[clamp(4rem,15vw,18rem)] font-black tracking-tighter leading-[0.75] flex flex-col select-none"
+              >
+                <motion.span 
+                  className="block"
+                  whileHover={{ skewX: -5, scale: 1.02 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                >
+                  {(data?.name || "Shiva").split(" ")[0]}
+                </motion.span>
                 {data?.name?.split(" ").slice(1).map((part: string, i: number) => (
-                  <span key={i} className="opacity-10 italic serif font-light ml-[0.1em]">{part}</span>
+                  <motion.span 
+                    key={i} 
+                    className="opacity-10 italic serif font-light ml-[0.1em]"
+                    whileHover={{ skewX: 5, scale: 1.02 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                  >
+                    {part}
+                  </motion.span>
                 ))}
               </motion.h1>
             </div>
 
             <motion.div style={{ opacity: taglineOpacity }} className="flex flex-col md:flex-row md:items-end justify-between gap-16 max-w-7xl">
               <div className="space-y-6">
-                <p className="text-3xl md:text-5xl font-medium tracking-tight max-w-3xl leading-[1.05] opacity-90">
+                <p className="text-2xl md:text-[clamp(2rem,4vw,4rem)] font-medium tracking-tight max-w-4xl leading-[1.05] opacity-90">
                   {data?.tagline || "I transform complex logic into elegant digital experiences."}
                 </p>
                 <p className="text-sm md:text-lg opacity-40 max-w-lg font-medium">
-                  Focused on building functional, accessible, and high-performance software that solves real-world problems.
+                  {data?.aboutText?.slice(0, 150) || "Solving logic with humanity through world-class functional software design."}
                 </p>
               </div>
               
