@@ -35,8 +35,10 @@ export default function ServicesManager() {
   const fetchServices = async () => {
     try {
       const res = await fetch("/api/admin/services");
+      if (!res.ok) throw new Error("Failed");
       const data = await res.json();
-      setServices(data);
+      if (Array.isArray(data)) setServices(data);
+      else setServices([]);
     } catch (error) {
       toast.error("Failed to load services");
     } finally {

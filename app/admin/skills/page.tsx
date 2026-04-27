@@ -39,8 +39,10 @@ export default function SkillsManager() {
   const fetchSkills = async () => {
     try {
       const res = await fetch("/api/admin/skills");
+      if (!res.ok) throw new Error("Failed");
       const data = await res.json();
-      setSkills(data);
+      if (Array.isArray(data)) setSkills(data);
+      else setSkills([]);
     } catch (error) {
       toast.error("Failed to load skills");
     } finally {

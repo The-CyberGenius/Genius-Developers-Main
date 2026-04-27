@@ -42,8 +42,10 @@ export default function ProjectsManager() {
   const fetchProjects = async () => {
     try {
       const res = await fetch("/api/admin/projects");
+      if (!res.ok) throw new Error("Failed");
       const data = await res.json();
-      setProjects(data);
+      if (Array.isArray(data)) setProjects(data);
+      else setProjects([]);
     } catch (error) {
       toast.error("Failed to load projects");
     } finally {
