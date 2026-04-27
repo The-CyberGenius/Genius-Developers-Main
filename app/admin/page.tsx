@@ -8,12 +8,10 @@ import {
   Code2, 
   Mail, 
   Eye, 
-  ArrowUpRight,
   PlusCircle,
   ExternalLink
 } from "lucide-react";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 
 export default function Dashboard() {
   const [stats, setStats] = useState<any>({
@@ -74,11 +72,9 @@ export default function Dashboard() {
           <h1 className="text-3xl font-bold tracking-tight">Dashboard Overview</h1>
           <p className="text-zinc-500">Welcome back to your portfolio command center.</p>
         </div>
-        <Button asChild variant="outline">
-          <Link href="/" target="_blank">
-            <ExternalLink className="w-4 h-4 mr-2" /> View Site
-          </Link>
-        </Button>
+        <Link href="/" target="_blank" className="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium border border-zinc-200 dark:border-zinc-700 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
+          <ExternalLink className="w-4 h-4" /> View Site
+        </Link>
       </div>
 
       {/* Stats Grid */}
@@ -105,30 +101,22 @@ export default function Dashboard() {
             <CardTitle>Quick Actions</CardTitle>
           </CardHeader>
           <CardContent className="grid grid-cols-2 gap-4">
-            <Button asChild className="h-24 flex flex-col gap-2">
-              <Link href="/admin/projects">
-                <PlusCircle className="h-6 w-6" />
-                <span>Add Project</span>
-              </Link>
-            </Button>
-            <Button asChild variant="outline" className="h-24 flex flex-col gap-2">
-              <Link href="/admin/skills">
-                <Code2 className="h-6 w-6" />
-                <span>Add Skill</span>
-              </Link>
-            </Button>
-            <Button asChild variant="outline" className="h-24 flex flex-col gap-2">
-              <Link href="/admin/inbox">
-                <Mail className="h-6 w-6" />
-                <span>View Inbox</span>
-              </Link>
-            </Button>
-            <Button asChild variant="outline" className="h-24 flex flex-col gap-2">
-              <Link href="/admin/profile">
-                <Users className="h-6 w-6" />
-                <span>Edit Profile</span>
-              </Link>
-            </Button>
+            <Link href="/admin/projects" className="h-24 flex flex-col items-center justify-center gap-2 rounded-lg bg-zinc-900 dark:bg-zinc-100 text-white dark:text-black hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors font-medium text-sm">
+              <PlusCircle className="h-6 w-6" />
+              <span>Add Project</span>
+            </Link>
+            <Link href="/admin/skills" className="h-24 flex flex-col items-center justify-center gap-2 rounded-lg border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors font-medium text-sm">
+              <Code2 className="h-6 w-6" />
+              <span>Add Skill</span>
+            </Link>
+            <Link href="/admin/inbox" className="h-24 flex flex-col items-center justify-center gap-2 rounded-lg border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors font-medium text-sm">
+              <Mail className="h-6 w-6" />
+              <span>View Inbox</span>
+            </Link>
+            <Link href="/admin/profile" className="h-24 flex flex-col items-center justify-center gap-2 rounded-lg border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors font-medium text-sm">
+              <Users className="h-6 w-6" />
+              <span>Edit Profile</span>
+            </Link>
           </CardContent>
         </Card>
 
