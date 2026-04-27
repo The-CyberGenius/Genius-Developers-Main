@@ -36,7 +36,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
   const overlayOpacity = useTransform(smoothProgress, [0.4, 0.6], [0, 1]);
   const bgZoom = useTransform(smoothProgress, [0, 1], [1, 1.1]);
 
-  const { theme: currentTheme, setTheme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [selectedProject, setSelectedProject] = useState<any>(null);
 
@@ -603,14 +603,35 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
           animate={{ scale: 1, rotate: 0 }}
           whileHover={{ scale: 1.1, rotate: 15 }}
           whileTap={{ scale: 0.9 }}
-          onClick={() => { playClick(); setTheme(currentTheme === "dark" ? "light" : "dark"); }}
-          className="fixed top-8 right-8 z-[200] w-14 h-14 rounded-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center justify-center shadow-xl shadow-black/5 dark:shadow-white/5 group"
+          onClick={() => { 
+            playClick(); 
+            setTheme(resolvedTheme === "dark" ? "light" : "dark"); 
+          }}
+          className="fixed top-8 right-8 z-[200] w-14 h-14 rounded-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center justify-center shadow-xl shadow-black/10 dark:shadow-white/5 group overflow-hidden"
         >
-          {currentTheme === "dark" ? (
-            <Sun className="w-6 h-6 text-yellow-400 group-hover:rotate-45 transition-transform" />
-          ) : (
-            <Moon className="w-6 h-6 text-zinc-900 group-hover:-rotate-12 transition-transform" />
-          )}
+          <AnimatePresence mode="wait" initial={false}>
+            {resolvedTheme === "dark" ? (
+              <motion.div
+                key="sun"
+                initial={{ y: 30, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: -30, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                <Sun className="w-6 h-6 text-yellow-400" />
+              </motion.div>
+            ) : (
+              <motion.div
+                key="moon"
+                initial={{ y: 30, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: -30, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                <Moon className="w-6 h-6 text-zinc-900" />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </motion.button>
       )}
 
