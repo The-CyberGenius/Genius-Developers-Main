@@ -142,24 +142,24 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
             </motion.div>
 
             {/* Main title with split parallax */}
-            <div className="overflow-hidden mb-2">
+            <div className="mb-2">
               <motion.h1
                 style={{ x: titleX }}
-                initial={{ y: 200, rotate: 10 }}
-                animate={{ y: 0, rotate: 0 }}
-                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-                className="text-[14vw] font-black tracking-tighter leading-[0.8]"
+                initial={{ y: 100, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                className="text-[14vw] font-black tracking-tighter leading-[0.8] text-black dark:text-white"
               >
                 {(data?.name || "Balkrishan").split(" ")[0]}
               </motion.h1>
             </div>
-            <div className="overflow-hidden mb-12">
+            <div className="mb-12">
               <motion.h1
                 style={{ x: subtitleX }}
-                initial={{ y: 200, rotate: -10 }}
-                animate={{ y: 0, rotate: 0 }}
-                transition={{ duration: 1.2, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-                className="text-[14vw] font-black tracking-tighter leading-[0.8] text-zinc-300 dark:text-zinc-700"
+                initial={{ y: 100, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                className="text-[14vw] font-black tracking-tighter leading-[0.8] text-zinc-400 dark:text-zinc-500"
               >
                 {(data?.name || "Prajapat").split(" ").slice(1).join(" ") || "Prajapat"}.
               </motion.h1>
