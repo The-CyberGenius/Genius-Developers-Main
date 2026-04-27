@@ -43,7 +43,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
   useEffect(() => setMounted(true), []);
 
   // Snappy Animation Curve
-  const snappyEase = [0.23, 1, 0.32, 1];
+  const snappyEase = [0.23, 1, 0.32, 1] as any;
 
   const fadeInUp: Variants = {
     hidden: { opacity: 0, y: 30, scale: 0.98 },
