@@ -228,59 +228,47 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
         {/* MAGICAL DEPTH LAYERS (LINES & DOTS) */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           
-          {/* Layer 1: Subtle Grid Trace */}
-          <motion.div 
-            style={{ y: linesY }} 
-            className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]"
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-          >
-            <div className="absolute inset-0" style={{ backgroundImage: 'linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px)', backgroundSize: '100px 100px' }} />
-          </motion.div>
-
-          {/* Layer 2: Floating Magical Lines */}
+          {/* Layer 2: Floating Magical Lines (SUBTLE SCAN) */}
           <motion.div style={{ y: linesY }} className="absolute inset-0">
-             {[...Array(6)].map((_, i) => (
+             {[...Array(4)].map((_, i) => (
                <motion.div
                  key={i}
-                 className="absolute h-[1px] bg-current opacity-[0.05]"
+                 className="absolute h-[1px] bg-current opacity-[0.03]"
                  style={{
-                   width: '100%',
-                   top: `${20 + i * 15}%`,
-                   left: 0,
-                   rotate: -2 + i * 0.5
+                   width: '40%',
+                   top: `${30 + i * 15}%`,
+                   left: i % 2 === 0 ? '-40%' : '100%',
                  }}
                  animate={{
-                   x: ['-100%', '100%'],
+                   x: i % 2 === 0 ? ['0%', '350%'] : ['0%', '-350%'],
                  }}
                  transition={{
-                   duration: 15 + i * 5,
+                   duration: 20 + i * 10,
                    repeat: Infinity,
                    ease: "linear",
-                   delay: i * 2
                  }}
                />
              ))}
           </motion.div>
 
-          {/* Layer 3: Particle Dotted Network */}
+          {/* Layer 3: Particle Dotted Network (BARELY VISIBLE) */}
           <motion.div style={{ y: dotsY }} className="absolute inset-0">
-            {[...Array(20)].map((_, i) => (
+            {[...Array(12)].map((_, i) => (
               <motion.div
                 key={i}
-                className="absolute w-1 h-1 rounded-full bg-current opacity-[0.1]"
+                className="absolute w-[2px] h-[2px] rounded-full bg-current opacity-[0.05]"
                 style={{
                   top: `${Math.random() * 100}%`,
                   left: `${Math.random() * 100}%`,
                 }}
                 animate={{
-                  y: [0, -20, 0],
-                  opacity: [0.1, 0.3, 0.1],
+                  y: [0, -40, 0],
+                  opacity: [0.05, 0.1, 0.05],
                 }}
                 transition={{
-                  duration: 5 + Math.random() * 5,
+                  duration: 8 + Math.random() * 10,
                   repeat: Infinity,
                   ease: "easeInOut",
-                  delay: Math.random() * 5
                 }}
               />
             ))}
