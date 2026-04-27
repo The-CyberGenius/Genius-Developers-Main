@@ -35,15 +35,33 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
   const overlayOpacity = useTransform(smoothProgress, [0.4, 0.6], [0, 1]);
   const bgZoom = useTransform(smoothProgress, [0, 1], [1, 1.1]);
 
-  // Animation Variants for sections
+  // Animation Variants for sections (BREATHABLE & FUNNY)
   const fadeInUp: Variants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as const } }
+    hidden: { opacity: 0, y: 50, scale: 0.95 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      scale: 1,
+      transition: { 
+        type: "spring",
+        stiffness: 100,
+        damping: 20,
+        duration: 0.8, 
+        ease: "easeOut" as const 
+      } 
+    }
   };
 
   const staggerContainer: Variants = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
+    visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
+  };
+
+  // Funny hover animation
+  const funnyHover = {
+    scale: 1.05,
+    rotate: [0, -1, 1, -1, 0],
+    transition: { duration: 0.3 }
   };
 
   const [formLoading, setFormLoading] = useState(false);
@@ -113,8 +131,16 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
       <div ref={heroRef} className="h-[140vh] relative">
         <div className="sticky top-0 h-screen flex flex-col justify-center px-6 md:px-12">
           
-          {/* Background Text Art */}
-          <motion.div style={{ scale: bgZoom, opacity: heroOpacity }} className="absolute inset-0 pointer-events-none -z-10 flex items-center justify-center">
+          {/* Background Text Art (FUNNY WOBBLE) */}
+          <motion.div 
+            style={{ scale: bgZoom, opacity: heroOpacity }} 
+            animate={{ 
+              x: [0, 10, -10, 5, 0],
+              y: [0, -5, 5, -2, 0]
+            }}
+            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute inset-0 pointer-events-none -z-10 flex items-center justify-center"
+          >
             <div className="text-[30vw] font-black opacity-[0.02] tracking-tighter select-none">
               {(data?.name || "SHIVA").toUpperCase()}
             </div>
@@ -147,14 +173,26 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
               </div>
               
               <div className="flex gap-6 pb-2">
-                <a href="#work" className={`group relative px-12 py-6 rounded-full ${accentColor} font-black uppercase text-[11px] tracking-[0.2em] transition-all overflow-hidden`}>
+                <motion.a 
+                  whileHover={{ scale: 1.05, rotate: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  href="#work" 
+                  className={`group relative px-12 py-6 rounded-full ${accentColor} font-black uppercase text-[11px] tracking-[0.2em] transition-all overflow-hidden shadow-2xl shadow-current/10`}
+                >
                   <span className="relative z-10">Explore Work</span>
                   <motion.div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
-                </a>
+                </motion.a>
                 {resume?.fileUrl && (
-                  <a href={resume.fileUrl} target="_blank" rel="noreferrer" className="group px-12 py-6 rounded-full border border-current/10 font-black uppercase text-[11px] tracking-[0.2em] hover:bg-current/5 transition-all flex items-center gap-3">
+                  <motion.a 
+                    whileHover={{ scale: 1.05, rotate: 2 }}
+                    whileTap={{ scale: 0.95 }}
+                    href={resume.fileUrl} 
+                    target="_blank" 
+                    rel="noreferrer" 
+                    className="group px-12 py-6 rounded-full border border-current/10 font-black uppercase text-[11px] tracking-[0.2em] hover:bg-current/5 transition-all flex items-center gap-3"
+                  >
                     CV <Download className="w-4 h-4 group-hover:translate-y-1 transition-transform" />
-                  </a>
+                  </motion.a>
                 )}
               </div>
             </motion.div>
@@ -215,13 +253,14 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
         </div>
       </motion.section>
 
-      {/* ── ABOUT (HUMBLE REVEAL) ────────────────────────── */}
+      {/* ── ABOUT (BREATHABLE REVEAL) ────────────────────────── */}
       <motion.section
         variants={staggerContainer}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
-        className="py-24 md:py-64 px-6 md:px-12 bg-zinc-50 dark:bg-zinc-950"
+        whileInView={{ scale: [0.98, 1], transition: { duration: 1 } }}
+        className="py-24 md:py-64 px-6 md:px-12 bg-zinc-50 dark:bg-zinc-950 overflow-hidden"
       >
         <div className="max-w-[1400px] mx-auto grid lg:grid-cols-12 gap-12 md:gap-24">
           <motion.div variants={fadeInUp} className="lg:col-span-5">
@@ -234,24 +273,25 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
             </p>
             <motion.div variants={staggerContainer} className="flex gap-8">
               {data?.email && (
-                <motion.a variants={fadeInUp} href={`mailto:${data.email}`} className="text-[11px] font-black uppercase tracking-widest border-b-2 border-current pb-2 hover:opacity-50 transition-all">Reach Out</motion.a>
+                <motion.a whileHover={funnyHover} variants={fadeInUp} href={`mailto:${data.email}`} className="text-[11px] font-black uppercase tracking-widest border-b-2 border-current pb-2 hover:opacity-50 transition-all">Reach Out</motion.a>
               )}
               {data?.whatsapp && (
-                <motion.a variants={fadeInUp} href={data.whatsapp} target="_blank" rel="noreferrer" className="text-[11px] font-black uppercase tracking-widest border-b-2 border-current pb-2 hover:opacity-50 transition-all">Direct Message</motion.a>
+                <motion.a whileHover={funnyHover} variants={fadeInUp} href={data.whatsapp} target="_blank" rel="noreferrer" className="text-[11px] font-black uppercase tracking-widest border-b-2 border-current pb-2 hover:opacity-50 transition-all">Direct Message</motion.a>
               )}
             </motion.div>
           </motion.div>
         </div>
       </motion.section>
 
-      {/* ── PROJECTS (HUMBLE LIST) ────────────────────────── */}
+      {/* ── PROJECTS (BREATHABLE LIST) ────────────────────────── */}
       <motion.section
         id="work"
         variants={staggerContainer}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
-        className="py-24 md:py-64 px-6 md:px-12 bg-white dark:bg-black"
+        whileInView={{ scale: [0.98, 1], transition: { duration: 1 } }}
+        className="py-24 md:py-64 px-6 md:px-12 bg-white dark:bg-black overflow-hidden"
       >
         <div className="max-w-[1400px] mx-auto">
           <motion.div variants={fadeInUp} className="mb-24">
