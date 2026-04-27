@@ -1,12 +1,12 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useScroll, useTransform, useSpring, Variants, useMotionValue } from "framer-motion";
-import { useEffect } from "react";
+import { motion, useScroll, useTransform, useSpring, Variants, useMotionValue, AnimatePresence } from "framer-motion";
+import { useEffect, useState } from "react";
+import { useTheme } from "next-themes";
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, Download, Send, Loader2, Mail } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Download, Send, Loader2, Mail, Sun, Moon, X } from "lucide-react";
 import { FaGithub, FaLinkedin, FaTwitter, FaInstagram, FaYoutube, FaWhatsapp } from "react-icons/fa";
-import { useState } from "react";
 import { toast } from "sonner";
 
 export default function PortfolioUI({ data, skills, services, projects, resume, settings }: {
@@ -36,32 +36,36 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
   const overlayOpacity = useTransform(smoothProgress, [0.4, 0.6], [0, 1]);
   const bgZoom = useTransform(smoothProgress, [0, 1], [1, 1.1]);
 
-  // Animation Variants for sections (BREATHABLE & FUNNY)
+  const { theme: currentTheme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<any>(null);
+
+  useEffect(() => setMounted(true), []);
+
+  // Snappy Animation Curve
+  const snappyEase = [0.23, 1, 0.32, 1];
+
   const fadeInUp: Variants = {
-    hidden: { opacity: 0, y: 50, scale: 0.95 },
+    hidden: { opacity: 0, y: 30, scale: 0.98 },
     visible: { 
       opacity: 1, 
       y: 0, 
       scale: 1,
       transition: { 
-        type: "spring",
-        stiffness: 100,
-        damping: 20,
-        duration: 0.8, 
-        ease: "easeOut" as const 
+        duration: 0.5, 
+        ease: snappyEase 
       } 
     }
   };
 
   const staggerContainer: Variants = {
-    hidden: { opacity: 0, scale: 0.98 },
+    hidden: { opacity: 0 },
     visible: { 
       opacity: 1, 
-      scale: 1,
       transition: { 
-        staggerChildren: 0.15,
-        duration: 0.8,
-        ease: "easeOut"
+        staggerChildren: 0.08,
+        duration: 0.4,
+        ease: snappyEase
       } 
     }
   };
@@ -70,7 +74,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
   const funnyHover = {
     scale: 1.05,
     rotate: [0, -1, 1, -1, 0],
-    transition: { duration: 0.3 }
+    transition: { duration: 0.2 }
   };
 
   const [formLoading, setFormLoading] = useState(false);
@@ -78,6 +82,14 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
 
   const frontendSkills = skills.filter(s => s.category === "Frontend");
   const backendSkills = skills.filter(s => s.category === "Backend");
+
+  const playClick = () => {
+    try {
+      const audio = new Audio("https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3");
+      audio.volume = 0.1;
+      audio.play().catch(() => {});
+    } catch (e) {}
+  };
 
   // Premium Theme Styles
   const themeClasses = {
@@ -389,14 +401,12 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
             {(projects.length > 0 ? projects : [
               { title: "Elegant Logic", description: "Minimalist solution for maximum impact.", tags: ["Core", "Architecture"] }
             ]).map((p: any, i: number) => (
-              <motion.a
+              <motion.div
                 key={i}
-                href={p.link || "#"}
-                target="_blank"
-                rel="noreferrer"
                 variants={fadeInUp}
                 whileHover={{ y: -10 }}
-                className="group relative flex flex-col justify-between p-6 md:p-10 rounded-[2rem] bg-zinc-50 dark:bg-zinc-950 border border-current/5 overflow-hidden transition-all duration-500 min-h-[300px] md:min-h-[400px]"
+                onClick={() => { playClick(); setSelectedProject(p); }}
+                className="group relative flex flex-col justify-between p-6 md:p-10 rounded-[2rem] bg-zinc-50 dark:bg-zinc-950 border border-current/5 overflow-hidden transition-all duration-500 min-h-[300px] md:min-h-[400px] cursor-pointer"
               >
                 <div className="absolute top-0 right-0 p-10 opacity-0 group-hover:opacity-20 transition-opacity">
                   <span className="text-[12rem] font-black tracking-tighter leading-none select-none">{String(i + 1).padStart(2, "0")}</span>
@@ -414,13 +424,13 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                 <div className="relative z-10 space-y-8 mt-12">
                   <p className="text-lg md:text-xl opacity-40 group-hover:opacity-70 transition-opacity font-medium leading-relaxed line-clamp-3">{p.description}</p>
                   <div className="flex items-center gap-4 text-[10px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-500">
-                    View Project <ArrowUpRight className="w-4 h-4" />
+                    Quick View <ArrowUpRight className="w-4 h-4" />
                   </div>
                 </div>
 
                 {/* Subtle Glow Effect */}
                 <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-current/5 blur-[100px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-              </motion.a>
+              </motion.div>
             ))}
           </motion.div>
         </motion.div>
@@ -585,6 +595,112 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
           </div>
         </div>
       </footer>
+
+      {/* ── PREMIUM THEME TOGGLE ──────────────────────────── */}
+      {mounted && (
+        <motion.button
+          initial={{ scale: 0, rotate: -180 }}
+          animate={{ scale: 1, rotate: 0 }}
+          whileHover={{ scale: 1.1, rotate: 15 }}
+          whileTap={{ scale: 0.9 }}
+          onClick={() => { playClick(); setTheme(currentTheme === "dark" ? "light" : "dark"); }}
+          className="fixed top-8 right-8 z-[200] w-14 h-14 rounded-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center justify-center shadow-xl shadow-black/5 dark:shadow-white/5 group"
+        >
+          {currentTheme === "dark" ? (
+            <Sun className="w-6 h-6 text-yellow-400 group-hover:rotate-45 transition-transform" />
+          ) : (
+            <Moon className="w-6 h-6 text-zinc-900 group-hover:-rotate-12 transition-transform" />
+          )}
+        </motion.button>
+      )}
+
+      {/* ── FLOATING RESUME BUTTON ────────────────────────── */}
+      {resume?.url && (
+        <motion.a
+          href={resume.url}
+          target="_blank"
+          initial={{ y: 100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          whileHover={{ y: -5, scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={playClick}
+          className="fixed bottom-8 right-8 z-[200] flex items-center gap-3 px-6 py-4 rounded-full bg-black dark:bg-white text-white dark:text-black font-black uppercase text-[10px] tracking-widest shadow-2xl shadow-black/20"
+        >
+          <Download className="w-4 h-4" />
+          <span className="hidden md:inline">Download Resume</span>
+        </motion.a>
+      )}
+
+      {/* ── PROJECT QUICK VIEW MODAL ──────────────────────── */}
+      <AnimatePresence>
+        {selectedProject && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[300] flex items-center justify-center p-6 md:p-12"
+          >
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedProject(null)}
+              className="absolute inset-0 bg-black/80 backdrop-blur-xl"
+            />
+            
+            <motion.div
+              layoutId={`project-${selectedProject.title}`}
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="relative w-full max-w-5xl bg-white dark:bg-zinc-950 rounded-[3rem] overflow-hidden shadow-2xl flex flex-col md:flex-row min-h-[60vh] border border-white/10"
+            >
+              <button 
+                onClick={() => setSelectedProject(null)}
+                className="absolute top-8 right-8 z-10 p-3 rounded-full bg-black/10 dark:bg-white/10 hover:bg-black/20 dark:hover:bg-white/20 transition-colors"
+              >
+                <X className="w-6 h-6" />
+              </button>
+
+              <div className="md:w-1/2 p-10 md:p-20 flex flex-col justify-center bg-zinc-50 dark:bg-zinc-900/50">
+                <div className="flex flex-wrap gap-3 mb-8">
+                  {(selectedProject.tags || []).map((t: string) => (
+                    <span key={t} className="px-4 py-2 rounded-full bg-current/5 text-[9px] font-black uppercase tracking-widest opacity-60 border border-current/10">{t}</span>
+                  ))}
+                </div>
+                <h3 className="text-5xl md:text-7xl font-black tracking-tighter uppercase leading-[0.8] mb-12 italic serif">{selectedProject.title}</h3>
+                <p className="text-xl md:text-2xl opacity-60 leading-relaxed font-medium mb-12">{selectedProject.description}</p>
+                
+                <div className="flex flex-wrap gap-6">
+                  {selectedProject.link && (
+                    <a href={selectedProject.link} target="_blank" rel="noreferrer" className="flex items-center gap-3 px-8 py-5 rounded-full bg-black dark:bg-white text-white dark:text-black font-black uppercase text-[11px] tracking-widest hover:scale-105 transition-transform shadow-xl shadow-black/10">
+                      Live Preview <ArrowUpRight className="w-5 h-5" />
+                    </a>
+                  )}
+                  {selectedProject.github && (
+                    <a href={selectedProject.github} target="_blank" rel="noreferrer" className="flex items-center gap-3 px-8 py-5 rounded-full border-2 border-current/20 font-black uppercase text-[11px] tracking-widest hover:bg-current/5 transition-all">
+                      Source Code <FaGithub className="w-5 h-5" />
+                    </a>
+                  )}
+                </div>
+              </div>
+
+              <div className="md:w-1/2 relative bg-zinc-100 dark:bg-zinc-900 overflow-hidden group">
+                 {/* Placeholder for project image / interaction */}
+                 <div className="absolute inset-0 flex items-center justify-center opacity-10 select-none pointer-events-none">
+                    <span className="text-[15rem] font-black tracking-tighter uppercase rotate-90">{selectedProject.title.slice(0, 2)}</span>
+                 </div>
+                 <div className="absolute inset-0 flex items-center justify-center p-12">
+                    <div className="w-full aspect-video rounded-2xl bg-white dark:bg-black shadow-2xl border border-white/5 flex items-center justify-center">
+                       <p className="text-sm font-black uppercase tracking-[0.4em] opacity-20 italic">Visual Showcase Pending</p>
+                    </div>
+                 </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
