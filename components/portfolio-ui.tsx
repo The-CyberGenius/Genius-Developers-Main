@@ -236,7 +236,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
       </div>
 
       {/* ── PRETEXT SHOWCASE (HUMBLE INNOVATION) ──────────────── */}
-      <section className="relative h-[250vh] bg-black text-white">
+      <section id="philosophy" className="relative h-[120vh] bg-black text-white z-20">
         <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
           <motion.div
             initial="hidden"
@@ -289,15 +289,17 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
       </motion.section>
 
       {/* ── ABOUT (BREATHABLE REVEAL) ────────────────────────── */}
-      <motion.section
-        variants={staggerContainer}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-
-        className="py-16 md:py-32 px-6 md:px-12 bg-zinc-50 dark:bg-zinc-950 overflow-hidden"
+      <section
+        id="about"
+        className="scroll-mt-20 py-16 md:py-32 px-6 md:px-12 bg-zinc-50 dark:bg-zinc-950 overflow-hidden relative z-30"
       >
-        <div className="max-w-[1400px] mx-auto grid lg:grid-cols-12 gap-12 md:gap-24">
+        <motion.div 
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          className="max-w-[1400px] mx-auto grid lg:grid-cols-12 gap-12 md:gap-24"
+        >
           <motion.div variants={fadeInUp} className="lg:col-span-5">
             <p className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 mb-8">My Purpose</p>
             <h2 className="text-6xl md:text-9xl font-black tracking-tighter leading-[0.8] mb-10 italic serif">Solving<br />Logic.</h2>
@@ -308,27 +310,28 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
             </p>
             <motion.div variants={staggerContainer} className="flex gap-8">
               {data?.email && (
-                <motion.a whileHover={funnyHover} variants={fadeInUp} href={`mailto:${data.email}`} className="text-[11px] font-black uppercase tracking-widest border-b-2 border-current pb-2 hover:opacity-50 transition-all">Reach Out</motion.a>
+                <motion.a whileHover={funnyHover} variants={fadeInUp} href="#contact" className="text-[11px] font-black uppercase tracking-widest border-b-2 border-current pb-2 hover:opacity-50 transition-all">Reach Out</motion.a>
               )}
               {data?.whatsapp && (
                 <motion.a whileHover={funnyHover} variants={fadeInUp} href={data.whatsapp} target="_blank" rel="noreferrer" className="text-[11px] font-black uppercase tracking-widest border-b-2 border-current pb-2 hover:opacity-50 transition-all">Direct Message</motion.a>
               )}
             </motion.div>
           </motion.div>
-        </div>
-      </motion.section>
+        </motion.div>
+      </section>
 
       {/* ── PROJECTS (BREATHABLE LIST) ────────────────────────── */}
-      <motion.section
+      <section
         id="work"
-        variants={staggerContainer}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-
-        className="py-16 md:py-32 px-6 md:px-12 bg-white dark:bg-black overflow-hidden"
+        className="scroll-mt-20 py-16 md:py-32 px-6 md:px-12 bg-white dark:bg-black overflow-hidden relative z-30"
       >
-        <div className="max-w-[1400px] mx-auto">
+        <motion.div 
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          className="max-w-[1400px] mx-auto"
+        >
           <motion.div variants={fadeInUp} className="mb-24">
             <p className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 mb-6">Recent Work</p>
             <h2 className="text-6xl md:text-[10rem] font-black tracking-tighter leading-[0.75] uppercase">Projects.</h2>
@@ -372,19 +375,21 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
               </motion.a>
             ))}
           </motion.div>
-        </div>
-      </motion.section>
+        </motion.div>
+      </section>
 
       {/* ── SKILLS & SERVICES (DYNAMIC) ─────────────────── */}
-      <motion.section
+      <section
         id="skills"
-        variants={staggerContainer}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        className="py-16 md:py-32 px-6 md:px-12 bg-zinc-50 dark:bg-zinc-950"
+        className="scroll-mt-20 py-16 md:py-32 px-6 md:px-12 bg-zinc-50 dark:bg-zinc-950 relative z-30"
       >
-        <div className="max-w-[1400px] mx-auto grid lg:grid-cols-2 gap-16 md:gap-32">
+        <motion.div 
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          className="max-w-[1400px] mx-auto grid lg:grid-cols-2 gap-16 md:gap-32"
+        >
           <motion.div variants={fadeInUp}>
             <p className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 mb-12">Core Technologies</p>
             <div className="flex flex-wrap gap-4 md:gap-6">
@@ -418,11 +423,11 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
             </div>
             <motion.a whileHover={{ gap: "32px" }} href="#contact" className="mt-20 inline-flex items-center gap-4 font-black uppercase text-[11px] tracking-widest border-b-2 border-current pb-3 transition-all">Get Started <ArrowRight className="w-5 h-5" /></motion.a>
           </motion.div>
-        </div>
-      </motion.section>
+        </motion.div>
+      </section>
 
       {/* ── CONTACT (INTERNATIONAL PREMIUM) ───────────────────── */}
-      <section id="contact" className={`py-16 md:py-32 px-6 md:px-12 ${theme === 'neon' ? 'bg-[#00ffcc] text-black' : 'bg-white dark:bg-[#050505] text-[#1a1a1a] dark:text-[#f5f5f7]'}`}>
+      <section id="contact" className={`scroll-mt-20 py-16 md:py-32 px-6 md:px-12 relative z-30 ${theme === 'neon' ? 'bg-[#00ffcc] text-black' : 'bg-white dark:bg-[#050505] text-[#1a1a1a] dark:text-[#f5f5f7]'}`}>
         <div className="max-w-[1400px] mx-auto grid lg:grid-cols-12 gap-16 md:gap-32">
           
           {/* Left Side: Contact Cards */}
