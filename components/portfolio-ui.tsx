@@ -103,44 +103,58 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
       {/* Navbar Removed as per user request */}
 
 
-      {/* ── HUMBLE HERO ────────────────────────────────────── */}
-      <div ref={heroRef} className="h-[120vh] relative">
+      {/* ── PROGRESS BAR ────────────────────────────────────── */}
+      <motion.div 
+        className={`fixed top-0 left-0 right-0 h-1 z-[200] origin-left ${accentColor}`}
+        style={{ scaleX: scrollYProgress }}
+      />
+
+      {/* ── HUMBLE ARTISTIC HERO ────────────────────────────── */}
+      <div ref={heroRef} className="h-[140vh] relative">
         <div className="sticky top-0 h-screen flex flex-col justify-center px-6 md:px-12">
           
-          {/* Subtle Background Elements */}
-          <motion.div style={{ scale: bgZoom, opacity: heroOpacity }} className="absolute inset-0 pointer-events-none -z-10">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[100vw] rounded-full bg-gradient-radial from-zinc-100/10 dark:from-zinc-900/10 to-transparent blur-3xl" />
-            <div className="absolute inset-0 hidden md:flex items-center justify-center opacity-[0.01] dark:opacity-[0.03] overflow-hidden">
-              <motion.div animate={{ x: ["0%", "-50%"] }} transition={{ duration: 120, repeat: Infinity, ease: "linear" as const }} className="flex whitespace-nowrap text-[25vh] font-black uppercase gap-40">
-                <span>Problem Solver</span><span>✦</span><span>Coder</span><span>✦</span><span>Builder</span><span>✦</span>
-              </motion.div>
+          {/* Background Text Art */}
+          <motion.div style={{ scale: bgZoom, opacity: heroOpacity }} className="absolute inset-0 pointer-events-none -z-10 flex items-center justify-center">
+            <div className="text-[30vw] font-black opacity-[0.02] tracking-tighter select-none">
+              {(data?.name || "SHIVA").toUpperCase()}
             </div>
           </motion.div>
 
-          <motion.div style={{ opacity: heroOpacity, scale: heroScale, y: heroY }} className="max-w-[1400px] mx-auto w-full relative z-20">
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="mb-6 flex items-center gap-4">
-              <div className="w-8 h-[1px] bg-current opacity-20" />
-              <span className="text-[10px] font-black uppercase tracking-[0.4em] opacity-40">{data?.location || "India"} Based Coder</span>
+          <motion.div style={{ opacity: heroOpacity, scale: heroScale, y: heroY }} className="max-w-[1500px] mx-auto w-full relative z-20">
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="mb-10 flex items-center gap-6">
+               <span className="text-[11px] font-black uppercase tracking-[0.5em] opacity-30">Portfolio — {new Date().getFullYear()}</span>
+               <div className="h-[1px] w-12 bg-current opacity-10" />
+               <span className="text-[11px] font-black uppercase tracking-[0.5em] opacity-30 italic serif">{data?.location || "India"}</span>
             </motion.div>
             
-            <motion.h1 style={{ x: titleX }} className="text-7xl sm:text-9xl md:text-[10rem] lg:text-[12vw] font-black tracking-tighter leading-[0.75] mb-4">
-              {(data?.name || "Shiva").split(" ")[0]}
-            </motion.h1>
-            
-            {(data?.name || "").split(" ").length > 1 && (
-              <motion.h1 style={{ x: subtitleX }} className="text-7xl sm:text-9xl md:text-[10rem] lg:text-[12vw] font-black tracking-tighter leading-[0.75] text-zinc-200 dark:text-zinc-800 mb-12">
-                {data.name.split(" ").slice(1).join(" ")}
+            <div className="relative mb-16">
+              <motion.h1 style={{ x: titleX }} className="text-8xl sm:text-9xl md:text-[12rem] lg:text-[15vw] font-black tracking-tighter leading-[0.7] flex flex-col">
+                <span>{(data?.name || "Shiva").split(" ")[0]}</span>
+                {data?.name?.split(" ").slice(1).map((part: string, i: number) => (
+                  <span key={i} className="opacity-10 italic serif font-light ml-[0.1em]">{part}</span>
+                ))}
               </motion.h1>
-            )}
+            </div>
 
-            <motion.div style={{ opacity: taglineOpacity }} className="flex flex-col md:flex-row md:items-end justify-between gap-12 max-w-6xl">
-              <p className="text-2xl md:text-4xl font-medium tracking-tight max-w-2xl leading-[1.1] opacity-80 italic serif">
-                "{data?.tagline || "I transform ideas into functional code, one line at a time."}"
-              </p>
-              <div className="flex gap-4 pb-2">
-                <a href="#work" className={`px-10 py-5 rounded-full ${accentColor} font-black uppercase text-[10px] tracking-[0.2em] hover:scale-105 transition-all shadow-xl shadow-black/10`}>My Work</a>
+            <motion.div style={{ opacity: taglineOpacity }} className="flex flex-col md:flex-row md:items-end justify-between gap-16 max-w-7xl">
+              <div className="space-y-6">
+                <p className="text-3xl md:text-5xl font-medium tracking-tight max-w-3xl leading-[1.05] opacity-90">
+                  {data?.tagline || "I transform complex logic into elegant digital experiences."}
+                </p>
+                <p className="text-sm md:text-lg opacity-40 max-w-lg font-medium">
+                  Focused on building functional, accessible, and high-performance software that solves real-world problems.
+                </p>
+              </div>
+              
+              <div className="flex gap-6 pb-2">
+                <a href="#work" className={`group relative px-12 py-6 rounded-full ${accentColor} font-black uppercase text-[11px] tracking-[0.2em] transition-all overflow-hidden`}>
+                  <span className="relative z-10">Explore Work</span>
+                  <motion.div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+                </a>
                 {resume?.fileUrl && (
-                  <a href={resume.fileUrl} target="_blank" rel="noreferrer" className="px-10 py-5 rounded-full border border-current/10 font-black uppercase text-[10px] tracking-[0.2em] hover:bg-current/5 transition-all">Resume ⬇️</a>
+                  <a href={resume.fileUrl} target="_blank" rel="noreferrer" className="group px-12 py-6 rounded-full border border-current/10 font-black uppercase text-[11px] tracking-[0.2em] hover:bg-current/5 transition-all flex items-center gap-3">
+                    CV <Download className="w-4 h-4 group-hover:translate-y-1 transition-transform" />
+                  </a>
                 )}
               </div>
             </motion.div>
@@ -245,9 +259,9 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
             <h2 className="text-6xl md:text-[10rem] font-black tracking-tighter leading-[0.75] uppercase">Projects.</h2>
           </motion.div>
           
-          <motion.div variants={staggerContainer} className="divide-y border-t border-zinc-100 dark:border-zinc-900">
+          <motion.div variants={staggerContainer} className="divide-y border-t border-current/5">
             {(projects.length > 0 ? projects : [
-              { title: "Efficient Logic", description: "A simple solution to a complex problem.", tags: ["Algorithms", "Clean Code"] }
+              { title: "Elegant Logic", description: "Minimalist solution for maximum impact.", tags: ["Core", "Architecture"] }
             ]).map((p: any, i: number) => (
               <motion.a
                 key={i}
@@ -255,20 +269,25 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                 target="_blank"
                 rel="noreferrer"
                 variants={fadeInUp}
-                whileHover={{ x: 30 }}
-                className="py-20 md:py-32 flex flex-col md:flex-row md:items-center justify-between gap-12 group transition-all"
+                className="py-24 md:py-40 flex flex-col md:flex-row md:items-center justify-between gap-16 group relative overflow-hidden px-4 md:px-8"
               >
-                <div className="flex gap-12 md:gap-24 items-start">
-                  <span className="text-zinc-200 dark:text-zinc-800 font-black text-3xl md:text-5xl pt-2">{String(i + 1).padStart(2, "0")}</span>
-                  <div>
-                    <h3 className="text-4xl md:text-8xl font-black tracking-tighter mb-6 group-hover:opacity-40 transition-opacity uppercase italic">{p.title}</h3>
-                    <p className="text-xl md:text-3xl opacity-50 max-w-4xl leading-relaxed font-medium">{p.description}</p>
+                <div className="absolute inset-0 bg-current/5 -translate-x-full group-hover:translate-x-0 transition-transform duration-700 ease-[cubic-bezier(0.23,1,0.32,1)]" />
+                <div className="flex gap-16 md:gap-32 items-start relative z-10">
+                  <span className="text-zinc-200 dark:text-zinc-800 font-black text-4xl md:text-7xl pt-4 group-hover:text-current group-hover:opacity-100 transition-all duration-500">{String(i + 1).padStart(2, "0")}</span>
+                  <div className="space-y-8">
+                    <h3 className="text-5xl md:text-[9rem] font-black tracking-tighter leading-[0.8] uppercase group-hover:italic transition-all duration-700">{p.title}</h3>
+                    <p className="text-2xl md:text-4xl opacity-40 group-hover:opacity-70 transition-opacity max-w-5xl leading-[1.1] font-medium">{p.description}</p>
+                    <div className="flex flex-wrap gap-4 pt-4">
+                      {(p.tags || []).slice(0, 3).map((t: string) => (
+                        <span key={t} className="px-8 py-3 rounded-full border border-current/10 text-[11px] font-black uppercase tracking-[0.3em] opacity-40 group-hover:opacity-100 transition-all">{t}</span>
+                      ))}
+                    </div>
                   </div>
                 </div>
-                <div className="flex flex-wrap gap-4">
-                  {(p.tags || []).slice(0, 3).map((t: string) => (
-                    <span key={t} className="px-6 py-2.5 rounded-full border border-current/10 text-[10px] font-black uppercase tracking-widest opacity-40">{t}</span>
-                  ))}
+                <div className="relative z-10">
+                  <div className="w-16 h-16 md:w-24 md:h-24 rounded-full border border-current/20 flex items-center justify-center group-hover:bg-current group-hover:text-background transition-all duration-500 scale-0 group-hover:scale-100 rotate-45 group-hover:rotate-0">
+                    <ArrowUpRight className="w-8 h-8 md:w-12 md:h-12" />
+                  </div>
                 </div>
               </motion.a>
             ))}
