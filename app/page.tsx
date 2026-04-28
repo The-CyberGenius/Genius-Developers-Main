@@ -9,7 +9,7 @@ import Settings from "@/models/Settings";
 import PortfolioUI from "@/components/portfolio-ui";
 import { Metadata } from "next";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600; // Revalidate every hour
 
 async function getPortfolioData() {
   try {
