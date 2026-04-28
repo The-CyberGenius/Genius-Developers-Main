@@ -1,13 +1,52 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useScroll, useTransform, useSpring, Variants, useMotionValue, AnimatePresence } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring, Variants, useMotionValue, AnimatePresence, useInView } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Download, Send, Loader2, Mail, Sun, Moon, X } from "lucide-react";
 import { FaGithub, FaLinkedin, FaTwitter, FaInstagram, FaYoutube, FaWhatsapp } from "react-icons/fa";
 import { toast } from "sonner";
+
+// ── TypeReveal: Char-by-char blur fade (for headings) ──────
+function TypeReveal({ text, className, delay = 0 }: { text: string; className?: string; delay?: number }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "0px 0px -60px 0px" });
+  return (
+    <span ref={ref} className={className} aria-label={text}>
+      {text.split("").map((char, i) => (
+        <motion.span
+          key={i}
+          className="inline-block"
+          style={{ whiteSpace: char === " " ? "pre" : undefined }}
+          initial={{ opacity: 0, y: 18, filter: "blur(6px)" }}
+          animate={isInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+          transition={{ duration: 0.35, delay: delay + i * 0.028, ease: [0.23, 1, 0.32, 1] }}
+        >{char}</motion.span>
+      ))}
+    </span>
+  );
+}
+
+// ── WordReveal: Word-by-word fade (for paragraphs) ─────────
+function WordReveal({ text, className, delay = 0 }: { text: string; className?: string; delay?: number }) {
+  const ref = useRef<HTMLParagraphElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "0px 0px -40px 0px" });
+  return (
+    <p ref={ref} className={className} aria-label={text}>
+      {text.split(" ").map((word, i) => (
+        <motion.span
+          key={i}
+          className="inline-block mr-[0.25em]"
+          initial={{ opacity: 0, y: 12 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.4, delay: delay + i * 0.04, ease: [0.23, 1, 0.32, 1] }}
+        >{word}</motion.span>
+      ))}
+    </p>
+  );
+}
 
 export default function PortfolioUI({ data, skills, services, projects, resume, settings }: {
   data: any; skills: any[]; services: any[]; projects: any[]; resume?: any; settings?: any;
@@ -513,12 +552,16 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
         >
           <motion.div variants={fadeInUp} className="lg:col-span-5">
             <p className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 mb-8">My Purpose</p>
-            <h2 className="text-6xl md:text-9xl font-black tracking-tighter leading-[0.8] mb-10 italic serif">Solving<br />Logic.</h2>
+            <h2 className="text-6xl md:text-9xl font-black tracking-tighter leading-[0.8] mb-10 italic serif">
+              <TypeReveal text="Solving" /><br />
+              <TypeReveal text="Logic." delay={0.2} />
+            </h2>
           </motion.div>
           <motion.div variants={fadeInUp} className="lg:col-span-7">
-            <p className="text-2xl md:text-5xl font-medium leading-[1.1] tracking-tight mb-12 opacity-80">
-              {data?.aboutText || "I am a programmer who believes in the power of simple, effective code. My goal is to build digital tools that actually help people."}
-            </p>
+            <WordReveal
+              text={data?.aboutText || "I am a programmer who believes in the power of simple, effective code. My goal is to build digital tools that actually help people."}
+              className="text-2xl md:text-5xl font-medium leading-[1.1] tracking-tight mb-12 opacity-80"
+            />
             <motion.div variants={staggerContainer} className="flex gap-8">
               {data?.email && (
                 <motion.a whileHover={funnyHover} variants={fadeInUp} href="#contact" className="text-[11px] font-black uppercase tracking-widest border-b-2 border-current pb-2 hover:opacity-50 transition-all">Reach Out</motion.a>
@@ -545,7 +588,9 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
         >
           <motion.div variants={fadeInUp} className="mb-24">
             <p className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 mb-6">Recent Work</p>
-            <h2 className="text-6xl md:text-[10rem] font-black tracking-tighter leading-[0.75] uppercase">Projects.</h2>
+            <h2 className="text-6xl md:text-[10rem] font-black tracking-tighter leading-[0.75] uppercase">
+              <TypeReveal text="Projects." />
+            </h2>
           </motion.div>
 
           <motion.div variants={staggerContainer} className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
@@ -663,7 +708,10 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
           <div className="lg:col-span-5 space-y-16">
             <div>
               <p className="text-[11px] font-black uppercase tracking-[0.6em] opacity-30 mb-8 md:mb-12">Connect</p>
-              <h2 className="text-7xl sm:text-8xl md:text-[10rem] font-black tracking-tighter leading-[0.75] mb-8">Start<br />Today<span className="opacity-10 italic serif">.</span></h2>
+              <h2 className="text-7xl sm:text-8xl md:text-[10rem] font-black tracking-tighter leading-[0.75] mb-8">
+                <TypeReveal text="Start" /><br />
+                <TypeReveal text="Today" delay={0.15} /><span className="opacity-10 italic serif">.</span>
+              </h2>
               <p className="text-sm md:text-lg opacity-40 font-medium tracking-tight mb-16">Available for freelance work worldwide.</p>
             </div>
 
