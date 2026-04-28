@@ -51,6 +51,56 @@ function WordReveal({ text, className, delay = 0 }: { text: string; className?: 
     </p>
   );
 }
+// ── BgTypingText: Background typewriter with highlight loop ──
+const BG_TEXT = "geniusdevelopers.space";
+function BgTypingText() {
+  const [displayed, setDisplayed] = useState("");
+  const [phase, setPhase] = useState<"typing" | "hold" | "highlight" | "erasing">("typing");
+
+  useEffect(() => {
+    let timeout: ReturnType<typeof setTimeout>;
+    if (phase === "typing") {
+      if (displayed.length < BG_TEXT.length) {
+        timeout = setTimeout(() => setDisplayed(BG_TEXT.slice(0, displayed.length + 1)), 80);
+      } else {
+        timeout = setTimeout(() => setPhase("hold"), 1200);
+      }
+    } else if (phase === "hold") {
+      timeout = setTimeout(() => setPhase("highlight"), 400);
+    } else if (phase === "highlight") {
+      timeout = setTimeout(() => setPhase("erasing"), 1600);
+    } else if (phase === "erasing") {
+      if (displayed.length > 0) {
+        timeout = setTimeout(() => setDisplayed(displayed.slice(0, -1)), 40);
+      } else {
+        timeout = setTimeout(() => setPhase("typing"), 800);
+      }
+    }
+    return () => clearTimeout(timeout);
+  }, [displayed, phase]);
+
+  const isHighlight = phase === "highlight";
+  return (
+    <div className="w-full max-w-[90vw] mx-auto text-center">
+      <motion.h2
+        animate={isHighlight
+          ? { opacity: [0.03, 0.12, 0.06, 0.14, 0.03], filter: ["blur(0px)", "blur(2px)", "blur(0px)", "blur(1px)", "blur(0px)"] }
+          : { opacity: 0.03, filter: "blur(0px)" }
+        }
+        transition={{ duration: 1.5, ease: "easeInOut" }}
+        className="text-[clamp(2.5rem,10vw,20rem)] font-black tracking-tighter select-none uppercase leading-[0.85] break-words"
+      >
+        {displayed}
+        <motion.span
+          animate={{ opacity: [1, 0, 1] }}
+          transition={{ duration: 0.6, repeat: Infinity, ease: "linear" }}
+          className="inline-block bg-current ml-[0.04em] align-middle"
+          style={{ width: "0.06em", height: "0.8em", display: isHighlight ? "none" : "inline-block" }}
+        />
+      </motion.h2>
+    </div>
+  );
+}
 
 export default function PortfolioUI({ data, skills, services, projects, resume, settings }: {
   data: any; skills: any[]; services: any[]; projects: any[]; resume?: any; settings?: any;
@@ -342,16 +392,12 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
             ))}
           </motion.div>
 
-          {/* Layer 4: Background Branding Text */}
+          {/* Layer 4: Background Branding Text — typewriter + highlight */}
           <motion.div
             style={{ y: bgTextY, opacity: heroOpacity }}
             className="absolute inset-0 flex items-center justify-center p-4 md:p-12"
           >
-            <div className="w-full max-w-[90vw] mx-auto text-center">
-              <h2 className="text-[clamp(2.5rem,10vw,20rem)] font-black opacity-[0.03] tracking-tighter select-none uppercase leading-[0.85] break-words">
-                genius developers<br className="md:hidden" />.space
-              </h2>
-            </div>
+            <BgTypingText />
           </motion.div>
         </div>
 
