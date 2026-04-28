@@ -15,11 +15,15 @@ import {
   Inbox, 
   Image as ImageIcon, 
   Settings,
-  LogOut
+  LogOut,
+  Sun,
+  Moon,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 const sidebarLinks = [
   { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
@@ -43,6 +47,9 @@ export default function AdminLayout({
 }) {
   const pathname = usePathname();
   const router = useRouter();
+  const { setTheme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   // If we are on the login page, don't show the sidebar
   if (pathname === "/admin/login") {
@@ -51,7 +58,6 @@ export default function AdminLayout({
 
   const handleLogout = async () => {
     try {
-      // Create an API route for logout to clear the cookie, or just clear it on the client
       document.cookie = "admin-token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
       toast.success("Logged out successfully");
       router.push("/admin/login");
@@ -112,9 +118,23 @@ export default function AdminLayout({
             <span className="text-xl font-bold">Genius CMS</span>
           </div>
           <div className="flex items-center gap-4 ml-auto">
-             <Link href="/" target="_blank" className="text-sm font-medium hover:underline">
-               View Live Site
-             </Link>
+            <Link href="/" target="_blank" className="text-sm font-medium hover:underline opacity-60 hover:opacity-100 transition-opacity">
+              View Live Site
+            </Link>
+            {/* Dark Mode Toggle */}
+            {mounted && (
+              <button
+                onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+                className="p-2 rounded-lg bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors"
+                title={resolvedTheme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
+              >
+                {resolvedTheme === "dark" ? (
+                  <Sun className="w-4 h-4 text-amber-400" />
+                ) : (
+                  <Moon className="w-4 h-4 text-zinc-600" />
+                )}
+              </button>
+            )}
           </div>
         </header>
         <div className="flex-1 overflow-y-auto p-6">

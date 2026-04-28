@@ -11,6 +11,8 @@ export interface ISettings extends Document {
   hideServices: boolean;
   hideTestimonials: boolean;
   analyticsEnabled: boolean;
+  animationStyle: string;
+}
 }
 
 const SettingsSchema: Schema = new Schema(
@@ -25,6 +27,7 @@ const SettingsSchema: Schema = new Schema(
     hideServices: { type: Boolean, default: false },
     hideTestimonials: { type: Boolean, default: false },
     analyticsEnabled: { type: Boolean, default: true },
+    animationStyle: { type: String, default: "apple" },
   },
   { timestamps: true }
 );

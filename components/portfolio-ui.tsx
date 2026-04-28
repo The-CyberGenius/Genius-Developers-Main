@@ -142,19 +142,24 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // Snappy Animation Curve
-  const snappyEase = [0.23, 1, 0.32, 1] as any;
+  const animationStyle = settings?.animationStyle || "apple";
+
+  // Premium Animation Curves
+  const premiumEase = [0.23, 1, 0.32, 1] as any;
 
   const fadeInUp: Variants = {
-    hidden: { opacity: 0, y: 30, scale: 0.98 },
-    visible: {
-      opacity: 1,
-      y: 0,
+    hidden: { 
+      opacity: 0, 
+      y: animationStyle === "apple" ? 40 : 20,
+      filter: animationStyle === "apple" ? "blur(12px)" : "none",
+      scale: animationStyle === "floating" ? 0.95 : 1
+    },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      filter: "blur(0px)",
       scale: 1,
-      transition: {
-        duration: 0.5,
-        ease: snappyEase
-      }
+      transition: { duration: 0.8, ease: premiumEase }
     }
   };
 
@@ -162,20 +167,13 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.08,
-        duration: 0.4,
-        ease: snappyEase
-      }
+      transition: { staggerChildren: 0.12, delayChildren: 0.1 }
     }
   };
 
-  // Funny hover animation
-  const funnyHover = {
-    scale: 1.05,
-    rotate: [0, -1, 1, -1, 0],
-    transition: { duration: 0.2 }
-  };
+  const funnyHover = animationStyle === "pulse" 
+    ? { scale: 1.05, boxShadow: "0 0 25px currentColor", filter: "brightness(1.2)" }
+    : { scale: 1.05, rotate: [0, -1, 1, 0], transition: { duration: 0.3 } };
 
   const [formLoading, setFormLoading] = useState(false);
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
@@ -311,26 +309,90 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
       {/* ── PREMIUM NOISE OVERLAY ────────────────────────── */}
       <div className="fixed inset-0 pointer-events-none z-[999] opacity-[0.02] mix-blend-overlay" style={{ backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")' }} />
 
-      {/* ── DYNAMIC BACKGROUND BLOBS (EMPTY SPACE ANIMATION) ── */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none -z-20">
+      {/* ── GLOBAL PREMIUM AMBIENT LAYER (dots + lines) ──── */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10">
+
+        {/* Glowing gradient blobs (calm, slow) */}
         <motion.div
-          animate={{
-            x: [0, 100, -100, 0],
-            y: [0, -100, 100, 0],
-            scale: [1, 1.2, 0.8, 1]
-          }}
-          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-          className="absolute top-1/4 -left-20 w-[500px] h-[500px] bg-current/5 blur-[150px] rounded-full"
+          animate={{ x: [0, 80, -60, 0], y: [0, -80, 60, 0], scale: [1, 1.15, 0.9, 1] }}
+          transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
+          className="absolute top-1/4 -left-32 w-[600px] h-[600px] bg-current/[0.04] blur-[160px] rounded-full"
         />
         <motion.div
-          animate={{
-            x: [0, -150, 150, 0],
-            y: [0, 150, -150, 0],
-            scale: [1, 0.7, 1.3, 1]
-          }}
-          transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
-          className="absolute bottom-1/4 -right-20 w-[600px] h-[600px] bg-current/5 blur-[180px] rounded-full"
+          animate={{ x: [0, -100, 80, 0], y: [0, 100, -80, 0], scale: [1, 0.8, 1.2, 1] }}
+          transition={{ duration: 38, repeat: Infinity, ease: "linear" }}
+          className="absolute bottom-1/3 -right-32 w-[700px] h-[700px] bg-current/[0.03] blur-[180px] rounded-full"
         />
+
+        {/* Thin glowing diagonal lines — calm scan effect */}
+        {[
+          { top: "12%", deg: -8,  dur: 22, delay: 0 },
+          { top: "28%", deg:  6,  dur: 30, delay: 4 },
+          { top: "45%", deg: -4,  dur: 26, delay: 8 },
+          { top: "62%", deg:  10, dur: 34, delay: 2 },
+          { top: "76%", deg: -6,  dur: 20, delay: 12 },
+          { top: "90%", deg:  4,  dur: 28, delay: 6 },
+        ].map((l, i) => (
+          <motion.div
+            key={i}
+            className="absolute h-[1px] bg-current opacity-[0.04]"
+            style={{
+              top: l.top,
+              left: "-50%",
+              width: "200%",
+              rotate: l.deg,
+              transformOrigin: "center",
+            }}
+            animate={{ x: ["-10%", "10%", "-10%"] }}
+            transition={{ duration: l.dur, repeat: Infinity, ease: "easeInOut", delay: l.delay }}
+          />
+        ))}
+
+        {/* Glowing dots — scattered, floating, calm */}
+        {[
+          { x: "8%",  y: "15%", size: 3, dur: 6,  delay: 0 },
+          { x: "22%", y: "8%",  size: 2, dur: 8,  delay: 1.2 },
+          { x: "45%", y: "20%", size: 4, dur: 10, delay: 0.5 },
+          { x: "68%", y: "12%", size: 2, dur: 7,  delay: 2 },
+          { x: "85%", y: "25%", size: 3, dur: 9,  delay: 0.8 },
+          { x: "92%", y: "50%", size: 2, dur: 11, delay: 3 },
+          { x: "78%", y: "70%", size: 4, dur: 8,  delay: 1.5 },
+          { x: "55%", y: "80%", size: 3, dur: 7,  delay: 2.5 },
+          { x: "30%", y: "75%", size: 2, dur: 12, delay: 0.3 },
+          { x: "12%", y: "60%", size: 4, dur: 9,  delay: 1.8 },
+          { x: "5%",  y: "40%", size: 2, dur: 6,  delay: 3.5 },
+          { x: "38%", y: "50%", size: 3, dur: 10, delay: 1 },
+          { x: "60%", y: "42%", size: 2, dur: 8,  delay: 4 },
+          { x: "75%", y: "88%", size: 3, dur: 7,  delay: 0.7 },
+          { x: "18%", y: "88%", size: 2, dur: 11, delay: 2.2 },
+          { x: "50%", y: "5%",  size: 4, dur: 9,  delay: 1.3 },
+          { x: "90%", y: "78%", size: 2, dur: 8,  delay: 3.2 },
+          { x: "42%", y: "95%", size: 3, dur: 10, delay: 0.9 },
+          { x: "5%",  y: "85%", size: 2, dur: 7,  delay: 4.2 },
+          { x: "25%", y: "35%", size: 4, dur: 9,  delay: 1.1 },
+          { x: "65%", y: "55%", size: 2, dur: 8,  delay: 2.8 },
+          { x: "88%", y: "45%", size: 3, dur: 10, delay: 0.4 },
+          { x: "15%", y: "10%", size: 2, dur: 6,  delay: 3.7 },
+          { x: "48%", y: "65%", size: 3, dur: 8,  delay: 1.9 },
+          { x: "72%", y: "22%", size: 4, dur: 11, delay: 0.2 },
+        ].map((d, i) => (
+          <motion.div
+            key={i}
+            className="absolute rounded-full bg-current"
+            style={{ left: d.x, top: d.y, width: d.size, height: d.size }}
+            animate={{
+              y: [0, -(12 + i % 6 * 4), 0],
+              opacity: [0.03, 0.15, 0.03],
+              scale: [1, 1.8, 1],
+            }}
+            transition={{
+              duration: d.dur,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: d.delay,
+            }}
+          />
+        ))}
       </div>
 
 
@@ -491,12 +553,15 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
 
             <motion.div style={{ opacity: taglineOpacity }} className="flex flex-col md:flex-row md:items-end justify-between gap-12 max-w-7xl">
               <div className="space-y-4">
-                <p className="text-xl md:text-[clamp(1.5rem,3vw,3rem)] font-medium tracking-tight max-w-3xl leading-[1.1] opacity-90">
-                  {data?.tagline || "I transform complex logic into elegant digital experiences."}
-                </p>
-                <p className="text-xs md:text-sm opacity-40 max-w-lg font-medium leading-relaxed">
-                  {data?.aboutText?.slice(0, 150) || "Solving logic with humanity through world-class functional software design."}
-                </p>
+                <WordReveal 
+                  text={data?.tagline || "I transform complex logic into elegant digital experiences."}
+                  className="text-xl md:text-[clamp(1.5rem,3vw,3rem)] font-medium tracking-tight max-w-3xl leading-[1.1] opacity-90"
+                />
+                <WordReveal
+                  text={data?.aboutText?.slice(0, 150) || "Solving logic with humanity through world-class functional software design."}
+                  className="text-xs md:text-sm opacity-40 max-w-lg font-medium leading-relaxed"
+                  delay={0.5}
+                />
               </div>
 
               <div className="flex gap-6 pb-2">
@@ -537,16 +602,13 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
             className="relative z-10 text-center px-6"
           >
             <motion.p variants={fadeInUp} className="text-[10px] font-black uppercase tracking-[0.5em] text-zinc-500 mb-10">Coding Philosophy</motion.p>
-            <motion.h2
-              variants={staggerContainer}
-              className="text-6xl sm:text-8xl md:text-9xl lg:text-[11vw] font-black tracking-tighter leading-none italic"
-            >
-              {["Simply", "Better", "Code."].map((word, i) => (
-                <motion.span key={i} variants={fadeInUp} className="inline-block mr-[0.2em]">{word}</motion.span>
-              ))}
-            </motion.h2>
+            <h2 className="text-6xl sm:text-8xl md:text-9xl lg:text-[11vw] font-black tracking-tighter leading-none italic">
+              <TypeReveal text="Simply " />
+              <TypeReveal text="Better " delay={0.12} />
+              <TypeReveal text="Code." delay={0.24} />
+            </h2>
             <motion.div variants={fadeInUp} className="mt-12 opacity-40 text-sm font-medium tracking-widest uppercase">
-              Connecting Logic with Humanity
+              <TypeReveal text="Connecting Logic with Humanity" delay={0.5} />
             </motion.div>
           </motion.div>
 
@@ -670,12 +732,17 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                     ))}
                   </div>
                   {/* Title — italic always on mobile */}
-                  <h3 className={`text-3xl md:text-5xl font-black tracking-tighter leading-[0.9] uppercase transition-all duration-500 ${isMobile ? 'italic' : 'group-hover:italic'}`}>{p.title}</h3>
+                  <h3 className={`text-3xl md:text-5xl font-black tracking-tighter leading-[0.9] uppercase transition-all duration-500 ${isMobile ? 'italic' : 'group-hover:italic'}`}>
+                    <TypeReveal text={p.title} />
+                  </h3>
                 </div>
 
                 <div className="relative z-10 space-y-8 mt-12">
                   {/* Description — always visible on mobile */}
-                  <p className={`text-lg md:text-xl font-medium leading-relaxed line-clamp-3 transition-opacity ${isMobile ? 'opacity-60' : 'opacity-40 group-hover:opacity-70'}`}>{p.description}</p>
+                  <WordReveal 
+                    text={p.description} 
+                    className={`text-lg md:text-xl font-medium leading-relaxed line-clamp-3 transition-opacity ${isMobile ? 'opacity-60' : 'opacity-40 group-hover:opacity-70'}`}
+                  />
                   {/* Quick View — always visible on mobile */}
                   <div className={`flex items-center gap-4 text-[10px] font-black uppercase tracking-widest transition-all duration-500 ${isMobile ? 'opacity-70 translate-y-0' : 'opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0'}`}>
                     Quick View <ArrowUpRight className="w-4 h-4" />
@@ -703,7 +770,9 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
           className="max-w-[1400px] mx-auto grid lg:grid-cols-2 gap-16 md:gap-32"
         >
           <motion.div variants={fadeInUp}>
-            <p className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 mb-12">Core Technologies</p>
+            <p className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 mb-12">
+              <TypeReveal text="Core Technologies" />
+            </p>
             <div className="flex flex-wrap gap-4 md:gap-6">
               {[...frontendSkills, ...backendSkills].map((s: any, i: number) => (
                 <motion.div
@@ -735,12 +804,16 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
             className={`p-6 md:p-12 rounded-[2rem] ${accentColor} flex flex-col justify-between shadow-2xl shadow-black/10`}
           >
             <div>
-              <h3 className="text-[10px] font-black uppercase tracking-[0.4em] opacity-40 mb-16">Services</h3>
+              <h3 className="text-[10px] font-black uppercase tracking-[0.4em] opacity-40 mb-16">
+                <TypeReveal text="Services" />
+              </h3>
               <div className="space-y-12">
                 {services.slice(0, 4).map((s: any, i: number) => (
                   <motion.div variants={fadeInUp} key={i}>
-                    <p className="text-2xl md:text-4xl font-black uppercase tracking-tighter mb-2">{s.title}</p>
-                    <p className="text-sm md:text-base opacity-60 max-w-sm leading-relaxed">{s.description}</p>
+                    <p className="text-2xl md:text-4xl font-black uppercase tracking-tighter mb-2">
+                      <TypeReveal text={s.title} />
+                    </p>
+                    <WordReveal text={s.description} className="text-sm md:text-base opacity-60 max-w-sm leading-relaxed" />
                   </motion.div>
                 ))}
               </div>
@@ -833,7 +906,9 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                     <Send className="w-12 h-12" />
                   </div>
                   <div>
-                    <h3 className="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-4">Message Sent.</h3>
+                    <h3 className="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-4">
+                    <TypeReveal text="Message Sent." />
+                  </h3>
                     <p className="text-lg md:text-xl opacity-40 max-w-sm mx-auto">I'll get back to you within 24 hours.</p>
                   </div>
                   <button onClick={() => setSubmitted(false)} className="text-[11px] font-black uppercase tracking-widest border-b-2 border-current pb-2 hover:opacity-50 transition-opacity">Send another</button>

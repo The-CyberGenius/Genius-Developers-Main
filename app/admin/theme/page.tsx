@@ -18,12 +18,20 @@ const FONT_OPTIONS = [
 ];
 
 const THEME_PRESETS = [
-  { label: "Apple (Black & White)", value: "apple", bg: "#000000", accent: "#ffffff" },
-  { label: "Midnight (Dark Blue)", value: "midnight", bg: "#0a0e1a", accent: "#6366f1" },
-  { label: "Forest (Dark Green)", value: "forest", bg: "#0a1a0e", accent: "#22c55e" },
-  { label: "Ember (Dark Red)", value: "ember", bg: "#1a0a0a", accent: "#ef4444" },
-  { label: "Gold (Luxury)", value: "gold", bg: "#0a0a00", accent: "#f59e0b" },
-  { label: "Custom (Pick Your Own)", value: "custom", bg: "#000000", accent: "#6366f1" },
+  { label: "Apple (B&W)", value: "apple", bg: "#000000", accent: "#ffffff" },
+  { label: "Cyberpunk", value: "neon", bg: "#000000", accent: "#00ffcc" },
+  { label: "Midnight", value: "midnight", bg: "#0a0e1a", accent: "#6366f1" },
+  { label: "Ember", value: "ember", bg: "#1a0a0a", accent: "#ef4444" },
+  { label: "Forest", value: "forest", bg: "#0a1a0e", accent: "#22c55e" },
+  { label: "Gold", value: "gold", bg: "#0a0a00", accent: "#f59e0b" },
+];
+
+const ANIMATION_OPTIONS = [
+  { label: "Apple Cinematic", value: "apple", desc: "Smooth parallax and blurring reveals", icon: Zap },
+  { label: "Minimalist Fade", value: "fade", desc: "Pure opacity-based clean transitions", icon: Layout },
+  { label: "Neon Pulse", value: "pulse", desc: "Glowing effects and vibrant transitions", icon: Sun },
+  { label: "Stack Cards", value: "stack", desc: "Layered card stacking scroll effect", icon: Layers },
+  { label: "Floating 3D", value: "floating", desc: "Ethereal floating elements with depth", icon: Sparkles },
 ];
 
 export default function ThemePage() {
@@ -208,6 +216,40 @@ export default function ThemePage() {
                   <p className="text-sm text-zinc-500">{font.label}</p>
                 </button>
               ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Animation & Experience Styles */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2"><Sparkles className="w-4 h-4" /> Experience Styles</CardTitle>
+            <CardDescription>Select the high-end animation engine for your portfolio.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {ANIMATION_OPTIONS.map((opt) => {
+                const Icon = opt.icon;
+                return (
+                  <button
+                    key={opt.value}
+                    onClick={() => setSettings({ ...settings, animationStyle: opt.value })}
+                    className={`p-6 rounded-2xl text-left border-2 transition-all flex flex-col gap-3 group ${
+                      settings.animationStyle === opt.value
+                        ? "border-zinc-900 dark:border-white bg-zinc-50 dark:bg-zinc-800 shadow-xl"
+                        : "border-zinc-100 dark:border-zinc-900 hover:border-zinc-300 dark:hover:border-zinc-700"
+                    }`}
+                  >
+                    <div className={`p-3 rounded-xl w-fit ${settings.animationStyle === opt.value ? 'bg-zinc-900 dark:bg-white text-white dark:text-black' : 'bg-zinc-100 dark:bg-zinc-900 text-zinc-500'}`}>
+                      <Icon className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <p className="font-bold">{opt.label}</p>
+                      <p className="text-xs text-zinc-500 leading-relaxed">{opt.desc}</p>
+                    </div>
+                  </button>
+                );
+              })}
             </div>
           </CardContent>
         </Card>
