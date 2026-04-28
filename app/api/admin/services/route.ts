@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import connectToDatabase from "@/lib/mongodb";
 import Service from "@/models/Service";
+import { revalidatePath } from "next/cache";
 
 export const dynamic = 'force-dynamic';
 
@@ -19,6 +20,10 @@ export async function POST(req: Request) {
     await connectToDatabase();
     const data = await req.json();
     const service = await Service.create(data);
+    
+    // Auto-update portfolio instantly
+    revalidatePath("/");
+    
     return NextResponse.json(service);
   } catch (error) {
     return NextResponse.json({ error: "Failed to create service" }, { status: 500 });

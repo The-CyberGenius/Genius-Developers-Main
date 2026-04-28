@@ -3,6 +3,7 @@ export const dynamic = 'force-dynamic';
 import { NextResponse } from "next/server";
 import connectToDatabase from "@/lib/mongodb";
 import Settings from "@/models/Settings";
+import { revalidatePath } from "next/cache";
 
 export async function GET() {
   try {
@@ -25,6 +26,10 @@ export async function PUT(req: Request) {
     } else {
       await Settings.findByIdAndUpdate(settings._id, data, { new: true });
     }
+    
+    // Auto-update portfolio instantly
+    revalidatePath("/");
+    
     return NextResponse.json({ success: true });
   } catch (error) {
     return NextResponse.json({ error: "Failed to update settings" }, { status: 500 });

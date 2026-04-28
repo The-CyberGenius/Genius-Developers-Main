@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import connectToDatabase from "@/lib/mongodb";
 import Project from "@/models/Project";
+import { revalidatePath } from "next/cache";
 
 export const dynamic = 'force-dynamic';
 
@@ -20,6 +21,10 @@ export async function POST(req: Request) {
     await connectToDatabase();
     const data = await req.json();
     const project = await Project.create(data);
+    
+    // Auto-update portfolio instantly
+    revalidatePath("/");
+    
     return NextResponse.json(project);
   } catch (error) {
     console.error("POST Project Error:", error);
