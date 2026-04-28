@@ -102,6 +102,79 @@ function BgTypingText() {
   );
 }
 
+// ── LoadingScreen: Magical branding reveal + logic lines ──
+function LoadingScreen() {
+  const [lineIndex, setLineIndex] = useState(0);
+  const lines = [
+    "Synthesizing Core Logic...",
+    "Connecting Digital Humanity...",
+    "Optimizing High-End Experience...",
+    "Brewing Minimalist Excellence...",
+    "Finalizing Magical Layers..."
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setLineIndex((prev) => (prev + 1) % lines.length);
+    }, 1800);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <motion.div
+      initial={{ opacity: 1 }}
+      exit={{ opacity: 0, scale: 1.05, filter: "blur(20px)" }}
+      transition={{ duration: 1.2, ease: [0.23, 1, 0.32, 1] }}
+      className="fixed inset-0 z-[9999] bg-black flex flex-col items-center justify-center text-white p-6 overflow-hidden"
+    >
+      {/* Background Glow */}
+      <motion.div
+        animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.2, 0.1] }}
+        transition={{ duration: 4, repeat: Infinity }}
+        className="absolute w-[80vw] h-[80vw] bg-white/10 blur-[120px] rounded-full pointer-events-none"
+      />
+
+      <div className="relative z-10 text-center">
+        <h2 className="text-2xl md:text-4xl font-black tracking-[0.4em] uppercase mb-8 italic serif overflow-hidden">
+          <motion.span
+            initial={{ y: "100%" }}
+            animate={{ y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="inline-block"
+          >
+            geniusdevelopers.space
+          </motion.span>
+        </h2>
+
+        <div className="h-6 overflow-hidden">
+          <AnimatePresence mode="wait">
+            <motion.p
+              key={lineIndex}
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -20, opacity: 0 }}
+              transition={{ duration: 0.5 }}
+              className="text-[10px] md:text-xs font-black uppercase tracking-[0.5em] opacity-40"
+            >
+              {lines[lineIndex]}
+            </motion.p>
+          </AnimatePresence>
+        </div>
+
+        {/* Progress Bar */}
+        <div className="mt-12 w-48 h-[1px] bg-white/10 mx-auto relative overflow-hidden">
+          <motion.div
+            initial={{ x: "-100%" }}
+            animate={{ x: "0%" }}
+            transition={{ duration: 2.5, ease: "easeInOut" }}
+            className="absolute inset-0 bg-white"
+          />
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
 export default function PortfolioUI({ data, skills, services, projects, resume, settings }: {
   data: any; skills: any[]; services: any[]; projects: any[]; resume?: any; settings?: any;
 }) {
@@ -134,12 +207,20 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
     // Detect touch/mobile device
     const checkMobile = () => setIsMobile(window.matchMedia("(hover: none) and (pointer: coarse)").matches);
     checkMobile();
     window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
+    
+    // Artificial delay for magical loading screen
+    const timer = setTimeout(() => {
+      setMounted(true);
+    }, 2500);
+
+    return () => {
+      window.removeEventListener("resize", checkMobile);
+      clearTimeout(timer);
+    };
   }, []);
 
   const animationStyle = settings?.animationStyle || "apple";
@@ -286,12 +367,17 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
   const dotsY = useTransform(smoothProgress, [0, 1], ["0%", "-20%"]);
 
   return (
-    <div
-      ref={containerRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      className={`${themeClasses} transition-colors duration-700 overflow-x-hidden selection:bg-zinc-500/30 relative text-base`}
-    >
+    <>
+      <AnimatePresence mode="wait">
+        {!mounted && <LoadingScreen key="loader" />}
+      </AnimatePresence>
+
+      <div
+        ref={containerRef}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        className={`${themeClasses} transition-colors duration-700 overflow-x-hidden selection:bg-zinc-500/30 relative text-base`}
+      >
 
       {/* ── CURSOR GLOW TRAIL (MAGICAL) ──────────────────── */}
       {mounted && (
