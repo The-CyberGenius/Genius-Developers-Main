@@ -225,10 +225,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                 }`}
               >
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
-                
-                {/* Mock Image / Placeholder with Premium Gradient */}
                 <div className="absolute inset-0 bg-gradient-to-br from-zinc-100 to-zinc-300 dark:from-zinc-800 dark:to-zinc-900 group-hover:scale-105 transition-transform duration-700" />
-                
                 <div className="absolute bottom-0 left-0 p-10 z-20 space-y-4 translate-y-8 group-hover:translate-y-0 transition-transform duration-500">
                   <div className="flex gap-2">
                     {p.tags?.slice(0, 2).map((t: string) => (
@@ -238,7 +235,6 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                   <h3 className="text-4xl font-black text-white tracking-tighter uppercase">{p.title}</h3>
                   <p className="text-white/60 text-sm max-w-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500">{p.description}</p>
                 </div>
-
                 <div className="absolute top-10 right-10 z-20 opacity-0 group-hover:opacity-100 transition-all duration-500">
                   <div className="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center">
                     <ArrowUpRight size={24} />
@@ -250,15 +246,13 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
         </div>
       </section>
 
-      {/* ── CORE CAPABILITIES (BENTO STYLE) ────────────────── */}
+      {/* ── SKILLS ───────────────────────────────────── */}
       <section id="about" className="py-32 px-6 md:px-12 overflow-hidden">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6">
-          
           <div className="md:col-span-12 mb-12">
             <p className="text-[10px] font-bold uppercase tracking-[0.4em] opacity-40 mb-4">Core Expertise</p>
             <h2 className="text-6xl md:text-8xl font-black tracking-tighter uppercase">Skills<span className="opacity-10 italic serif">.</span></h2>
           </div>
-
           <div className="md:col-span-4 p-12 rounded-[3rem] bg-zinc-900 text-white flex flex-col justify-between h-[400px]">
             <Globe className="text-blue-500" size={48} />
             <div>
@@ -266,7 +260,6 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
               <p className="opacity-40 text-sm leading-relaxed">Building end-to-end applications with modern technology stacks.</p>
             </div>
           </div>
-
           <div className="md:col-span-8 grid grid-cols-2 sm:grid-cols-3 gap-4">
             {skills.map((s, i) => (
               <motion.div
@@ -281,11 +274,10 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
               </motion.div>
             ))}
           </div>
-
         </div>
       </section>
 
-      {/* ── SERVICES (MINIMALIST APPLE LIST) ──────────────── */}
+      {/* ── SERVICES ────────────────────────────────────── */}
       <section className="py-32 px-6 md:px-12 bg-white dark:bg-black">
         <div className="max-w-7xl mx-auto">
           <div className="space-y-0">
@@ -310,7 +302,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
         </div>
       </section>
 
-      {/* ── CONTACT (MODERN FORM) ────────────────────────── */}
+      {/* ── CONTACT ─────────────────────────────────────── */}
       <section id="contact" className="py-32 px-6 md:px-12 bg-zinc-50 dark:bg-zinc-950 rounded-t-[5rem]">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-12 gap-24">
           <div className="lg:col-span-5 space-y-12">
@@ -318,7 +310,6 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
               <p className="text-[10px] font-bold uppercase tracking-[0.4em] opacity-40">Let's Connect</p>
               <h2 className="text-6xl md:text-9xl font-black tracking-tighter uppercase leading-[0.8]">Work<br /><span className="opacity-10 italic serif">Together.</span></h2>
             </div>
-            
             <div className="space-y-8">
               <div className="flex gap-6">
                 {[
@@ -331,12 +322,8 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                   </a>
                 ))}
               </div>
-              <p className="text-xl font-medium tracking-tight opacity-40">
-                Currently open for freelance projects and full-time opportunities.
-              </p>
             </div>
           </div>
-
           <div className="lg:col-span-7">
             <div className="p-12 rounded-[3.5rem] bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 shadow-2xl shadow-black/5">
               {submitted ? (
@@ -374,19 +361,16 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
         </div>
       </section>
 
-      {/* ── FOOTER ───────────────────────────────────────── */}
       <footer className="py-20 px-6 text-center opacity-20 text-[10px] font-bold uppercase tracking-[0.4em]">
         © {new Date().getFullYear()} {data?.name || "SHIVA"} — Built with Precision.
       </footer>
 
-      {/* ── PROJECT MODAL ────────────────────────────────── */}
+      {/* PROJECT MODAL */}
       <AnimatePresence>
         {selectedProject && (
           <div className="fixed inset-0 z-[1000] flex items-center justify-center p-6 md:p-12">
             <motion.div 
-              initial={{ opacity: 0 }} 
-              animate={{ opacity: 1 }} 
-              exit={{ opacity: 0 }} 
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} 
               onClick={() => setSelectedProject(null)} 
               className="absolute inset-0 bg-black/90 backdrop-blur-xl" 
             />
@@ -397,9 +381,9 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
               <button onClick={() => setSelectedProject(null)} className="absolute top-10 right-10 z-10 p-3 rounded-full bg-black/10 dark:bg-white/10 hover:bg-black/20 dark:hover:bg-white/20">
                 <X size={24} />
               </button>
-              
-              <div className="md:w-1/2 bg-zinc-100 dark:bg-zinc-900" /> {/* Placeholder for project image */}
-              
+              <div className="md:w-1/2 bg-zinc-100 dark:bg-zinc-900 overflow-hidden">
+                <div className="absolute inset-0 flex items-center justify-center opacity-10 uppercase font-black text-9xl rotate-90 select-none">{selectedProject.title.slice(0,2)}</div>
+              </div>
               <div className="md:w-1/2 p-12 md:p-20 flex flex-col justify-center gap-10">
                 <div className="space-y-6">
                   <div className="flex gap-2">
@@ -410,53 +394,17 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                   <h3 className="text-5xl md:text-8xl font-black tracking-tighter uppercase leading-[0.8]">{selectedProject.title}</h3>
                   <p className="text-xl opacity-40 font-medium leading-relaxed">{selectedProject.description}</p>
                 </div>
-                
                 <div className="flex gap-4">
                   {selectedProject.link && (
-                    <a href={selectedProject.link} target="_blank" rel="noreferrer" className={`px-10 py-5 rounded-full ${accentColor} font-bold text-[11px] uppercase tracking-widest`}>
-                      Live Site
-                    </a>
+                    <a href={selectedProject.link} target="_blank" rel="noreferrer" className={`px-10 py-5 rounded-full ${accentColor} font-bold text-[11px] uppercase tracking-widest`}>Live Site</a>
                   )}
                   {selectedProject.github && (
-                    <a href={selectedProject.github} target="_blank" rel="noreferrer" className="px-10 py-5 rounded-full border border-zinc-200 dark:border-zinc-800 font-bold text-[11px] uppercase tracking-widest">
-                      Codebase
-                    </a>
+                    <a href={selectedProject.github} target="_blank" rel="noreferrer" className="px-10 py-5 rounded-full border border-zinc-200 dark:border-zinc-800 font-bold text-[11px] uppercase tracking-widest">Codebase</a>
                   )}
                 </div>
               </div>
             </motion.div>
           </div>
-        )}
-      </AnimatePresence>
-
-    </div>
-  );
-}
-g-white text-white dark:text-black font-black uppercase text-[11px] tracking-widest hover:scale-105 transition-transform shadow-xl shadow-black/10">
-                      Live Preview <ArrowUpRight className="w-5 h-5" />
-                    </a>
-                  )}
-                  {selectedProject.github && (
-                    <a href={selectedProject.github} target="_blank" rel="noreferrer" className="flex items-center gap-3 px-8 py-5 rounded-full border-2 border-current/20 font-black uppercase text-[11px] tracking-widest hover:bg-current/5 transition-all">
-                      Source Code <FaGithub className="w-5 h-5" />
-                    </a>
-                  )}
-                </div>
-              </div>
-
-              <div className="md:w-1/2 relative bg-zinc-100 dark:bg-zinc-900 overflow-hidden group">
-                {/* Placeholder for project image / interaction */}
-                <div className="absolute inset-0 flex items-center justify-center opacity-10 select-none pointer-events-none">
-                  <span className="text-[15rem] font-black tracking-tighter uppercase rotate-90">{selectedProject.title.slice(0, 2)}</span>
-                </div>
-                <div className="absolute inset-0 flex items-center justify-center p-12">
-                  <div className="w-full aspect-video rounded-2xl bg-white dark:bg-black shadow-2xl border border-white/5 flex items-center justify-center">
-                    <p className="text-sm font-black uppercase tracking-[0.4em] opacity-20 italic">Visual Showcase Pending</p>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
         )}
       </AnimatePresence>
     </div>
