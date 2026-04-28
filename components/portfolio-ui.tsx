@@ -135,7 +135,7 @@ function LoadingScreen() {
       />
 
       <div className="relative z-10 text-center">
-        <h2 className="text-[clamp(1.1rem,6vw,2.5rem)] font-black tracking-[0.2em] md:tracking-[0.4em] uppercase mb-8 italic serif overflow-hidden">
+        <h2 className="text-[clamp(0.8rem,4.5vw,2.5rem)] font-black tracking-normal md:tracking-[0.4em] uppercase mb-8 italic serif overflow-hidden whitespace-nowrap px-4">
           <motion.span
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
