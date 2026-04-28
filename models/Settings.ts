@@ -2,7 +2,6 @@ import mongoose, { Schema, Document } from "mongoose";
 
 export interface ISettings extends Document {
   theme: "light" | "dark" | "system" | "neon" | "apple" | "custom";
-  animationStyle: "apple" | "minimalist" | "neon" | "stack" | "float";
   customColors: {
     primary: string;
     background: string;
@@ -17,7 +16,6 @@ export interface ISettings extends Document {
 const SettingsSchema: Schema = new Schema(
   {
     theme: { type: String, default: "apple" },
-    animationStyle: { type: String, default: "apple" },
     customColors: {
       primary: { type: String, default: "#000000" },
       background: { type: String, default: "#ffffff" },
