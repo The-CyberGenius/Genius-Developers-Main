@@ -9,7 +9,7 @@ import { ArrowRight, ArrowUpRight, Download, Send, Loader2, Mail, Sun, Moon, X }
 import { FaGithub, FaLinkedin, FaTwitter, FaInstagram, FaYoutube, FaWhatsapp } from "react-icons/fa";
 import { toast } from "sonner";
 
-// ── TypeReveal: Char-by-char blur fade (for headings) ──────
+// ── TypeReveal: Char-by-char blur fade (headings) ──────────
 function TypeReveal({ text, className, delay = 0 }: { text: string; className?: string; delay?: number }) {
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true, margin: "0px 0px -60px 0px" });
@@ -20,9 +20,13 @@ function TypeReveal({ text, className, delay = 0 }: { text: string; className?: 
           key={i}
           className="inline-block"
           style={{ whiteSpace: char === " " ? "pre" : undefined }}
-          initial={{ opacity: 0, y: 18, filter: "blur(6px)" }}
+          initial={{ opacity: 0, y: 14, filter: "blur(8px)" }}
           animate={isInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
-          transition={{ duration: 0.35, delay: delay + i * 0.028, ease: [0.23, 1, 0.32, 1] }}
+          transition={{
+            duration: 0.55,
+            delay: delay + i * 0.015,  // tight stagger — group feel, not flag
+            ease: [0.23, 1, 0.32, 1]
+          }}
         >{char}</motion.span>
       ))}
     </span>
@@ -386,7 +390,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                           repeat: Infinity,
                           ease: "easeInOut",
                           delay: i * 0.12,
-                          repeatDelay: 2.5,
+                          repeatDelay: 6.2,  // ~8s full cycle per letter
                         }
                       } : {
                         whileHover: {
@@ -420,7 +424,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                             repeat: Infinity,
                             ease: "easeInOut",
                             delay: j * 0.1 + 0.5,
-                            repeatDelay: 2.5,
+                            repeatDelay: 6.2,  // ~8s full cycle
                           }
                         } : {
                           whileHover: {
