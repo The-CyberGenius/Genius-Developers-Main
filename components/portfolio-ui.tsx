@@ -596,8 +596,8 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                   rel="noreferrer"
                   className="flex items-center gap-6 p-5 md:p-7 rounded-[1.5rem] bg-zinc-50 dark:bg-zinc-900/50 border border-current/5 group transition-all"
                 >
-                  <div className="w-16 h-16 rounded-full bg-foreground/10 flex items-center justify-center group-hover:bg-foreground transition-all duration-300">
-                    <FaWhatsapp className="w-8 h-8 text-foreground group-hover:text-background transition-colors" />
+                  <div className="w-16 h-16 rounded-full bg-current/10 flex items-center justify-center group-hover:bg-current text-current group-hover:text-white dark:group-hover:text-black transition-all duration-300">
+                    <FaWhatsapp className="w-8 h-8" />
                   </div>
                   <div>
                     <span className="block text-2xl md:text-3xl font-black uppercase tracking-tighter group-hover:italic transition-all">Direct Message</span>
@@ -612,8 +612,8 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                   href={`mailto:${data.email}`}
                   className="flex items-center gap-6 p-5 md:p-7 rounded-[1.5rem] bg-zinc-50 dark:bg-zinc-900/50 border border-current/5 group transition-all"
                 >
-                  <div className="w-16 h-16 rounded-full bg-foreground/10 flex items-center justify-center group-hover:bg-foreground transition-all duration-300">
-                    <Mail className="w-8 h-8 text-foreground group-hover:text-background transition-colors" />
+                  <div className="w-16 h-16 rounded-full bg-current/10 flex items-center justify-center group-hover:bg-current text-current group-hover:text-white dark:group-hover:text-black transition-all duration-300">
+                    <Mail className="w-8 h-8" />
                   </div>
                   <div>
                     <span className="block text-2xl md:text-3xl font-black uppercase tracking-tighter group-hover:italic transition-all">Send Email</span>
