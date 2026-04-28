@@ -155,14 +155,10 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
   const handleMouseMove = (e: React.MouseEvent) => {
     const { clientX, clientY } = e;
     const { innerWidth, innerHeight } = window;
-
-    // For Title Parallax
     const x = (clientX - innerWidth / 2) / 25;
     const y = (clientY - innerHeight / 2) / 25;
     mouseX.set(x);
     mouseY.set(y);
-
-    // For Cursor Glow
     cursorX.set(clientX);
     cursorY.set(clientY);
   };
@@ -171,6 +167,27 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
     mouseX.set(0);
     mouseY.set(0);
   };
+
+  // ── MOBILE: AUTO SIMULATE MOUSE PARALLAX ─────────────
+  useEffect(() => {
+    if (!isMobile) return;
+    let frame: number;
+    let t = 0;
+    const loop = () => {
+      t += 0.008;
+      // Lissajous-style motion — smooth, natural, non-repetitive feel
+      mouseX.set(Math.sin(t * 0.9) * 10);
+      mouseY.set(Math.cos(t * 0.7) * 8);
+      // Move cursor glow around screen center on mobile
+      if (typeof window !== 'undefined') {
+        cursorX.set(window.innerWidth / 2 + Math.sin(t * 0.5) * window.innerWidth * 0.25);
+        cursorY.set(window.innerHeight / 2 + Math.cos(t * 0.4) * window.innerHeight * 0.2);
+      }
+      frame = requestAnimationFrame(loop);
+    };
+    frame = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(frame);
+  }, [isMobile, mouseX, mouseY, cursorX, cursorY]);
 
   // Parallax for Background Layers
   const bgTextY = useTransform(smoothProgress, [0, 1], ["0%", "15%"]);
@@ -320,14 +337,28 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                     <motion.span
                       key={i}
                       className="inline-block cursor-default"
-                      whileHover={{
-                        y: -40,
-                        scale: 1.4,
-                        rotate: Math.random() * 20 - 10,
-                        transition: { type: "spring", stiffness: 400, damping: 10 }
-                      }}
-                      initial={{ y: 0 }}
-                      animate={{ y: 0 }}
+                      {...(isMobile ? {
+                        animate: {
+                          y: [0, -30, 0],
+                          scale: [1, 1.3, 1],
+                        },
+                        transition: {
+                          duration: 1.8,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                          delay: i * 0.12,
+                          repeatDelay: 2.5,
+                        }
+                      } : {
+                        whileHover: {
+                          y: -40,
+                          scale: 1.4,
+                          rotate: Math.random() * 20 - 10,
+                          transition: { type: "spring", stiffness: 400, damping: 10 }
+                        },
+                        initial: { y: 0 },
+                        animate: { y: 0 }
+                      })}
                     >
                       {char}
                     </motion.span>
@@ -340,12 +371,26 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                       <motion.span
                         key={j}
                         className="inline-block cursor-default"
-                        whileHover={{
-                          y: 20,
-                          scale: 1.2,
-                          rotate: Math.random() * 10 - 5,
-                          transition: { type: "spring", stiffness: 400, damping: 10 }
-                        }}
+                        {...(isMobile ? {
+                          animate: {
+                            y: [0, 15, 0],
+                            scale: [1, 1.15, 1],
+                          },
+                          transition: {
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                            delay: j * 0.1 + 0.5,
+                            repeatDelay: 2.5,
+                          }
+                        } : {
+                          whileHover: {
+                            y: 20,
+                            scale: 1.2,
+                            rotate: Math.random() * 10 - 5,
+                            transition: { type: "spring", stiffness: 400, damping: 10 }
+                          }
+                        })}
                       >
                         {char}
                       </motion.span>
