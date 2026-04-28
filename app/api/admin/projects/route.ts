@@ -1,33 +1,26 @@
 import { NextResponse } from "next/server";
 import connectToDatabase from "@/lib/mongodb";
 import Project from "@/models/Project";
-import { revalidatePath } from "next/cache";
+import { revalidatePortfolio } from "@/lib/revalidate";
 
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
     await connectToDatabase();
-    const projects = await Project.find().sort({ order: 1, createdAt: -1 });
-    return NextResponse.json(projects);
+    return NextResponse.json(await Project.find().sort({ order: 1, createdAt: -1 }));
   } catch (error) {
-    console.error("GET Projects Error:", error);
-    return NextResponse.json({ error: "Failed to fetch projects" }, { status: 500 });
+    return NextResponse.json({ error: "Failed to fetch" }, { status: 500 });
   }
 }
 
 export async function POST(req: Request) {
   try {
     await connectToDatabase();
-    const data = await req.json();
-    const project = await Project.create(data);
-    
-    // Auto-update portfolio instantly
-    revalidatePath("/");
-    
+    const project = await Project.create(await req.json());
+    revalidatePortfolio();
     return NextResponse.json(project);
   } catch (error) {
-    console.error("POST Project Error:", error);
-    return NextResponse.json({ error: "Failed to create project" }, { status: 500 });
+    return NextResponse.json({ error: "Failed to create" }, { status: 500 });
   }
 }

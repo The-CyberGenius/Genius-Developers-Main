@@ -3,7 +3,7 @@ export const dynamic = 'force-dynamic';
 import { NextResponse } from "next/server";
 import connectToDatabase from "@/lib/mongodb";
 import Settings from "@/models/Settings";
-import { revalidatePath } from "next/cache";
+import { revalidatePortfolio } from "@/lib/revalidate";
 
 export async function GET() {
   try {
@@ -27,8 +27,7 @@ export async function PUT(req: Request) {
       await Settings.findByIdAndUpdate(settings._id, data, { new: true });
     }
     
-    // Auto-update portfolio instantly
-    revalidatePath("/");
+        revalidatePortfolio();
     
     return NextResponse.json({ success: true });
   } catch (error) {

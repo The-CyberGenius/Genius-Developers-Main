@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import connectToDatabase from "@/lib/mongodb";
 import Skill from "@/models/Skill";
-import { revalidatePath } from "next/cache";
+import { revalidatePortfolio } from "@/lib/revalidate";
 
 export const dynamic = 'force-dynamic';
 
@@ -13,8 +13,7 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
     const skill = await Skill.findByIdAndUpdate(id, data, { new: true });
     if (!skill) return NextResponse.json({ error: "Not found" }, { status: 404 });
     
-    // Auto-update portfolio instantly
-    revalidatePath("/");
+        revalidatePortfolio();
     
     return NextResponse.json(skill);
   } catch (error) {
@@ -29,8 +28,7 @@ export async function DELETE(req: Request, { params }: { params: Promise<{ id: s
     const skill = await Skill.findByIdAndDelete(id);
     if (!skill) return NextResponse.json({ error: "Not found" }, { status: 404 });
     
-    // Auto-update portfolio instantly
-    revalidatePath("/");
+        revalidatePortfolio();
     
     return NextResponse.json({ success: true });
   } catch (error) {

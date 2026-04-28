@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import connectToDatabase from "@/lib/mongodb";
 import Skill from "@/models/Skill";
-import { revalidatePath } from "next/cache";
+import { revalidatePortfolio } from "@/lib/revalidate";
 
 export const dynamic = 'force-dynamic';
 
@@ -21,8 +21,7 @@ export async function POST(req: Request) {
     const data = await req.json();
     const skill = await Skill.create(data);
     
-    // Auto-update portfolio instantly
-    revalidatePath("/");
+        revalidatePortfolio();
     
     return NextResponse.json(skill);
   } catch (error) {
