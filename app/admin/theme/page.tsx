@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
-import { Loader2, Save, Palette, Type, Eye, ToggleLeft, ToggleRight } from "lucide-react";
+import { Loader2, Save, Palette, Type, Eye, ToggleLeft, ToggleRight, Zap, Layout, Sun, Layers, Sparkles } from "lucide-react";
 
 const FONT_OPTIONS = [
   { label: "Inter (Default)", value: "Inter" },
