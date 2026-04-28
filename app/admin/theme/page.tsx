@@ -26,11 +26,20 @@ const THEME_PRESETS = [
   { label: "Custom (Pick Your Own)", value: "custom", bg: "#000000", accent: "#6366f1" },
 ];
 
+const ANIMATION_OPTIONS = [
+  { label: "Apple Cinematic", value: "apple", desc: "Scroll-driven scaling and magnetic buttons." },
+  { label: "Minimalist Fade", value: "minimalist", desc: "Clean, simple transitions for professional look." },
+  { label: "Neon Pulse", value: "neon", desc: "High-energy glowing effects and grid pulses." },
+  { label: "Stack Cards", value: "stack", desc: "Sections stack on top of each other while scrolling." },
+  { label: "Floating 3D", value: "float", desc: "Elements float with parallax and depth layers." },
+];
+
 export default function ThemePage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [settings, setSettings] = useState<any>({
     theme: "apple",
+    animationStyle: "apple",
     primaryColor: "#000000",
     accentColor: "#6366f1",
     fontFamily: "Inter",
@@ -182,6 +191,32 @@ export default function ThemePage() {
                   placeholder="#6366f1"
                 />
               </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Animation & Experience */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2"><Zap className="w-4 h-4" /> Experience Style</CardTitle>
+            <CardDescription>Choose how your portfolio feels and animates.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {ANIMATION_OPTIONS.map((style) => (
+                <button
+                  key={style.value}
+                  onClick={() => setSettings({ ...settings, animationStyle: style.value })}
+                  className={`p-6 rounded-2xl text-left border-2 transition-all ${
+                    settings.animationStyle === style.value
+                      ? "border-zinc-900 dark:border-white shadow-xl bg-zinc-50 dark:bg-zinc-900"
+                      : "border-zinc-100 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700"
+                  }`}
+                >
+                  <p className="font-bold mb-1 uppercase text-xs tracking-widest">{style.label}</p>
+                  <p className="text-xs text-zinc-500 leading-relaxed">{style.desc}</p>
+                </button>
+              ))}
             </div>
           </CardContent>
         </Card>
