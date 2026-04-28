@@ -13,7 +13,6 @@ export interface ISettings extends Document {
   analyticsEnabled: boolean;
   animationStyle: string;
 }
-}
 
 const SettingsSchema: Schema = new Schema(
   {

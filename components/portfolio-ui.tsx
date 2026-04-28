@@ -148,15 +148,15 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
   const premiumEase = [0.23, 1, 0.32, 1] as any;
 
   const fadeInUp: Variants = {
-    hidden: { 
-      opacity: 0, 
+    hidden: {
+      opacity: 0,
       y: animationStyle === "apple" ? 40 : 20,
       filter: animationStyle === "apple" ? "blur(12px)" : "none",
       scale: animationStyle === "floating" ? 0.95 : 1
     },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
+    visible: {
+      opacity: 1,
+      y: 0,
       filter: "blur(0px)",
       scale: 1,
       transition: { duration: 0.8, ease: premiumEase }
@@ -171,7 +171,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
     }
   };
 
-  const funnyHover = animationStyle === "pulse" 
+  const funnyHover = animationStyle === "pulse"
     ? { scale: 1.05, boxShadow: "0 0 25px currentColor", filter: "brightness(1.2)" }
     : { scale: 1.05, rotate: [0, -1, 1, 0], transition: { duration: 0.3 } };
 
@@ -326,12 +326,12 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
 
         {/* Thin glowing diagonal lines — calm scan effect */}
         {[
-          { top: "12%", deg: -8,  dur: 22, delay: 0 },
-          { top: "28%", deg:  6,  dur: 30, delay: 4 },
-          { top: "45%", deg: -4,  dur: 26, delay: 8 },
-          { top: "62%", deg:  10, dur: 34, delay: 2 },
-          { top: "76%", deg: -6,  dur: 20, delay: 12 },
-          { top: "90%", deg:  4,  dur: 28, delay: 6 },
+          { top: "12%", deg: -8, dur: 22, delay: 0 },
+          { top: "28%", deg: 6, dur: 30, delay: 4 },
+          { top: "45%", deg: -4, dur: 26, delay: 8 },
+          { top: "62%", deg: 10, dur: 34, delay: 2 },
+          { top: "76%", deg: -6, dur: 20, delay: 12 },
+          { top: "90%", deg: 4, dur: 28, delay: 6 },
         ].map((l, i) => (
           <motion.div
             key={i}
@@ -350,30 +350,30 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
 
         {/* Glowing dots — scattered, floating, calm */}
         {[
-          { x: "8%",  y: "15%", size: 3, dur: 6,  delay: 0 },
-          { x: "22%", y: "8%",  size: 2, dur: 8,  delay: 1.2 },
+          { x: "8%", y: "15%", size: 3, dur: 6, delay: 0 },
+          { x: "22%", y: "8%", size: 2, dur: 8, delay: 1.2 },
           { x: "45%", y: "20%", size: 4, dur: 10, delay: 0.5 },
-          { x: "68%", y: "12%", size: 2, dur: 7,  delay: 2 },
-          { x: "85%", y: "25%", size: 3, dur: 9,  delay: 0.8 },
+          { x: "68%", y: "12%", size: 2, dur: 7, delay: 2 },
+          { x: "85%", y: "25%", size: 3, dur: 9, delay: 0.8 },
           { x: "92%", y: "50%", size: 2, dur: 11, delay: 3 },
-          { x: "78%", y: "70%", size: 4, dur: 8,  delay: 1.5 },
-          { x: "55%", y: "80%", size: 3, dur: 7,  delay: 2.5 },
+          { x: "78%", y: "70%", size: 4, dur: 8, delay: 1.5 },
+          { x: "55%", y: "80%", size: 3, dur: 7, delay: 2.5 },
           { x: "30%", y: "75%", size: 2, dur: 12, delay: 0.3 },
-          { x: "12%", y: "60%", size: 4, dur: 9,  delay: 1.8 },
-          { x: "5%",  y: "40%", size: 2, dur: 6,  delay: 3.5 },
+          { x: "12%", y: "60%", size: 4, dur: 9, delay: 1.8 },
+          { x: "5%", y: "40%", size: 2, dur: 6, delay: 3.5 },
           { x: "38%", y: "50%", size: 3, dur: 10, delay: 1 },
-          { x: "60%", y: "42%", size: 2, dur: 8,  delay: 4 },
-          { x: "75%", y: "88%", size: 3, dur: 7,  delay: 0.7 },
+          { x: "60%", y: "42%", size: 2, dur: 8, delay: 4 },
+          { x: "75%", y: "88%", size: 3, dur: 7, delay: 0.7 },
           { x: "18%", y: "88%", size: 2, dur: 11, delay: 2.2 },
-          { x: "50%", y: "5%",  size: 4, dur: 9,  delay: 1.3 },
-          { x: "90%", y: "78%", size: 2, dur: 8,  delay: 3.2 },
+          { x: "50%", y: "5%", size: 4, dur: 9, delay: 1.3 },
+          { x: "90%", y: "78%", size: 2, dur: 8, delay: 3.2 },
           { x: "42%", y: "95%", size: 3, dur: 10, delay: 0.9 },
-          { x: "5%",  y: "85%", size: 2, dur: 7,  delay: 4.2 },
-          { x: "25%", y: "35%", size: 4, dur: 9,  delay: 1.1 },
-          { x: "65%", y: "55%", size: 2, dur: 8,  delay: 2.8 },
+          { x: "5%", y: "85%", size: 2, dur: 7, delay: 4.2 },
+          { x: "25%", y: "35%", size: 4, dur: 9, delay: 1.1 },
+          { x: "65%", y: "55%", size: 2, dur: 8, delay: 2.8 },
           { x: "88%", y: "45%", size: 3, dur: 10, delay: 0.4 },
-          { x: "15%", y: "10%", size: 2, dur: 6,  delay: 3.7 },
-          { x: "48%", y: "65%", size: 3, dur: 8,  delay: 1.9 },
+          { x: "15%", y: "10%", size: 2, dur: 6, delay: 3.7 },
+          { x: "48%", y: "65%", size: 3, dur: 8, delay: 1.9 },
           { x: "72%", y: "22%", size: 4, dur: 11, delay: 0.2 },
         ].map((d, i) => (
           <motion.div
@@ -467,7 +467,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
 
           <motion.div style={{ opacity: heroOpacity, scale: heroScale, y: heroY }} className="max-w-[1500px] mx-auto w-full relative z-20">
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="mb-6 flex items-center gap-6">
-              <span className="text-[11px] font-black uppercase tracking-[0.5em] opacity-30">Elite Portfolio — {new Date().getFullYear()}</span>
+              <span className="text-[11px] font-black uppercase tracking-[0.5em] opacity-30"> Portfolio — {new Date().getFullYear()}</span>
               <div className="h-[1px] w-8 bg-current opacity-10" />
               <span className="text-[11px] font-black uppercase tracking-[0.5em] opacity-30 italic serif">{data?.location || "Global"}</span>
             </motion.div>
@@ -553,7 +553,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
 
             <motion.div style={{ opacity: taglineOpacity }} className="flex flex-col md:flex-row md:items-end justify-between gap-12 max-w-7xl">
               <div className="space-y-4">
-                <WordReveal 
+                <WordReveal
                   text={data?.tagline || "I transform complex logic into elegant digital experiences."}
                   className="text-xl md:text-[clamp(1.5rem,3vw,3rem)] font-medium tracking-tight max-w-3xl leading-[1.1] opacity-90"
                 />
@@ -739,8 +739,8 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
 
                 <div className="relative z-10 space-y-8 mt-12">
                   {/* Description — always visible on mobile */}
-                  <WordReveal 
-                    text={p.description} 
+                  <WordReveal
+                    text={p.description}
                     className={`text-lg md:text-xl font-medium leading-relaxed line-clamp-3 transition-opacity ${isMobile ? 'opacity-60' : 'opacity-40 group-hover:opacity-70'}`}
                   />
                   {/* Quick View — always visible on mobile */}
@@ -907,8 +907,8 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                   </div>
                   <div>
                     <h3 className="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-4">
-                    <TypeReveal text="Message Sent." />
-                  </h3>
+                      <TypeReveal text="Message Sent." />
+                    </h3>
                     <p className="text-lg md:text-xl opacity-40 max-w-sm mx-auto">I'll get back to you within 24 hours.</p>
                   </div>
                   <button onClick={() => setSubmitted(false)} className="text-[11px] font-black uppercase tracking-widest border-b-2 border-current pb-2 hover:opacity-50 transition-opacity">Send another</button>
