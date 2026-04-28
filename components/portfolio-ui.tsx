@@ -280,9 +280,16 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
             className="absolute inset-0 flex items-center justify-center p-4 md:p-12"
           >
             <div className="w-full max-w-[90vw] mx-auto text-center">
-              <h2 className="text-[clamp(2.5rem,10vw,20rem)] font-black opacity-[0.03] tracking-tighter select-none uppercase leading-[0.85] break-words">
+              <motion.h2 
+                animate={{ 
+                  x: [0, 15, -15, 0],
+                  y: [0, -10, 10, 0]
+                }}
+                transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+                className="text-[clamp(2.5rem,10vw,20rem)] font-black opacity-[0.03] tracking-tighter select-none uppercase leading-[0.85] break-words"
+              >
                 genius developers<br className="md:hidden" />.space
-              </h2>
+              </motion.h2>
             </div>
           </motion.div>
         </div>
@@ -518,8 +525,15 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                   </div>
                 </div>
 
-                {/* Subtle Glow Effect */}
-                <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-current/5 blur-[100px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+                {/* Subtle Glow Effect (Automatic Pulse for Mobile/Desktop) */}
+                <motion.div 
+                  animate={{ 
+                    opacity: [0.3, 0.6, 0.3],
+                    scale: [1, 1.1, 1]
+                  }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                  className="absolute -bottom-24 -right-24 w-64 h-64 bg-current/5 blur-[100px] rounded-full group-hover:opacity-100 transition-opacity duration-1000" 
+                />
               </motion.div>
             ))}
           </motion.div>
@@ -545,6 +559,16 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                 <motion.div
                   key={i}
                   variants={fadeInUp}
+                  animate={{ 
+                    y: [0, -5, 0],
+                    rotate: [0, i % 2 === 0 ? 1 : -1, 0]
+                  }}
+                  transition={{ 
+                    duration: 4 + (i % 3), 
+                    repeat: Infinity, 
+                    ease: "easeInOut",
+                    delay: i * 0.1
+                  }}
                   whileHover={{ scale: 1.05, rotate: [-1, 1, 0] }}
                   className="px-8 py-5 md:px-12 md:py-8 rounded-full border border-current/10 bg-current/5 group hover:bg-foreground hover:text-background transition-all cursor-default"
                 >
