@@ -38,8 +38,16 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
   const { setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [selectedProject, setSelectedProject] = useState<any>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    setMounted(true);
+    // Detect touch/mobile device
+    const checkMobile = () => setIsMobile(window.matchMedia("(hover: none) and (pointer: coarse)").matches);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   // Snappy Animation Curve
   const snappyEase = [0.23, 1, 0.32, 1] as any;
@@ -280,16 +288,9 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
             className="absolute inset-0 flex items-center justify-center p-4 md:p-12"
           >
             <div className="w-full max-w-[90vw] mx-auto text-center">
-              <motion.h2 
-                animate={{ 
-                  x: [0, 15, -15, 0],
-                  y: [0, -10, 10, 0]
-                }}
-                transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-                className="text-[clamp(2.5rem,10vw,20rem)] font-black opacity-[0.03] tracking-tighter select-none uppercase leading-[0.85] break-words"
-              >
+              <h2 className="text-[clamp(2.5rem,10vw,20rem)] font-black opacity-[0.03] tracking-tighter select-none uppercase leading-[0.85] break-words">
                 genius developers<br className="md:hidden" />.space
-              </motion.h2>
+              </h2>
             </div>
           </motion.div>
         </div>
@@ -437,9 +438,17 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
         className="relative z-30 py-12 md:py-24 border-y border-zinc-100 dark:border-zinc-900 bg-white dark:bg-black"
       >
         <div className="max-w-[1400px] mx-auto px-6 md:px-12">
-          <div className="flex flex-wrap justify-center gap-8 md:gap-16 opacity-40 hover:opacity-100 transition-opacity duration-700">
+          <div className={`flex flex-wrap justify-center gap-8 md:gap-16 transition-opacity duration-700 ${isMobile ? 'opacity-100' : 'opacity-40 hover:opacity-100'}`}>
             {["Next.js", "React", "TypeScript", "Node.js", "Tailwind", "MongoDB", "AI"].map((tech, i) => (
-              <motion.span key={tech} variants={fadeInUp} className="text-sm md:text-2xl font-black uppercase tracking-[0.3em]">{tech}</motion.span>
+              <motion.span
+                key={tech}
+                variants={fadeInUp}
+                {...(isMobile ? {
+                  animate: { y: [0, -4, 0] },
+                  transition: { duration: 2.5 + i * 0.3, repeat: Infinity, ease: "easeInOut", delay: i * 0.2 }
+                } : {})}
+                className="text-sm md:text-2xl font-black uppercase tracking-[0.3em]"
+              >{tech}</motion.span>
             ))}
           </div>
         </div>
@@ -501,11 +510,16 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
               <motion.div
                 key={i}
                 variants={fadeInUp}
-                whileHover={{ y: -10 }}
+                whileHover={!isMobile ? { y: -10 } : {}}
+                {...(isMobile ? {
+                  animate: { y: [0, -4, 0] },
+                  transition: { duration: 3 + i * 0.5, repeat: Infinity, ease: "easeInOut", delay: i * 0.4 }
+                } : {})}
                 onClick={() => { playClick(); setSelectedProject(p); }}
                 className="group relative flex flex-col justify-between p-6 md:p-10 rounded-[2rem] bg-zinc-50 dark:bg-zinc-950 border border-current/5 overflow-hidden transition-all duration-500 min-h-[300px] md:min-h-[400px] cursor-pointer"
               >
-                <div className="absolute top-0 right-0 p-10 opacity-0 group-hover:opacity-20 transition-opacity">
+                {/* Big number — always visible on mobile */}
+                <div className={`absolute top-0 right-0 p-10 transition-opacity ${isMobile ? 'opacity-10' : 'opacity-0 group-hover:opacity-20'}`}>
                   <span className="text-[12rem] font-black tracking-tighter leading-none select-none">{String(i + 1).padStart(2, "0")}</span>
                 </div>
 
@@ -515,25 +529,21 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                       <span key={t} className="px-5 py-2 rounded-full bg-current/5 text-[9px] font-black uppercase tracking-widest opacity-60">{t}</span>
                     ))}
                   </div>
-                  <h3 className="text-3xl md:text-5xl font-black tracking-tighter leading-[0.9] uppercase group-hover:italic transition-all duration-500">{p.title}</h3>
+                  {/* Title — italic always on mobile */}
+                  <h3 className={`text-3xl md:text-5xl font-black tracking-tighter leading-[0.9] uppercase transition-all duration-500 ${isMobile ? 'italic' : 'group-hover:italic'}`}>{p.title}</h3>
                 </div>
 
                 <div className="relative z-10 space-y-8 mt-12">
-                  <p className="text-lg md:text-xl opacity-40 group-hover:opacity-70 transition-opacity font-medium leading-relaxed line-clamp-3">{p.description}</p>
-                  <div className="flex items-center gap-4 text-[10px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-500">
+                  {/* Description — always visible on mobile */}
+                  <p className={`text-lg md:text-xl font-medium leading-relaxed line-clamp-3 transition-opacity ${isMobile ? 'opacity-60' : 'opacity-40 group-hover:opacity-70'}`}>{p.description}</p>
+                  {/* Quick View — always visible on mobile */}
+                  <div className={`flex items-center gap-4 text-[10px] font-black uppercase tracking-widest transition-all duration-500 ${isMobile ? 'opacity-70 translate-y-0' : 'opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0'}`}>
                     Quick View <ArrowUpRight className="w-4 h-4" />
                   </div>
                 </div>
 
-                {/* Subtle Glow Effect (Automatic Pulse for Mobile/Desktop) */}
-                <motion.div 
-                  animate={{ 
-                    opacity: [0.3, 0.6, 0.3],
-                    scale: [1, 1.1, 1]
-                  }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                  className="absolute -bottom-24 -right-24 w-64 h-64 bg-current/5 blur-[100px] rounded-full group-hover:opacity-100 transition-opacity duration-1000" 
-                />
+                {/* Glow — always on mobile */}
+                <div className={`absolute -bottom-24 -right-24 w-64 h-64 bg-current/5 blur-[100px] rounded-full transition-opacity duration-1000 ${isMobile ? 'opacity-60' : 'opacity-0 group-hover:opacity-100'}`} />
               </motion.div>
             ))}
           </motion.div>
@@ -559,17 +569,19 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                 <motion.div
                   key={i}
                   variants={fadeInUp}
-                  animate={{ 
-                    y: [0, -5, 0],
-                    rotate: [0, i % 2 === 0 ? 1 : -1, 0]
-                  }}
-                  transition={{ 
-                    duration: 4 + (i % 3), 
-                    repeat: Infinity, 
-                    ease: "easeInOut",
-                    delay: i * 0.1
-                  }}
-                  whileHover={{ scale: 1.05, rotate: [-1, 1, 0] }}
+                  whileHover={!isMobile ? { scale: 1.05, rotate: [-1, 1, 0] } : {}}
+                  {...(isMobile ? {
+                    animate: {
+                      y: [0, i % 2 === 0 ? -6 : -4, 0],
+                      scale: [1, 1.03, 1],
+                    },
+                    transition: {
+                      duration: 2 + (i % 4) * 0.4,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: i * 0.15,
+                    }
+                  } : {})}
                   className="px-8 py-5 md:px-12 md:py-8 rounded-full border border-current/10 bg-current/5 group hover:bg-foreground hover:text-background transition-all cursor-default"
                 >
                   <span className="text-xl md:text-3xl font-black uppercase tracking-tighter">{s.name}</span>
@@ -654,7 +666,17 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                 { icon: <FaTwitter />, link: data?.socialLinks?.twitter },
                 { icon: <FaInstagram />, link: data?.socialLinks?.instagram }
               ].filter(s => s.link).map((s, i) => (
-                <a key={i} href={s.link} target="_blank" rel="noreferrer" className="text-2xl md:text-3xl hover:-translate-y-2 transition-transform opacity-30 hover:opacity-100">{s.icon}</a>
+                <motion.a
+                  key={i}
+                  href={s.link}
+                  target="_blank"
+                  rel="noreferrer"
+                  {...(isMobile ? {
+                    animate: { y: [0, -5, 0], opacity: [0.6, 1, 0.6] },
+                    transition: { duration: 2 + i * 0.3, repeat: Infinity, ease: "easeInOut", delay: i * 0.25 }
+                  } : {})}
+                  className={`text-2xl md:text-3xl hover:-translate-y-2 transition-transform ${isMobile ? 'opacity-70' : 'opacity-30 hover:opacity-100'}`}
+                >{s.icon}</motion.a>
               ))}
             </div>
           </div>
