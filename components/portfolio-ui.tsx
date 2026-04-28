@@ -1163,5 +1163,6 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
         )}
       </AnimatePresence>
     </div>
+    </>
   );
 }
