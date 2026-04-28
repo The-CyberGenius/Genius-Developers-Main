@@ -46,26 +46,26 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
 
   const fadeInUp: Variants = {
     hidden: { opacity: 0, y: 30, scale: 0.98 },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
+    visible: {
+      opacity: 1,
+      y: 0,
       scale: 1,
-      transition: { 
-        duration: 0.5, 
-        ease: snappyEase 
-      } 
+      transition: {
+        duration: 0.5,
+        ease: snappyEase
+      }
     }
   };
 
   const staggerContainer: Variants = {
     hidden: { opacity: 0 },
-    visible: { 
-      opacity: 1, 
-      transition: { 
+    visible: {
+      opacity: 1,
+      transition: {
         staggerChildren: 0.08,
         duration: 0.4,
         ease: snappyEase
-      } 
+      }
     }
   };
 
@@ -86,8 +86,8 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
     try {
       const audio = new Audio("https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3");
       audio.volume = 0.1;
-      audio.play().catch(() => {});
-    } catch (e) {}
+      audio.play().catch(() => { });
+    } catch (e) { }
   };
 
   const colorScheme = settings?.theme || "apple";
@@ -147,7 +147,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
   const handleMouseMove = (e: React.MouseEvent) => {
     const { clientX, clientY } = e;
     const { innerWidth, innerHeight } = window;
-    
+
     // For Title Parallax
     const x = (clientX - innerWidth / 2) / 25;
     const y = (clientY - innerHeight / 2) / 25;
@@ -170,8 +170,8 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
   const dotsY = useTransform(smoothProgress, [0, 1], ["0%", "-20%"]);
 
   return (
-    <div 
-      ref={containerRef} 
+    <div
+      ref={containerRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       className={`${themeClasses} transition-colors duration-700 overflow-x-hidden selection:bg-zinc-500/30 relative text-base`}
@@ -195,60 +195,60 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
 
       {/* ── DYNAMIC BACKGROUND BLOBS (EMPTY SPACE ANIMATION) ── */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none -z-20">
-        <motion.div 
-          animate={{ 
+        <motion.div
+          animate={{
             x: [0, 100, -100, 0],
             y: [0, -100, 100, 0],
             scale: [1, 1.2, 0.8, 1]
           }}
           transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-          className="absolute top-1/4 -left-20 w-[500px] h-[500px] bg-current/5 blur-[150px] rounded-full" 
+          className="absolute top-1/4 -left-20 w-[500px] h-[500px] bg-current/5 blur-[150px] rounded-full"
         />
-        <motion.div 
-          animate={{ 
+        <motion.div
+          animate={{
             x: [0, -150, 150, 0],
             y: [0, 150, -150, 0],
             scale: [1, 0.7, 1.3, 1]
           }}
           transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
-          className="absolute bottom-1/4 -right-20 w-[600px] h-[600px] bg-current/5 blur-[180px] rounded-full" 
+          className="absolute bottom-1/4 -right-20 w-[600px] h-[600px] bg-current/5 blur-[180px] rounded-full"
         />
       </div>
 
 
       {/* ── PROGRESS BAR ────────────────────────────────────── */}
-      <motion.div 
+      <motion.div
         className={`fixed top-0 left-0 right-0 h-1 z-[200] origin-left ${accentColor}`}
         style={{ scaleX: scrollYProgress }}
       />
 
       {/* ── WORLD-CLASS HERO ────────────────────────────── */}
       <div ref={heroRef} className="h-[140vh] relative">
-        
+
         {/* MAGICAL DEPTH LAYERS (LINES & DOTS) */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          
+
           {/* Layer 2: Floating Magical Lines (SUBTLE SCAN) */}
           <motion.div style={{ y: linesY }} className="absolute inset-0">
-             {[...Array(4)].map((_, i) => (
-               <motion.div
-                 key={i}
-                 className="absolute h-[1px] bg-current opacity-[0.03]"
-                 style={{
-                   width: '40%',
-                   top: `${30 + i * 15}%`,
-                   left: i % 2 === 0 ? '-40%' : '100%',
-                 }}
-                 animate={{
-                   x: i % 2 === 0 ? ['0%', '350%'] : ['0%', '-350%'],
-                 }}
-                 transition={{
-                   duration: 20 + i * 10,
-                   repeat: Infinity,
-                   ease: "linear",
-                 }}
-               />
-             ))}
+            {[...Array(4)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute h-[1px] bg-current opacity-[0.03]"
+                style={{
+                  width: '40%',
+                  top: `${30 + i * 15}%`,
+                  left: i % 2 === 0 ? '-40%' : '100%',
+                }}
+                animate={{
+                  x: i % 2 === 0 ? ['0%', '350%'] : ['0%', '-350%'],
+                }}
+                transition={{
+                  duration: 20 + i * 10,
+                  repeat: Infinity,
+                  ease: "linear",
+                }}
+              />
+            ))}
           </motion.div>
 
           {/* Layer 3: Particle Dotted Network (BARELY VISIBLE) */}
@@ -275,8 +275,8 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
           </motion.div>
 
           {/* Layer 4: Background Branding Text */}
-          <motion.div 
-            style={{ y: bgTextY, opacity: heroOpacity }} 
+          <motion.div
+            style={{ y: bgTextY, opacity: heroOpacity }}
             className="absolute inset-0 flex items-center justify-center p-4 md:p-12"
           >
             <div className="w-full max-w-[90vw] mx-auto text-center">
@@ -291,20 +291,20 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
 
           <motion.div style={{ opacity: heroOpacity, scale: heroScale, y: heroY }} className="max-w-[1500px] mx-auto w-full relative z-20">
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="mb-6 flex items-center gap-6">
-               <span className="text-[11px] font-black uppercase tracking-[0.5em] opacity-30">Elite Portfolio — {new Date().getFullYear()}</span>
-               <div className="h-[1px] w-8 bg-current opacity-10" />
-               <span className="text-[11px] font-black uppercase tracking-[0.5em] opacity-30 italic serif">{data?.location || "Global"}</span>
+              <span className="text-[11px] font-black uppercase tracking-[0.5em] opacity-30">Elite Portfolio — {new Date().getFullYear()}</span>
+              <div className="h-[1px] w-8 bg-current opacity-10" />
+              <span className="text-[11px] font-black uppercase tracking-[0.5em] opacity-30 italic serif">{data?.location || "Global"}</span>
             </motion.div>
-            
+
             <div className="relative mb-8 perspective-[1000px]">
-              <motion.h1 
-                style={{ 
-                  x: titleXSpring, 
+              <motion.h1
+                style={{
+                  x: titleXSpring,
                   y: titleYSpring,
                   rotateX: useTransform(titleYSpring, [-20, 20], [5, -5]),
                   rotateY: useTransform(titleXSpring, [-20, 20], [-5, 5]),
                   fontSize: `clamp(3rem, 10vw, ${data?.heroFontSize || 12}rem)`
-                }} 
+                }}
                 className="font-black tracking-tighter leading-[0.75] flex flex-col select-none"
               >
                 <div className="flex overflow-visible h-[1.1em]">
@@ -312,7 +312,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                     <motion.span
                       key={i}
                       className="inline-block cursor-default"
-                      whileHover={{ 
+                      whileHover={{
                         y: -40,
                         scale: 1.4,
                         rotate: Math.random() * 20 - 10,
@@ -325,14 +325,14 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                     </motion.span>
                   ))}
                 </div>
-                
+
                 {data?.name?.split(" ").slice(1).map((part: string, i: number) => (
                   <div key={i} className="flex overflow-visible h-[0.9em] opacity-10 italic serif font-light ml-[0.1em]">
                     {part.split("").map((char: string, j: number) => (
                       <motion.span
                         key={j}
                         className="inline-block cursor-default"
-                        whileHover={{ 
+                        whileHover={{
                           y: 20,
                           scale: 1.2,
                           rotate: Math.random() * 10 - 5,
@@ -356,24 +356,24 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                   {data?.aboutText?.slice(0, 150) || "Solving logic with humanity through world-class functional software design."}
                 </p>
               </div>
-              
+
               <div className="flex gap-6 pb-2">
-                <motion.a 
+                <motion.a
                   whileHover={{ scale: 1.05, rotate: -2 }}
                   whileTap={{ scale: 0.95 }}
-                  href="#work" 
+                  href="#work"
                   className={`group relative px-12 py-6 rounded-full ${accentColor} font-black uppercase text-[11px] tracking-[0.2em] transition-all overflow-hidden shadow-2xl shadow-current/10`}
                 >
                   <span className="relative z-10">Explore Work</span>
                   <motion.div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
                 </motion.a>
                 {resume?.fileUrl && (
-                  <motion.a 
+                  <motion.a
                     whileHover={{ scale: 1.05, rotate: 2 }}
                     whileTap={{ scale: 0.95 }}
-                    href={resume.fileUrl} 
-                    target="_blank" 
-                    rel="noreferrer" 
+                    href={resume.fileUrl}
+                    target="_blank"
+                    rel="noreferrer"
                     className="group px-12 py-6 rounded-full border border-current/10 font-black uppercase text-[11px] tracking-[0.2em] hover:bg-current/5 transition-all flex items-center gap-3"
                   >
                     CV <Download className="w-4 h-4 group-hover:translate-y-1 transition-transform" />
@@ -395,7 +395,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
             className="relative z-10 text-center px-6"
           >
             <motion.p variants={fadeInUp} className="text-[10px] font-black uppercase tracking-[0.5em] text-zinc-500 mb-10">Coding Philosophy</motion.p>
-            <motion.h2 
+            <motion.h2
               variants={staggerContainer}
               className="text-6xl sm:text-8xl md:text-9xl lg:text-[11vw] font-black tracking-tighter leading-none italic"
             >
@@ -443,7 +443,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
         id="about"
         className="scroll-mt-20 py-16 md:py-32 px-6 md:px-12 bg-zinc-50 dark:bg-zinc-950 overflow-hidden relative z-30"
       >
-        <motion.div 
+        <motion.div
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
@@ -475,7 +475,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
         id="work"
         className="scroll-mt-20 py-16 md:py-32 px-6 md:px-12 bg-white dark:bg-black overflow-hidden relative z-30"
       >
-        <motion.div 
+        <motion.div
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
@@ -486,7 +486,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
             <p className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 mb-6">Recent Work</p>
             <h2 className="text-6xl md:text-[10rem] font-black tracking-tighter leading-[0.75] uppercase">Projects.</h2>
           </motion.div>
-          
+
           <motion.div variants={staggerContainer} className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
             {(projects.length > 0 ? projects : [
               { title: "Elegant Logic", description: "Minimalist solution for maximum impact.", tags: ["Core", "Architecture"] }
@@ -501,7 +501,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                 <div className="absolute top-0 right-0 p-10 opacity-0 group-hover:opacity-20 transition-opacity">
                   <span className="text-[12rem] font-black tracking-tighter leading-none select-none">{String(i + 1).padStart(2, "0")}</span>
                 </div>
-                
+
                 <div className="relative z-10 space-y-6">
                   <div className="flex flex-wrap gap-3">
                     {(p.tags || []).slice(0, 2).map((t: string) => (
@@ -531,7 +531,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
         id="skills"
         className="scroll-mt-20 py-16 md:py-32 px-6 md:px-12 bg-zinc-50 dark:bg-zinc-950 relative z-30"
       >
-        <motion.div 
+        <motion.div
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
@@ -542,11 +542,11 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
             <p className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 mb-12">Core Technologies</p>
             <div className="flex flex-wrap gap-4 md:gap-6">
               {[...frontendSkills, ...backendSkills].map((s: any, i: number) => (
-                <motion.div 
-                  key={i} 
+                <motion.div
+                  key={i}
                   variants={fadeInUp}
                   whileHover={{ scale: 1.05, rotate: [-1, 1, 0] }}
-                  className="px-8 py-5 md:px-12 md:py-8 rounded-full border border-current/10 bg-current/5 group hover:bg-current hover:text-background transition-all cursor-default"
+                  className="px-8 py-5 md:px-12 md:py-8 rounded-full border border-current/10 bg-current/5 group hover:bg-foreground hover:text-background transition-all cursor-default"
                 >
                   <span className="text-xl md:text-3xl font-black uppercase tracking-tighter">{s.name}</span>
                 </motion.div>
@@ -577,7 +577,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
       {/* ── CONTACT (INTERNATIONAL PREMIUM) ───────────────────── */}
       <section id="contact" className={`scroll-mt-20 py-16 md:py-32 px-6 md:px-12 relative z-30 ${colorScheme === 'neon' ? 'bg-[#00ffcc] dark:bg-black text-black dark:text-[#00ffcc]' : 'bg-white dark:bg-[#050505] text-[#1a1a1a] dark:text-[#f5f5f7]'}`}>
         <div className="max-w-[1400px] mx-auto grid lg:grid-cols-12 gap-16 md:gap-32">
-          
+
           {/* Left Side: Contact Cards */}
           <div className="lg:col-span-5 space-y-16">
             <div>
@@ -588,12 +588,12 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
 
             <div className="grid gap-4 md:gap-6">
               {data?.whatsapp && (
-                <motion.a 
+                <motion.a
                   whileHover={{ scale: 1.02, y: -5 }}
                   whileTap={{ scale: 0.98 }}
-                  href={data.whatsapp} 
-                  target="_blank" 
-                  rel="noreferrer" 
+                  href={data.whatsapp}
+                  target="_blank"
+                  rel="noreferrer"
                   className="flex items-center gap-6 p-5 md:p-7 rounded-[1.5rem] bg-zinc-50 dark:bg-zinc-900/50 border border-current/5 group transition-all"
                 >
                   <div className="w-16 h-16 rounded-full bg-current/10 flex items-center justify-center group-hover:bg-current group-hover:text-background transition-colors">
@@ -606,10 +606,10 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                 </motion.a>
               )}
               {data?.email && (
-                <motion.a 
+                <motion.a
                   whileHover={{ scale: 1.02, y: -5 }}
                   whileTap={{ scale: 0.98 }}
-                  href={`mailto:${data.email}`} 
+                  href={`mailto:${data.email}`}
                   className="flex items-center gap-6 p-5 md:p-7 rounded-[1.5rem] bg-zinc-50 dark:bg-zinc-900/50 border border-current/5 group transition-all"
                 >
                   <div className="w-16 h-16 rounded-full bg-current/10 flex items-center justify-center group-hover:bg-current group-hover:text-background transition-colors">
@@ -693,9 +693,9 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
           animate={{ scale: 1, rotate: 0 }}
           whileHover={{ scale: 1.1, rotate: 15 }}
           whileTap={{ scale: 0.9 }}
-          onClick={() => { 
-            playClick(); 
-            setTheme(resolvedTheme === "dark" ? "light" : "dark"); 
+          onClick={() => {
+            playClick();
+            setTheme(resolvedTheme === "dark" ? "light" : "dark");
           }}
           className="fixed top-8 right-8 z-[200] w-14 h-14 rounded-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center justify-center shadow-xl shadow-black/10 dark:shadow-white/5 group overflow-hidden"
         >
@@ -751,14 +751,14 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[300] flex items-center justify-center p-6 md:p-12"
           >
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setSelectedProject(null)}
               className="absolute inset-0 bg-black/80 backdrop-blur-xl"
             />
-            
+
             <motion.div
               layoutId={`project-${selectedProject.title}`}
               initial={{ scale: 0.9, opacity: 0, y: 20 }}
@@ -767,7 +767,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
               className="relative w-full max-w-5xl bg-white dark:bg-zinc-950 rounded-[3rem] overflow-hidden shadow-2xl flex flex-col md:flex-row min-h-[60vh] border border-white/10"
             >
-              <button 
+              <button
                 onClick={() => setSelectedProject(null)}
                 className="absolute top-8 right-8 z-10 p-3 rounded-full bg-black/10 dark:bg-white/10 hover:bg-black/20 dark:hover:bg-white/20 transition-colors"
               >
@@ -782,7 +782,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                 </div>
                 <h3 className="text-5xl md:text-7xl font-black tracking-tighter uppercase leading-[0.8] mb-12 italic serif">{selectedProject.title}</h3>
                 <p className="text-xl md:text-2xl opacity-60 leading-relaxed font-medium mb-12">{selectedProject.description}</p>
-                
+
                 <div className="flex flex-wrap gap-6">
                   {selectedProject.link && (
                     <a href={selectedProject.link} target="_blank" rel="noreferrer" className="flex items-center gap-3 px-8 py-5 rounded-full bg-black dark:bg-white text-white dark:text-black font-black uppercase text-[11px] tracking-widest hover:scale-105 transition-transform shadow-xl shadow-black/10">
@@ -798,15 +798,15 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
               </div>
 
               <div className="md:w-1/2 relative bg-zinc-100 dark:bg-zinc-900 overflow-hidden group">
-                 {/* Placeholder for project image / interaction */}
-                 <div className="absolute inset-0 flex items-center justify-center opacity-10 select-none pointer-events-none">
-                    <span className="text-[15rem] font-black tracking-tighter uppercase rotate-90">{selectedProject.title.slice(0, 2)}</span>
-                 </div>
-                 <div className="absolute inset-0 flex items-center justify-center p-12">
-                    <div className="w-full aspect-video rounded-2xl bg-white dark:bg-black shadow-2xl border border-white/5 flex items-center justify-center">
-                       <p className="text-sm font-black uppercase tracking-[0.4em] opacity-20 italic">Visual Showcase Pending</p>
-                    </div>
-                 </div>
+                {/* Placeholder for project image / interaction */}
+                <div className="absolute inset-0 flex items-center justify-center opacity-10 select-none pointer-events-none">
+                  <span className="text-[15rem] font-black tracking-tighter uppercase rotate-90">{selectedProject.title.slice(0, 2)}</span>
+                </div>
+                <div className="absolute inset-0 flex items-center justify-center p-12">
+                  <div className="w-full aspect-video rounded-2xl bg-white dark:bg-black shadow-2xl border border-white/5 flex items-center justify-center">
+                    <p className="text-sm font-black uppercase tracking-[0.4em] opacity-20 italic">Visual Showcase Pending</p>
+                  </div>
+                </div>
               </div>
             </motion.div>
           </motion.div>
