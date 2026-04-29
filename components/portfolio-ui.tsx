@@ -205,17 +205,25 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
   const [mounted, setMounted] = useState(false);
   const [selectedProject, setSelectedProject] = useState<any>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [currentYear, setCurrentYear] = useState("");
 
   useEffect(() => {
+    setCurrentYear(new Date().getFullYear().toString());
+    
     // Detect touch/mobile device
-    const checkMobile = () => setIsMobile(window.matchMedia("(hover: none) and (pointer: coarse)").matches);
+    const checkMobile = () => {
+      const mobileMatch = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+      const widthMatch = window.innerWidth < 768;
+      setIsMobile(mobileMatch || widthMatch);
+    };
+    
     checkMobile();
     window.addEventListener("resize", checkMobile);
     
     // Artificial delay for magical loading screen
     const timer = setTimeout(() => {
       setMounted(true);
-    }, 2500);
+    }, 1500); // Reduced delay for better UX
 
     return () => {
       window.removeEventListener("resize", checkMobile);
@@ -380,7 +388,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
       >
 
       {/* ── CURSOR GLOW TRAIL (MAGICAL) ──────────────────── */}
-      {mounted && (
+      {mounted && !isMobile && (
         <motion.div
           className="fixed pointer-events-none z-[100] w-64 h-64 bg-current/[0.03] blur-[80px] rounded-full"
           style={{
@@ -519,20 +527,20 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
 
           {/* Layer 3: Particle Dotted Network (BARELY VISIBLE) */}
           <motion.div style={{ y: dotsY }} className="absolute inset-0">
-            {[...Array(12)].map((_, i) => (
+            {mounted && [...Array(isMobile ? 6 : 12)].map((_, i) => (
               <motion.div
                 key={i}
                 className="absolute w-[2px] h-[2px] rounded-full bg-current opacity-[0.05]"
                 style={{
-                  top: `${Math.random() * 100}%`,
-                  left: `${Math.random() * 100}%`,
+                  top: `${(i * 137) % 100}%`, // Deterministic pseudo-random
+                  left: `${(i * 253) % 100}%`,
                 }}
                 animate={{
                   y: [0, -40, 0],
                   opacity: [0.05, 0.1, 0.05],
                 }}
                 transition={{
-                  duration: 8 + Math.random() * 10,
+                  duration: 8 + (i % 5) * 2,
                   repeat: Infinity,
                   ease: "easeInOut",
                 }}
@@ -553,7 +561,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
 
           <motion.div style={{ opacity: heroOpacity, scale: heroScale, y: heroY }} className="max-w-[1500px] mx-auto w-full relative z-20">
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="mb-6 flex items-center gap-6">
-              <span className="text-[11px] font-black uppercase tracking-[0.5em] opacity-30"> Portfolio — {new Date().getFullYear()}</span>
+              <span className="text-[11px] font-black uppercase tracking-[0.5em] opacity-30"> Portfolio — {currentYear || "2026"}</span>
               <div className="h-[1px] w-8 bg-current opacity-10" />
               <span className="text-[11px] font-black uppercase tracking-[0.5em] opacity-30 italic serif">{data?.location || "Global"}</span>
             </motion.div>
@@ -565,7 +573,9 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                   y: titleYSpring,
                   rotateX: useTransform(titleYSpring, [-20, 20], [5, -5]),
                   rotateY: useTransform(titleXSpring, [-20, 20], [-5, 5]),
-                  fontSize: `clamp(3rem, 10vw, ${data?.heroFontSize || 12}rem)`
+                  fontSize: isMobile 
+                    ? `clamp(2.5rem, 12vw, 4.5rem)` 
+                    : `clamp(3.rem, 10vw, ${data?.heroFontSize || 10}rem)`
                 }}
                 className="font-black tracking-tighter leading-[0.75] flex flex-col select-none"
               >
@@ -1029,7 +1039,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
       {/* ── FOOTER (CLEAN) ───────────────────────────────── */}
       <footer className="py-12 md:py-20 px-6 md:px-12 border-t border-zinc-100 dark:border-zinc-900 opacity-20">
         <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between items-center gap-8 text-[9px] font-black uppercase tracking-widest">
-          <p>© {new Date().getFullYear()} — {(data?.name || "SHIVA").toUpperCase()}</p>
+          <p>© {currentYear || "2026"} — {(data?.name || "SHIVA").toUpperCase()}</p>
           <div className="flex gap-8">
             {['work', 'skills', 'contact'].map(i => <a key={i} href={`#${i}`} className="hover:underline">{i}</a>)}
           </div>
@@ -1076,9 +1086,9 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
       )}
 
       {/* ── FLOATING RESUME BUTTON ────────────────────────── */}
-      {resume?.url && (
+      {resume?.fileUrl && (
         <motion.a
-          href={resume.url}
+          href={resume.fileUrl}
           target="_blank"
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
