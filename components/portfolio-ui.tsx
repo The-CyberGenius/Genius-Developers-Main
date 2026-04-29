@@ -497,7 +497,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
       />
 
       {/* ── WORLD-CLASS HERO ────────────────────────────── */}
-      <div ref={heroRef} className="h-[140vh] relative">
+      <div ref={heroRef} className="h-[120vh] relative">
 
         {/* MAGICAL DEPTH LAYERS (LINES & DOTS) */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -557,87 +557,69 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
           </motion.div>
         </div>
 
-        <div className="sticky top-0 h-screen flex flex-col justify-center px-6 md:px-12 overflow-hidden">
+        <div className="sticky top-0 h-screen flex flex-col justify-between px-6 md:px-16 lg:px-20 py-10 md:py-14 overflow-hidden">
 
-          <motion.div style={{ opacity: heroOpacity, scale: heroScale, y: heroY }} className="max-w-[1500px] mx-auto w-full relative z-20">
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="mb-6 flex items-center gap-6">
-              <span className="text-[11px] font-black uppercase tracking-[0.5em] opacity-30"> Portfolio — {currentYear || "2026"}</span>
-              <div className="h-[1px] w-8 bg-current opacity-10" />
-              <span className="text-[11px] font-black uppercase tracking-[0.5em] opacity-30 italic serif">{data?.location || "Global"}</span>
+          <motion.div style={{ opacity: heroOpacity, scale: heroScale, y: heroY }} className="w-full h-full flex flex-col justify-between relative z-20">
+
+            {/* ── TOP ROW: eyebrow ── */}
+            <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15, duration: 0.6 }} className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <div className="h-[1px] w-6 bg-current opacity-20" />
+                <span className="text-[10px] font-black uppercase tracking-[0.55em] opacity-25">Portfolio — {currentYear || "2026"}</span>
+              </div>
+              <span className="text-[10px] font-black uppercase tracking-[0.45em] opacity-20 italic">{data?.location || "Global"}</span>
             </motion.div>
 
-            <div className="relative mb-8 perspective-[1000px]">
+            {/* ── CENTER: Giant Name ── */}
+            <div className="relative flex-1 flex flex-col justify-center py-4">
               <motion.h1
                 style={{
                   x: titleXSpring,
                   y: titleYSpring,
                   rotateX: useTransform(titleYSpring, [-20, 20], [5, -5]),
                   rotateY: useTransform(titleXSpring, [-20, 20], [-5, 5]),
-                  fontSize: isMobile 
-                    ? `clamp(2.5rem, 12vw, 4.5rem)` 
-                    : `clamp(3.rem, 10vw, ${data?.heroFontSize || 10}rem)`
                 }}
-                className="font-black tracking-tighter leading-[0.75] flex flex-col select-none"
+                className="font-black tracking-[-0.04em] leading-[0.82] select-none w-full"
               >
-                <div className="flex overflow-visible h-[1.1em]">
+                {/* First name — cinematic scale */}
+                <div
+                  className="flex overflow-visible flex-wrap"
+                  style={{ fontSize: `clamp(4.5rem, 15vw, ${data?.heroFontSize || 14}rem)` }}
+                >
                   {(data?.name?.split(" ")[0] || "Shiva").split("").map((char: string, i: number) => (
                     <motion.span
                       key={i}
                       className="inline-block cursor-default"
-                      {...(isMobile ? {
-                        animate: {
-                          y: [0, -30, 0],
-                          scale: [1, 1.3, 1],
-                        },
-                        transition: {
-                          duration: 1.8,
-                          repeat: Infinity,
-                          ease: "easeInOut",
-                          delay: i * 0.12,
-                          repeatDelay: 6.2,  // ~8s full cycle per letter
-                        }
-                      } : {
-                        whileHover: {
-                          y: -40,
-                          scale: 1.4,
-                          rotate: Math.random() * 20 - 10,
-                          transition: { type: "spring", stiffness: 400, damping: 10 }
-                        },
-                        initial: { y: 0 },
-                        animate: { y: 0 }
-                      })}
+                      whileHover={{
+                        y: -30,
+                        scale: 1.25,
+                        rotate: (i % 2 === 0 ? 1 : -1) * (3 + (i % 4)),
+                        transition: { type: "spring", stiffness: 500, damping: 12 }
+                      }}
+                      initial={{ opacity: 0, y: 50, filter: "blur(8px)" }}
+                      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                      transition={{ delay: 0.3 + i * 0.05, duration: 0.7, ease: [0.23, 1, 0.32, 1] }}
                     >
                       {char}
                     </motion.span>
                   ))}
                 </div>
 
+                {/* Last name — ghost italic */}
                 {data?.name?.split(" ").slice(1).map((part: string, i: number) => (
-                  <div key={i} className="flex overflow-visible h-[0.9em] opacity-10 italic serif font-light ml-[0.1em]">
+                  <div
+                    key={i}
+                    className="flex overflow-visible opacity-[0.07] italic font-light"
+                    style={{ fontSize: `clamp(3.5rem, 12vw, ${(data?.heroFontSize || 14) * 0.82}rem)`, marginLeft: "0.05em" }}
+                  >
                     {part.split("").map((char: string, j: number) => (
                       <motion.span
                         key={j}
                         className="inline-block cursor-default"
-                        {...(isMobile ? {
-                          animate: {
-                            y: [0, 15, 0],
-                            scale: [1, 1.15, 1],
-                          },
-                          transition: {
-                            duration: 2,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                            delay: j * 0.1 + 0.5,
-                            repeatDelay: 6.2,  // ~8s full cycle
-                          }
-                        } : {
-                          whileHover: {
-                            y: 20,
-                            scale: 1.2,
-                            rotate: Math.random() * 10 - 5,
-                            transition: { type: "spring", stiffness: 400, damping: 10 }
-                          }
-                        })}
+                        whileHover={{ y: 12, scale: 1.1, transition: { type: "spring", stiffness: 400, damping: 10 } }}
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.6 + j * 0.035, duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
                       >
                         {char}
                       </motion.span>
@@ -647,43 +629,48 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
               </motion.h1>
             </div>
 
-            <motion.div style={{ opacity: taglineOpacity }} className="flex flex-col md:flex-row md:items-end justify-between gap-12 max-w-7xl">
-              <div className="space-y-4">
-                <WordReveal
-                  text={data?.tagline || "I transform complex logic into elegant digital experiences."}
-                  className="text-xl md:text-[clamp(1.5rem,3vw,3rem)] font-medium tracking-tight max-w-3xl leading-[1.1] opacity-90"
-                />
-                <WordReveal
-                  text={data?.aboutText?.slice(0, 150) || "Solving logic with humanity through world-class functional software design."}
-                  className="text-xs md:text-sm opacity-40 max-w-lg font-medium leading-relaxed"
-                  delay={0.5}
-                />
+            {/* ── BOTTOM ROW: tagline + about + CTAs ── */}
+            <motion.div
+              style={{ opacity: taglineOpacity }}
+              className="flex flex-col md:flex-row md:items-end justify-between gap-6 md:gap-16"
+            >
+              {/* Left: text block with top divider */}
+              <div className="flex-1 max-w-3xl space-y-3 border-t border-current/10 pt-5">
+                <p className="text-base md:text-lg lg:text-xl font-medium tracking-tight leading-[1.3] opacity-80 text-justify hyphens-auto">
+                  {data?.tagline || "I transform complex logic into elegant digital experiences."}
+                </p>
+                <p className="text-[11px] md:text-xs opacity-30 font-medium leading-relaxed text-justify hyphens-auto">
+                  {data?.aboutText?.slice(0, 160) || "Solving logic with humanity through world-class functional software design."}
+                </p>
               </div>
 
-              <div className="flex gap-6 pb-2">
+              {/* Right: CTA buttons — compact, right-aligned */}
+              <div className="flex flex-row md:flex-col gap-3 flex-shrink-0 pb-[2px]">
                 <motion.a
-                  whileHover={{ scale: 1.05, rotate: -2 }}
-                  whileTap={{ scale: 0.95 }}
+                  whileHover={{ scale: 1.03, x: 3 }}
+                  whileTap={{ scale: 0.97 }}
                   href="#work"
-                  className={`group relative px-12 py-6 rounded-full ${accentColor} font-black uppercase text-[11px] tracking-[0.2em] transition-all overflow-hidden shadow-2xl shadow-current/10`}
+                  className={`group relative px-7 py-3.5 rounded-full ${accentColor} font-black uppercase text-[9px] tracking-[0.28em] transition-all overflow-hidden shadow-lg shadow-current/10 flex items-center gap-2.5`}
                 >
                   <span className="relative z-10">Explore Work</span>
-                  <motion.div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+                  <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform relative z-10" />
+                  <motion.div className="absolute inset-0 bg-white/15 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
                 </motion.a>
                 {resume?.fileUrl && (
                   <motion.a
-                    whileHover={{ scale: 1.05, rotate: 2 }}
-                    whileTap={{ scale: 0.95 }}
+                    whileHover={{ scale: 1.03, x: 3 }}
+                    whileTap={{ scale: 0.97 }}
                     href={resume.fileUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="group px-12 py-6 rounded-full border border-current/10 font-black uppercase text-[11px] tracking-[0.2em] hover:bg-current/5 transition-all flex items-center gap-3"
+                    className="group px-7 py-3.5 rounded-full border border-current/15 font-black uppercase text-[9px] tracking-[0.28em] hover:bg-current/5 transition-all flex items-center gap-2.5"
                   >
-                    CV <Download className="w-4 h-4 group-hover:translate-y-1 transition-transform" />
+                    Download CV <Download className="w-3 h-3 group-hover:translate-y-0.5 transition-transform" />
                   </motion.a>
                 )}
               </div>
             </motion.div>
+
           </motion.div>
         </div>
       </div>
