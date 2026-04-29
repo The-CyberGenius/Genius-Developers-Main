@@ -1072,22 +1072,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
         </motion.button>
       )}
 
-      {/* ── FLOATING RESUME BUTTON ────────────────────────── */}
-      {resume?.fileUrl && (
-        <motion.a
-          href={resume.fileUrl}
-          target="_blank"
-          initial={{ y: 100, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          whileHover={{ y: -5, scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={playClick}
-          className="fixed bottom-8 right-8 z-[200] flex items-center gap-3 px-6 py-4 rounded-full bg-black dark:bg-white text-white dark:text-black font-black uppercase text-[10px] tracking-widest shadow-2xl shadow-black/20"
-        >
-          <Download className="w-4 h-4" />
-          <span className="hidden md:inline">Download Resume</span>
-        </motion.a>
-      )}
+
 
       {/* ── PROJECT QUICK VIEW MODAL ──────────────────────── */}
       <AnimatePresence>
