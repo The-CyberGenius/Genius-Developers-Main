@@ -548,14 +548,8 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
             ))}
           </motion.div>
 
-          {/* Layer 4: Background Branding Text — typewriter + highlight */}
-          <motion.div
-            style={{ y: bgTextY, opacity: heroOpacity }}
-            className="absolute inset-0 flex items-center justify-center p-4 md:p-12"
-          >
-            <BgTypingText />
-          </motion.div>
         </div>
+
 
         <div className="sticky top-0 h-screen flex flex-col justify-between px-6 md:px-16 lg:px-20 py-10 md:py-14 overflow-hidden">
 
