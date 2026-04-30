@@ -56,6 +56,14 @@ const BG_TEXT = "geniusdevelopers.space";
 function BgTypingText() {
   const [displayed, setDisplayed] = useState("");
   const [phase, setPhase] = useState<"typing" | "hold" | "highlight" | "erasing">("typing");
+  const [isMobileView, setIsMobileView] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobileView(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   useEffect(() => {
     let timeout: ReturnType<typeof setTimeout>;
@@ -80,15 +88,18 @@ function BgTypingText() {
   }, [displayed, phase]);
 
   const isHighlight = phase === "highlight";
+  const baseOpacity = isMobileView ? 0.2 : 0.03;
+  const highlightOpacity = isMobileView ? 0.35 : 0.14;
+
   return (
-    <div className="w-full max-w-[90vw] mx-auto text-center">
+    <div className="w-full max-w-[95vw] mx-auto text-center pointer-events-none select-none relative z-10">
       <motion.h2
         animate={isHighlight
-          ? { opacity: [0.03, 0.12, 0.06, 0.14, 0.03], filter: ["blur(0px)", "blur(2px)", "blur(0px)", "blur(1px)", "blur(0px)"] }
-          : { opacity: 0.03, filter: "blur(0px)" }
+          ? { opacity: [baseOpacity, highlightOpacity, baseOpacity * 2, highlightOpacity, baseOpacity], filter: ["blur(0px)", "blur(2px)", "blur(0px)", "blur(1px)", "blur(0px)"] }
+          : { opacity: baseOpacity, filter: "blur(0px)" }
         }
         transition={{ duration: 1.5, ease: "easeInOut" }}
-        className="text-[clamp(2.5rem,10vw,20rem)] font-black tracking-tighter select-none uppercase leading-[0.85] break-words"
+        className="text-[clamp(3.5rem,14vw,18rem)] font-black tracking-tighter uppercase leading-[0.8] break-words dark:text-white text-black"
       >
         {displayed}
         <motion.span
@@ -665,6 +676,10 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
               </div>
             </motion.div>
 
+            {/* ── BRANDING TEXT (DYNAMIC POSITIONING) ── */}
+            <div className="md:absolute md:inset-0 md:flex md:items-center md:justify-center md:pointer-events-none md:z-[-1] mt-24 md:mt-0 transition-all duration-700">
+              <BgTypingText />
+            </div>
           </motion.div>
         </div>
       </div>
