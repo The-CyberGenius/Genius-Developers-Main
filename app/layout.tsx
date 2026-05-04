@@ -1,13 +1,17 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], display: "swap", variable: "--font-inter" });
 
 export const metadata: Metadata = {
-  title: "Shiva | Full-Stack Developer",
+  metadataBase: new URL("https://geniusdevelopers.space"),
+  title: {
+    default: "Shiva | Full-Stack Developer",
+    template: "%s | Genius Developers",
+  },
   description: "A world-class personal portfolio of a humble programmer and coder.",
   icons: {
     icon: [
@@ -16,6 +20,15 @@ export const metadata: Metadata = {
     ],
     apple: "/favicon.png",
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#fafafa" },
+    { media: "(prefers-color-scheme: dark)", color: "#000000" },
+  ],
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({

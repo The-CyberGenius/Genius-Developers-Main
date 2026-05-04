@@ -7,6 +7,7 @@ import Seo from "@/models/Seo";
 import Resume from "@/models/Resume";
 import Settings from "@/models/Settings";
 import PortfolioUI from "@/components/portfolio-ui";
+import { serialize } from "@/lib/serialize";
 import { Metadata } from "next";
 
 export const revalidate = 3600; // Revalidate every hour
@@ -26,17 +27,17 @@ async function getPortfolioData() {
     ]);
 
     return {
-      profile: profile ? JSON.parse(JSON.stringify(profile)) : null,
-      skills: JSON.parse(JSON.stringify(skills)),
-      services: JSON.parse(JSON.stringify(services)),
-      projects: JSON.parse(JSON.stringify(projects)),
-      seo: seo ? JSON.parse(JSON.stringify(seo)) : null,
-      resume: resume ? JSON.parse(JSON.stringify(resume)) : null,
-      settings: settings ? JSON.parse(JSON.stringify(settings)) : null,
+      profile: serialize(profile),
+      skills: serialize(skills) ?? [],
+      services: serialize(services) ?? [],
+      projects: serialize(projects) ?? [],
+      seo: serialize(seo),
+      resume: serialize(resume),
+      settings: serialize(settings),
     };
   } catch (error) {
     console.error("Database error:", error);
-    return { profile: null, skills: [], services: [], projects: [], seo: null, resume: null };
+    return { profile: null, skills: [], services: [], projects: [], seo: null, resume: null, settings: null };
   }
 }
 
@@ -44,13 +45,30 @@ export async function generateMetadata(): Promise<Metadata> {
   try {
     await connectToDatabase();
     const seo = await Seo.findOne().lean() as any;
+    const title = seo?.siteTitle || "Shiva | AI Full Stack Developer";
+    const description = seo?.metaDescription || "A world-class premium personal portfolio.";
+    const ogImage = seo?.ogImage || "/favicon.png";
     return {
-      title: seo?.siteTitle || "Shiva | AI Full Stack Developer",
-      description: seo?.metaDescription || "A world-class premium personal portfolio.",
+      metadataBase: new URL("https://geniusdevelopers.space"),
+      title,
+      description,
       keywords: seo?.keywords || "portfolio, developer, ai, full stack",
+      alternates: { canonical: "/" },
       openGraph: {
-        images: seo?.ogImage ? [seo.ogImage] : [],
+        type: "website",
+        url: "https://geniusdevelopers.space",
+        title,
+        description,
+        siteName: "Genius Developers",
+        images: [{ url: ogImage }],
       },
+      twitter: {
+        card: "summary_large_image",
+        title,
+        description,
+        images: [ogImage],
+      },
+      robots: { index: true, follow: true },
     };
   } catch {
     return { title: "Shiva | Portfolio" };
@@ -72,14 +90,34 @@ export default async function Home() {
     socialLinks: {},
   };
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: data.name,
+    jobTitle: data.tagline,
+    description: data.aboutText,
+    url: "https://geniusdevelopers.space",
+    email: data.email || undefined,
+    address: data.location ? { "@type": "PostalAddress", addressLocality: data.location } : undefined,
+    sameAs: data.socialLinks
+      ? Object.values(data.socialLinks).filter((v): v is string => typeof v === "string" && v.length > 0)
+      : [],
+  };
+
   return (
-    <PortfolioUI
-      data={data}
-      skills={skills}
-      services={services}
-      projects={projects}
-      resume={resume}
-      settings={settings}
-    />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <PortfolioUI
+        data={data}
+        skills={skills}
+        services={services}
+        projects={projects}
+        resume={resume}
+        settings={settings}
+      />
+    </>
   );
 }
