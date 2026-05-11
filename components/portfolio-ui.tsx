@@ -5,7 +5,7 @@ import { motion, useScroll, useTransform, useSpring, Variants, useMotionValue, A
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, Download, Send, Loader2, Mail, Sun, Moon, X } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Download, Send, Loader2, Mail, Sun, Moon, X, MapPin, Phone } from "lucide-react";
 import { FaGithub, FaLinkedin, FaTwitter, FaInstagram, FaYoutube, FaWhatsapp } from "react-icons/fa";
 import { toast } from "sonner";
 
@@ -1042,12 +1042,137 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
         </div>
       </section>
 
-      {/* ── FOOTER (CLEAN) ───────────────────────────────── */}
-      <footer className="py-12 md:py-20 px-6 md:px-12 border-t border-zinc-100 dark:border-zinc-900 opacity-20">
-        <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between items-center gap-8 text-[9px] font-black uppercase tracking-widest">
-          <p>© {currentYear || "2026"} — {(data?.name || "SHIVA").toUpperCase()}</p>
-          <div className="flex gap-8">
-            {['work', 'skills', 'contact'].map(i => <a key={i} href={`#${i}`} className="hover:underline">{i}</a>)}
+      {/* ── FOOTER (PROFESSIONAL) ────────────────────────── */}
+      <footer className="relative z-30 border-t border-current/10 bg-zinc-50 dark:bg-zinc-950">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-14 md:py-20">
+
+          {/* Brand row */}
+          <div className="mb-12 md:mb-16 max-w-2xl">
+            <h3 className="text-3xl md:text-5xl lg:text-6xl font-black tracking-tight uppercase">
+              {(data?.name?.split(" ")[0] || "Shiva")}<span className="opacity-30">.</span>
+            </h3>
+            <p className="mt-4 text-sm md:text-base opacity-50 leading-relaxed text-justify hyphens-none [overflow-wrap:break-word]">
+              {data?.tagline || "AI Full-Stack Developer — crafting world-class digital products."}
+            </p>
+          </div>
+
+          {/* Grid: 2-col on mobile (Services + Links side by side), 3-col on md+ (+ Contact) */}
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-12 mb-12 md:mb-16">
+
+            {/* Services / Categories */}
+            <div>
+              <h4 className="text-[10px] font-black uppercase tracking-[0.4em] opacity-40 mb-6">Services</h4>
+              <ul className="space-y-3">
+                {(services && services.length > 0
+                  ? services.slice(0, 5).map((s: any) => ({ label: s.title, href: "#skills" }))
+                  : [
+                      { label: "Web Development", href: "#skills" },
+                      { label: "AI Integration", href: "#skills" },
+                      { label: "E-commerce", href: "#skills" },
+                      { label: "SaaS Products", href: "#skills" },
+                      { label: "Consulting", href: "#contact" },
+                    ]
+                ).map((s, i) => (
+                  <li key={i}>
+                    <a
+                      href={s.href}
+                      className="inline-block text-sm md:text-base opacity-70 hover:opacity-100 hover:translate-x-1 transition-all duration-200"
+                    >
+                      {s.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Quick Links */}
+            <div>
+              <h4 className="text-[10px] font-black uppercase tracking-[0.4em] opacity-40 mb-6">Quick Links</h4>
+              <ul className="space-y-3">
+                {[
+                  { label: "About", href: "#about" },
+                  { label: "Projects", href: "#work" },
+                  { label: "Skills", href: "#skills" },
+                  { label: "Philosophy", href: "#philosophy" },
+                  { label: "Contact", href: "#contact" },
+                ].map((l) => (
+                  <li key={l.href}>
+                    <a
+                      href={l.href}
+                      className="inline-block text-sm md:text-base opacity-70 hover:opacity-100 hover:translate-x-1 transition-all duration-200"
+                    >
+                      {l.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Contact — full-width on mobile (2 cols), single col on md+ */}
+            <div className="col-span-2 md:col-span-1">
+              <h4 className="text-[10px] font-black uppercase tracking-[0.4em] opacity-40 mb-6">Get In Touch</h4>
+              <ul className="space-y-3 text-sm md:text-base">
+                {data?.location && (
+                  <li className="flex items-start gap-3 opacity-70">
+                    <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0 opacity-60" />
+                    <span>{data.location}</span>
+                  </li>
+                )}
+                {data?.email && (
+                  <li className="flex items-start gap-3 opacity-70 hover:opacity-100 transition-opacity">
+                    <Mail className="w-4 h-4 mt-0.5 flex-shrink-0 opacity-60" />
+                    <a href={`mailto:${data.email}`} className="break-all [overflow-wrap:anywhere]">
+                      {data.email}
+                    </a>
+                  </li>
+                )}
+                {data?.phone && (
+                  <li className="flex items-start gap-3 opacity-70 hover:opacity-100 transition-opacity">
+                    <Phone className="w-4 h-4 mt-0.5 flex-shrink-0 opacity-60" />
+                    <a href={`tel:${data.phone.replace(/\s+/g, "")}`}>{data.phone}</a>
+                  </li>
+                )}
+              </ul>
+            </div>
+          </div>
+
+          {/* Bottom row: copyright + socials */}
+          <div className="pt-8 border-t border-current/10 flex flex-col-reverse md:flex-row items-center justify-between gap-6">
+            <p className="text-[10px] font-bold uppercase tracking-[0.25em] opacity-40 text-center md:text-left">
+              © {currentYear || "2026"} {(data?.name || "Shiva")}. All rights reserved.
+            </p>
+            <div className="flex items-center gap-5 opacity-60">
+              {data?.socialLinks?.github && (
+                <a href={data.socialLinks.github} target="_blank" rel="noreferrer" aria-label="GitHub" className="hover:opacity-100 hover:-translate-y-0.5 transition-all">
+                  <FaGithub className="w-5 h-5" />
+                </a>
+              )}
+              {data?.socialLinks?.linkedin && (
+                <a href={data.socialLinks.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn" className="hover:opacity-100 hover:-translate-y-0.5 transition-all">
+                  <FaLinkedin className="w-5 h-5" />
+                </a>
+              )}
+              {data?.socialLinks?.twitter && (
+                <a href={data.socialLinks.twitter} target="_blank" rel="noreferrer" aria-label="X / Twitter" className="hover:opacity-100 hover:-translate-y-0.5 transition-all">
+                  <FaTwitter className="w-5 h-5" />
+                </a>
+              )}
+              {data?.socialLinks?.instagram && (
+                <a href={data.socialLinks.instagram} target="_blank" rel="noreferrer" aria-label="Instagram" className="hover:opacity-100 hover:-translate-y-0.5 transition-all">
+                  <FaInstagram className="w-5 h-5" />
+                </a>
+              )}
+              {data?.socialLinks?.youtube && (
+                <a href={data.socialLinks.youtube} target="_blank" rel="noreferrer" aria-label="YouTube" className="hover:opacity-100 hover:-translate-y-0.5 transition-all">
+                  <FaYoutube className="w-5 h-5" />
+                </a>
+              )}
+              {data?.whatsapp && (
+                <a href={data.whatsapp} target="_blank" rel="noreferrer" aria-label="WhatsApp" className="hover:opacity-100 hover:-translate-y-0.5 transition-all">
+                  <FaWhatsapp className="w-5 h-5" />
+                </a>
+              )}
+            </div>
           </div>
         </div>
       </footer>
