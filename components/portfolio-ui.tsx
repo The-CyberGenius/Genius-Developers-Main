@@ -9,6 +9,39 @@ import { ArrowRight, ArrowUpRight, Download, Send, Loader2, Mail, Sun, Moon, X }
 import { FaGithub, FaLinkedin, FaTwitter, FaInstagram, FaYoutube, FaWhatsapp } from "react-icons/fa";
 import { toast } from "sonner";
 
+// ── Module-level constants (avoid per-render array recreation) ──
+const AMBIENT_LINES = [
+  { top: "18%", deg: -8, dur: 26, delay: 0 },
+  { top: "44%", deg: 6, dur: 32, delay: 4 },
+  { top: "68%", deg: -4, dur: 28, delay: 8 },
+  { top: "88%", deg: 10, dur: 34, delay: 2 },
+] as const;
+
+const AMBIENT_DOTS = [
+  { x: "8%", y: "15%", size: 3, dur: 7, delay: 0 },
+  { x: "45%", y: "20%", size: 4, dur: 10, delay: 0.5 },
+  { x: "85%", y: "25%", size: 3, dur: 9, delay: 0.8 },
+  { x: "92%", y: "60%", size: 2, dur: 11, delay: 3 },
+  { x: "55%", y: "82%", size: 3, dur: 8, delay: 2.5 },
+  { x: "12%", y: "60%", size: 4, dur: 9, delay: 1.8 },
+  { x: "30%", y: "75%", size: 2, dur: 7, delay: 0.3 },
+  { x: "68%", y: "12%", size: 2, dur: 8, delay: 2 },
+  { x: "5%", y: "40%", size: 2, dur: 6, delay: 3.5 },
+  { x: "75%", y: "45%", size: 3, dur: 10, delay: 0.4 },
+] as const;
+
+// Shared audio instance — avoids allocating a new HTMLAudioElement per click
+let _sharedClickAudio: HTMLAudioElement | null = null;
+const getClickAudio = () => {
+  if (typeof window === "undefined") return null;
+  if (!_sharedClickAudio) {
+    _sharedClickAudio = new Audio("https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3");
+    _sharedClickAudio.volume = 0.1;
+    _sharedClickAudio.preload = "none";
+  }
+  return _sharedClickAudio;
+};
+
 // ── TypeReveal: Char-by-char blur fade (headings) ──────────
 function TypeReveal({ text, className, delay = 0 }: { text: string; className?: string; delay?: number }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -307,9 +340,10 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
   const backendSkills = skills.filter(s => s.category === "Backend");
 
   const playClick = () => {
+    const audio = getClickAudio();
+    if (!audio) return;
     try {
-      const audio = new Audio("https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3");
-      audio.volume = 0.1;
+      audio.currentTime = 0;
       audio.play().catch(() => { });
     } catch (e) { }
   };
@@ -368,18 +402,29 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
   const cursorXSpring = useSpring(cursorX, { damping: 20, stiffness: 100 });
   const cursorYSpring = useSpring(cursorY, { damping: 20, stiffness: 100 });
 
+  // rAF-throttle: a fast mouse generates ~120 events/sec; we only need ~60 updates.
+  const mouseRafRef = useRef<number | null>(null);
+  const lastMouseRef = useRef<{ x: number; y: number } | null>(null);
   const handleMouseMove = (e: React.MouseEvent) => {
-    const { clientX, clientY } = e;
-    const { innerWidth, innerHeight } = window;
-    const x = (clientX - innerWidth / 2) / 25;
-    const y = (clientY - innerHeight / 2) / 25;
-    mouseX.set(x);
-    mouseY.set(y);
-    cursorX.set(clientX);
-    cursorY.set(clientY);
+    lastMouseRef.current = { x: e.clientX, y: e.clientY };
+    if (mouseRafRef.current != null) return;
+    mouseRafRef.current = requestAnimationFrame(() => {
+      mouseRafRef.current = null;
+      const pt = lastMouseRef.current;
+      if (!pt) return;
+      const { innerWidth, innerHeight } = window;
+      mouseX.set((pt.x - innerWidth / 2) / 25);
+      mouseY.set((pt.y - innerHeight / 2) / 25);
+      cursorX.set(pt.x);
+      cursorY.set(pt.y);
+    });
   };
 
   const handleMouseLeave = () => {
+    if (mouseRafRef.current != null) {
+      cancelAnimationFrame(mouseRafRef.current);
+      mouseRafRef.current = null;
+    }
     mouseX.set(0);
     mouseY.set(0);
   };
@@ -440,27 +485,20 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
       {!isLowPower && (
       <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10">
 
-        {/* Glowing gradient blobs (calm, slow) */}
+        {/* Glowing gradient blobs (calm, slow) — capped blur for GPU savings */}
         <motion.div
           animate={{ x: [0, 80, -60, 0], y: [0, -80, 60, 0], scale: [1, 1.15, 0.9, 1] }}
           transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
-          className="absolute top-1/4 -left-32 w-[600px] h-[600px] bg-current/[0.04] blur-[160px] rounded-full"
+          className="absolute top-1/4 -left-32 w-[600px] h-[600px] bg-current/[0.04] blur-[100px] rounded-full"
         />
         <motion.div
           animate={{ x: [0, -100, 80, 0], y: [0, 100, -80, 0], scale: [1, 0.8, 1.2, 1] }}
           transition={{ duration: 38, repeat: Infinity, ease: "linear" }}
-          className="absolute bottom-1/3 -right-32 w-[700px] h-[700px] bg-current/[0.03] blur-[180px] rounded-full"
+          className="absolute bottom-1/3 -right-32 w-[700px] h-[700px] bg-current/[0.03] blur-[100px] rounded-full"
         />
 
         {/* Thin glowing diagonal lines — calm scan effect */}
-        {[
-          { top: "12%", deg: -8, dur: 22, delay: 0 },
-          { top: "28%", deg: 6, dur: 30, delay: 4 },
-          { top: "45%", deg: -4, dur: 26, delay: 8 },
-          { top: "62%", deg: 10, dur: 34, delay: 2 },
-          { top: "76%", deg: -6, dur: 20, delay: 12 },
-          { top: "90%", deg: 4, dur: 28, delay: 6 },
-        ].map((l, i) => (
+        {AMBIENT_LINES.map((l, i) => (
           <motion.div
             key={i}
             className="absolute h-[1px] bg-current opacity-[0.04]"
@@ -477,33 +515,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
         ))}
 
         {/* Glowing dots — scattered, floating, calm */}
-        {[
-          { x: "8%", y: "15%", size: 3, dur: 6, delay: 0 },
-          { x: "22%", y: "8%", size: 2, dur: 8, delay: 1.2 },
-          { x: "45%", y: "20%", size: 4, dur: 10, delay: 0.5 },
-          { x: "68%", y: "12%", size: 2, dur: 7, delay: 2 },
-          { x: "85%", y: "25%", size: 3, dur: 9, delay: 0.8 },
-          { x: "92%", y: "50%", size: 2, dur: 11, delay: 3 },
-          { x: "78%", y: "70%", size: 4, dur: 8, delay: 1.5 },
-          { x: "55%", y: "80%", size: 3, dur: 7, delay: 2.5 },
-          { x: "30%", y: "75%", size: 2, dur: 12, delay: 0.3 },
-          { x: "12%", y: "60%", size: 4, dur: 9, delay: 1.8 },
-          { x: "5%", y: "40%", size: 2, dur: 6, delay: 3.5 },
-          { x: "38%", y: "50%", size: 3, dur: 10, delay: 1 },
-          { x: "60%", y: "42%", size: 2, dur: 8, delay: 4 },
-          { x: "75%", y: "88%", size: 3, dur: 7, delay: 0.7 },
-          { x: "18%", y: "88%", size: 2, dur: 11, delay: 2.2 },
-          { x: "50%", y: "5%", size: 4, dur: 9, delay: 1.3 },
-          { x: "90%", y: "78%", size: 2, dur: 8, delay: 3.2 },
-          { x: "42%", y: "95%", size: 3, dur: 10, delay: 0.9 },
-          { x: "5%", y: "85%", size: 2, dur: 7, delay: 4.2 },
-          { x: "25%", y: "35%", size: 4, dur: 9, delay: 1.1 },
-          { x: "65%", y: "55%", size: 2, dur: 8, delay: 2.8 },
-          { x: "88%", y: "45%", size: 3, dur: 10, delay: 0.4 },
-          { x: "15%", y: "10%", size: 2, dur: 6, delay: 3.7 },
-          { x: "48%", y: "65%", size: 3, dur: 8, delay: 1.9 },
-          { x: "72%", y: "22%", size: 4, dur: 11, delay: 0.2 },
-        ].map((d, i) => (
+        {AMBIENT_DOTS.map((d, i) => (
           <motion.div
             key={i}
             className="absolute rounded-full bg-current"
@@ -511,7 +523,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
             animate={{
               y: [0, -(12 + i % 6 * 4), 0],
               opacity: [0.03, 0.15, 0.03],
-              scale: [1, 1.8, 1],
+              scale: [1, 1.6, 1],
             }}
             transition={{
               duration: d.dur,
@@ -540,20 +552,20 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
 
           {/* Layer 2: Floating Magical Lines (SUBTLE SCAN) */}
           <motion.div style={{ y: linesY }} className="absolute inset-0">
-            {[...Array(4)].map((_, i) => (
+            {[...Array(2)].map((_, i) => (
               <motion.div
                 key={i}
                 className="absolute h-[1px] bg-current opacity-[0.03]"
                 style={{
                   width: '40%',
-                  top: `${30 + i * 15}%`,
+                  top: `${35 + i * 25}%`,
                   left: i % 2 === 0 ? '-40%' : '100%',
                 }}
                 animate={{
                   x: i % 2 === 0 ? ['0%', '350%'] : ['0%', '-350%'],
                 }}
                 transition={{
-                  duration: 20 + i * 10,
+                  duration: 24 + i * 10,
                   repeat: Infinity,
                   ease: "linear",
                 }}
@@ -563,7 +575,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
 
           {/* Layer 3: Particle Dotted Network (BARELY VISIBLE) */}
           <motion.div style={{ y: dotsY }} className="absolute inset-0">
-            {mounted && [...Array(isMobile ? 6 : 12)].map((_, i) => (
+            {mounted && [...Array(isMobile ? 3 : 6)].map((_, i) => (
               <motion.div
                 key={i}
                 className="absolute w-[2px] h-[2px] rounded-full bg-current opacity-[0.05]"
@@ -730,15 +742,11 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
             </motion.div>
           </motion.div>
 
-          {/* Background Magical Text */}
-          <div className="absolute inset-0 flex items-center justify-center opacity-[0.02] pointer-events-none select-none">
-            <motion.div
-              animate={{ rotate: -360 }}
-              transition={{ duration: 60, repeat: Infinity, ease: "linear" as const }}
-              className="text-[45vh] font-black uppercase leading-none text-white whitespace-nowrap"
-            >
-              HUMBLE • PROGRAMMER • CODER • HUMBLE • PROGRAMMER • CODER •
-            </motion.div>
+          {/* Background hint — static, no perpetual rotate (heavy paint dropped) */}
+          <div className="absolute inset-x-0 bottom-10 flex items-center justify-center opacity-[0.04] pointer-events-none select-none">
+            <span className="text-[10vw] md:text-[8vw] font-black uppercase tracking-tighter leading-none text-white whitespace-nowrap">
+              HUMBLE • PROGRAMMER • CODER
+            </span>
           </div>
         </div>
       </section>
@@ -753,14 +761,10 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
       >
         <div className="max-w-[1400px] mx-auto px-6 md:px-12">
           <div className={`flex flex-wrap justify-center gap-8 md:gap-16 transition-opacity duration-700 ${isMobile ? 'opacity-100' : 'opacity-40 hover:opacity-100'}`}>
-            {["Next.js", "React", "TypeScript", "Node.js", "Tailwind", "MongoDB", "AI"].map((tech, i) => (
+            {["Next.js", "React", "TypeScript", "Node.js", "Tailwind", "MongoDB", "AI"].map((tech) => (
               <motion.span
                 key={tech}
                 variants={fadeInUp}
-                {...(isMobile ? {
-                  animate: { y: [0, -4, 0] },
-                  transition: { duration: 2.5 + i * 0.3, repeat: Infinity, ease: "easeInOut", delay: i * 0.2 }
-                } : {})}
                 className="text-sm md:text-2xl font-black uppercase tracking-[0.3em]"
               >{tech}</motion.span>
             ))}
@@ -831,10 +835,6 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                 key={i}
                 variants={fadeInUp}
                 whileHover={!isMobile ? { y: -10 } : {}}
-                {...(isMobile ? {
-                  animate: { y: [0, -4, 0] },
-                  transition: { duration: 3 + i * 0.5, repeat: Infinity, ease: "easeInOut", delay: i * 0.4 }
-                } : {})}
                 onClick={() => { playClick(); setSelectedProject(p); }}
                 className="group relative flex flex-col justify-between p-6 md:p-10 rounded-[2rem] bg-zinc-50 dark:bg-zinc-950 border border-current/5 overflow-hidden transition-all duration-500 min-h-[300px] md:min-h-[400px] cursor-pointer"
               >
@@ -897,18 +897,6 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                   key={i}
                   variants={fadeInUp}
                   whileHover={!isMobile ? { scale: 1.05, rotate: [-1, 1, 0] } : {}}
-                  {...(isMobile ? {
-                    animate: {
-                      y: [0, i % 2 === 0 ? -6 : -4, 0],
-                      scale: [1, 1.03, 1],
-                    },
-                    transition: {
-                      duration: 2 + (i % 4) * 0.4,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                      delay: i * 0.15,
-                    }
-                  } : {})}
                   className="px-8 py-5 md:px-12 md:py-8 rounded-full border border-current/10 bg-current/5 group hover:bg-foreground hover:text-background transition-all cursor-default"
                 >
                   <span className="text-xl md:text-3xl font-black uppercase tracking-tighter">{s.name}</span>
@@ -1005,10 +993,6 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                   href={s.link}
                   target="_blank"
                   rel="noreferrer"
-                  {...(isMobile ? {
-                    animate: { y: [0, -5, 0], opacity: [0.6, 1, 0.6] },
-                    transition: { duration: 2 + i * 0.3, repeat: Infinity, ease: "easeInOut", delay: i * 0.25 }
-                  } : {})}
                   className={`text-2xl md:text-3xl hover:-translate-y-2 transition-transform ${isMobile ? 'opacity-70' : 'opacity-30 hover:opacity-100'}`}
                 >{s.icon}</motion.a>
               ))}
