@@ -1,12 +1,5 @@
 import mongoose from "mongoose";
 
-const MONGODB_URI = process.env.MONGODB_URI as string;
-
-if (!MONGODB_URI) {
-  throw new Error("MONGODB_URI is not defined in environment variables.");
-}
-
-/** Cached connection to avoid creating new connections on every request in serverless env */
 let cached = (global as any).__mongooseCache;
 
 if (!cached) {
@@ -18,19 +11,25 @@ async function connectToDatabase() {
     return cached.conn;
   }
 
+  const MONGODB_URI = process.env.MONGODB_URI;
+  if (!MONGODB_URI) {
+    throw new Error("MONGODB_URI is not defined in environment variables.");
+  }
+
   if (!cached.promise) {
-    cached.promise = mongoose.connect(MONGODB_URI, {
-      bufferCommands: false,
-      maxPoolSize: 10,
-      serverSelectionTimeoutMS: 10000,
-      socketTimeoutMS: 45000,
-    }).then((m) => m);
+    cached.promise = mongoose
+      .connect(MONGODB_URI, {
+        bufferCommands: false,
+        maxPoolSize: 10,
+        serverSelectionTimeoutMS: 10000,
+        socketTimeoutMS: 45000,
+      })
+      .then((m) => m);
   }
 
   try {
     cached.conn = await cached.promise;
   } catch (error) {
-    // Reset promise so next call retries
     cached.promise = null;
     throw error;
   }
