@@ -216,29 +216,54 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
   const [mounted, setMounted] = useState(false);
   const [selectedProject, setSelectedProject] = useState<any>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [isLowPower, setIsLowPower] = useState(false);
   const [currentYear, setCurrentYear] = useState("");
 
   useEffect(() => {
     setCurrentYear(new Date().getFullYear().toString());
-    
+
     // Detect touch/mobile device
     const checkMobile = () => {
       const mobileMatch = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
       const widthMatch = window.innerWidth < 768;
       setIsMobile(mobileMatch || widthMatch);
     };
-    
+
+    // Detect devices that should skip decorative work: reduced-motion preference,
+    // weak CPU/RAM, or slow/data-saver network. Any one is enough.
+    const detectLowPower = () => {
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const nav = navigator as Navigator & {
+        deviceMemory?: number;
+        connection?: { effectiveType?: string; saveData?: boolean };
+      };
+      const lowCores = (nav.hardwareConcurrency ?? 8) <= 4;
+      const lowMemory = (nav.deviceMemory ?? 8) <= 4;
+      const conn = nav.connection;
+      const slowNet = !!conn && (conn.saveData === true || ["slow-2g", "2g", "3g"].includes(conn.effectiveType ?? ""));
+      return reducedMotion || ((lowCores || lowMemory) && slowNet) || (lowCores && lowMemory);
+    };
+
+    const lowPower = detectLowPower();
+    setIsLowPower(lowPower);
+
     checkMobile();
     window.addEventListener("resize", checkMobile);
-    
-    // Artificial delay for magical loading screen
-    const timer = setTimeout(() => {
+
+    // Smart loader: low-power / reduced-motion users see content instantly.
+    // Capable devices get a brief branded reveal (snappy, not theatrical).
+    if (lowPower) {
       setMounted(true);
-    }, 1500); // Reduced delay for better UX
+    } else {
+      const timer = setTimeout(() => setMounted(true), 600);
+      return () => {
+        window.removeEventListener("resize", checkMobile);
+        clearTimeout(timer);
+      };
+    }
 
     return () => {
       window.removeEventListener("resize", checkMobile);
-      clearTimeout(timer);
     };
   }, []);
 
@@ -361,7 +386,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
 
   // ── MOBILE: AUTO SIMULATE MOUSE PARALLAX ─────────────
   useEffect(() => {
-    if (!isMobile) return;
+    if (!isMobile || isLowPower) return;
     let frame: number;
     let t = 0;
     const loop = () => {
@@ -378,7 +403,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
     };
     frame = requestAnimationFrame(loop);
     return () => cancelAnimationFrame(frame);
-  }, [isMobile, mouseX, mouseY, cursorX, cursorY]);
+  }, [isMobile, isLowPower, mouseX, mouseY, cursorX, cursorY]);
 
   // Parallax for Background Layers
   const bgTextY = useTransform(smoothProgress, [0, 1], ["0%", "15%"]);
@@ -399,9 +424,9 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
       >
 
       {/* ── CURSOR GLOW TRAIL (MAGICAL) ──────────────────── */}
-      {mounted && !isMobile && (
+      {mounted && !isMobile && !isLowPower && (
         <motion.div
-          className="fixed pointer-events-none z-[100] w-64 h-64 bg-current/[0.03] blur-[80px] rounded-full"
+          className="fixed pointer-events-none z-[100] w-64 h-64 bg-current/[0.08] dark:bg-white/[0.06] blur-[80px] rounded-full"
           style={{
             x: cursorXSpring,
             y: cursorYSpring,
@@ -411,10 +436,8 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
         />
       )}
 
-      {/* ── PREMIUM NOISE OVERLAY ────────────────────────── */}
-      <div className="fixed inset-0 pointer-events-none z-[999] opacity-[0.02] mix-blend-overlay" style={{ backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")' }} />
-
       {/* ── GLOBAL PREMIUM AMBIENT LAYER (dots + lines) ──── */}
+      {!isLowPower && (
       <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10">
 
         {/* Glowing gradient blobs (calm, slow) */}
@@ -499,6 +522,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
           />
         ))}
       </div>
+      )}
 
 
       {/* ── PROGRESS BAR ────────────────────────────────────── */}
@@ -511,6 +535,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
       <div ref={heroRef} className="h-[120vh] relative">
 
         {/* MAGICAL DEPTH LAYERS (LINES & DOTS) */}
+        {!isLowPower && (
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
 
           {/* Layer 2: Floating Magical Lines (SUBTLE SCAN) */}
@@ -560,6 +585,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
           </motion.div>
 
         </div>
+        )}
 
 
         <div className="sticky top-0 h-screen flex flex-col justify-between px-6 md:px-16 lg:px-20 py-10 md:py-14 overflow-hidden">
