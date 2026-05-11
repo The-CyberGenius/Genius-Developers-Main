@@ -624,10 +624,10 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                 }}
                 className="font-black tracking-[-0.04em] leading-[0.82] select-none w-full"
               >
-                {/* First name — cinematic scale */}
+                {/* First name — cinematic scale (atomic word, no mid-word break) */}
                 <div
-                  className="flex overflow-visible flex-wrap"
-                  style={{ fontSize: `clamp(4.5rem, 15vw, ${data?.heroFontSize || 14}rem)` }}
+                  className="overflow-visible whitespace-nowrap"
+                  style={{ fontSize: `clamp(2.25rem, 13vw, ${data?.heroFontSize || 14}rem)` }}
                 >
                   {(data?.name?.split(" ")[0] || "Shiva").split("").map((char: string, i: number) => (
                     <motion.span
@@ -648,12 +648,12 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                   ))}
                 </div>
 
-                {/* Last name — ghost italic */}
+                {/* Last name — ghost italic (each word atomic) */}
                 {data?.name?.split(" ").slice(1).map((part: string, i: number) => (
                   <div
                     key={i}
-                    className="flex overflow-visible opacity-[0.07] italic font-light"
-                    style={{ fontSize: `clamp(3.5rem, 12vw, ${(data?.heroFontSize || 14) * 0.82}rem)`, marginLeft: "0.05em" }}
+                    className="overflow-visible opacity-[0.07] italic font-light whitespace-nowrap"
+                    style={{ fontSize: `clamp(1.75rem, 11vw, ${(data?.heroFontSize || 14) * 0.82}rem)`, marginLeft: "0.05em" }}
                   >
                     {part.split("").map((char: string, j: number) => (
                       <motion.span
@@ -679,10 +679,10 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
             >
               {/* Left: text block with top divider */}
               <div className="flex-1 max-w-3xl space-y-3 border-t border-current/10 pt-5">
-                <p className="text-base md:text-lg lg:text-xl font-medium tracking-tight leading-[1.3] opacity-80 text-justify hyphens-auto">
+                <p className="text-base md:text-lg lg:text-xl font-medium tracking-tight leading-[1.3] opacity-80 text-justify hyphens-none [overflow-wrap:break-word]">
                   {data?.tagline || "I transform complex logic into elegant digital experiences."}
                 </p>
-                <p className="text-[11px] md:text-xs opacity-30 font-medium leading-relaxed text-justify hyphens-auto">
+                <p className="text-[11px] md:text-xs opacity-30 font-medium leading-relaxed text-justify hyphens-none [overflow-wrap:break-word]">
                   {data?.aboutText?.slice(0, 160) || "Solving logic with humanity through world-class functional software design."}
                 </p>
               </div>
@@ -742,9 +742,9 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
             </motion.div>
           </motion.div>
 
-          {/* Background hint — static, no perpetual rotate (heavy paint dropped) */}
-          <div className="absolute inset-x-0 bottom-10 flex items-center justify-center opacity-[0.04] pointer-events-none select-none">
-            <span className="text-[10vw] md:text-[8vw] font-black uppercase tracking-tighter leading-none text-white whitespace-nowrap">
+          {/* Background hint — static, wraps on narrow screens */}
+          <div className="absolute inset-x-0 bottom-10 flex items-center justify-center opacity-[0.04] pointer-events-none select-none px-6">
+            <span className="text-[7vw] md:text-[7vw] font-black uppercase tracking-tighter leading-tight text-white text-center max-w-full break-words">
               HUMBLE • PROGRAMMER • CODER
             </span>
           </div>
@@ -794,7 +794,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
           <motion.div variants={fadeInUp} className="lg:col-span-7">
             <WordReveal
               text={data?.aboutText || "I am a programmer who believes in the power of simple, effective code. My goal is to build digital tools that actually help people."}
-              className="text-2xl md:text-5xl font-medium leading-[1.1] tracking-tight mb-12 opacity-80"
+              className="text-2xl md:text-5xl font-medium leading-[1.1] tracking-tight mb-12 opacity-80 text-justify hyphens-none [overflow-wrap:break-word]"
             />
             <motion.div variants={staggerContainer} className="flex gap-8">
               {data?.email && (
@@ -849,8 +849,8 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                       <span key={t} className="px-5 py-2 rounded-full bg-current/5 text-[9px] font-black uppercase tracking-widest opacity-60">{t}</span>
                     ))}
                   </div>
-                  {/* Title — italic always on mobile */}
-                  <h3 className={`text-3xl md:text-5xl font-black tracking-tighter leading-[0.9] uppercase transition-all duration-500 ${isMobile ? 'italic' : 'group-hover:italic'}`}>
+                  {/* Title — italic always on mobile, breaks long titles */}
+                  <h3 className={`text-2xl sm:text-3xl md:text-5xl font-black tracking-tight leading-[1] uppercase break-words [overflow-wrap:anywhere] transition-all duration-500 ${isMobile ? 'italic' : 'group-hover:italic'}`}>
                     <TypeReveal text={p.title} />
                   </h3>
                 </div>
@@ -859,7 +859,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                   {/* Description — always visible on mobile */}
                   <WordReveal
                     text={p.description}
-                    className={`text-lg md:text-xl font-medium leading-relaxed line-clamp-3 transition-opacity ${isMobile ? 'opacity-60' : 'opacity-40 group-hover:opacity-70'}`}
+                    className={`text-lg md:text-xl font-medium leading-relaxed line-clamp-3 text-justify hyphens-none [overflow-wrap:break-word] transition-opacity ${isMobile ? 'opacity-60' : 'opacity-40 group-hover:opacity-70'}`}
                   />
                   {/* Quick View — always visible on mobile */}
                   <div className={`flex items-center gap-4 text-[10px] font-black uppercase tracking-widest transition-all duration-500 ${isMobile ? 'opacity-70 translate-y-0' : 'opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0'}`}>
@@ -897,9 +897,9 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                   key={i}
                   variants={fadeInUp}
                   whileHover={!isMobile ? { scale: 1.05, rotate: [-1, 1, 0] } : {}}
-                  className="px-8 py-5 md:px-12 md:py-8 rounded-full border border-current/10 bg-current/5 group hover:bg-foreground hover:text-background transition-all cursor-default"
+                  className="px-6 py-4 md:px-10 md:py-7 rounded-full border border-current/10 bg-current/5 group hover:bg-foreground hover:text-background transition-all cursor-default max-w-full"
                 >
-                  <span className="text-xl md:text-3xl font-black uppercase tracking-tighter">{s.name}</span>
+                  <span className="text-lg md:text-2xl lg:text-3xl font-black uppercase tracking-tight break-words">{s.name}</span>
                 </motion.div>
               ))}
             </div>
@@ -919,7 +919,7 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                     <p className="text-2xl md:text-4xl font-black uppercase tracking-tighter mb-2">
                       <TypeReveal text={s.title} />
                     </p>
-                    <WordReveal text={s.description} className="text-sm md:text-base opacity-60 max-w-sm leading-relaxed" />
+                    <WordReveal text={s.description} className="text-sm md:text-base opacity-60 max-w-sm leading-relaxed text-justify hyphens-none [overflow-wrap:break-word]" />
                   </motion.div>
                 ))}
               </div>
@@ -1131,8 +1131,8 @@ export default function PortfolioUI({ data, skills, services, projects, resume, 
                     <span key={t} className="px-4 py-2 rounded-full bg-current/5 text-[9px] font-black uppercase tracking-widest opacity-60 border border-current/10">{t}</span>
                   ))}
                 </div>
-                <h3 className="text-5xl md:text-7xl font-black tracking-tighter uppercase leading-[0.8] mb-12 italic serif">{selectedProject.title}</h3>
-                <p className="text-xl md:text-2xl opacity-60 leading-relaxed font-medium mb-12">{selectedProject.description}</p>
+                <h3 className="text-3xl sm:text-5xl md:text-7xl font-black tracking-tight uppercase leading-[1] mb-12 italic serif break-words [overflow-wrap:anywhere]">{selectedProject.title}</h3>
+                <p className="text-xl md:text-2xl opacity-60 leading-relaxed font-medium mb-12 text-justify hyphens-none [overflow-wrap:break-word]">{selectedProject.description}</p>
 
                 <div className="flex flex-wrap gap-6">
                   {selectedProject.link && (
