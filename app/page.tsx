@@ -10,7 +10,7 @@ import PortfolioUI from "@/components/portfolio-ui";
 import { serialize } from "@/lib/serialize";
 import { Metadata } from "next";
 
-export const revalidate = 3600; // Revalidate every hour
+export const revalidate = 3600;
 
 async function getPortfolioData() {
   try {
@@ -45,14 +45,16 @@ export async function generateMetadata(): Promise<Metadata> {
   try {
     await connectToDatabase();
     const seo = await Seo.findOne().lean() as any;
-    const title = seo?.siteTitle || "Shiva | AI Full Stack Developer";
-    const description = seo?.metaDescription || "A world-class premium personal portfolio.";
+
+    const title = seo?.siteTitle || "Shiva | AI Engineer & Full Stack Developer";
+    const description = seo?.metaDescription || "Building premium AI-powered products, scalable systems, and modern web experiences.";
     const ogImage = seo?.ogImage || "/favicon.png";
+
     return {
       metadataBase: new URL("https://geniusdevelopers.space"),
       title,
       description,
-      keywords: seo?.keywords || "portfolio, developer, ai, full stack",
+      keywords: seo?.keywords || "AI engineer, full stack developer, portfolio, nextjs, mongodb, automation",
       alternates: { canonical: "/" },
       openGraph: {
         type: "website",
@@ -80,8 +82,8 @@ export default async function Home() {
 
   const data = profile || {
     name: "Shiva",
-    tagline: "AI Full Stack Developer",
-    aboutText: "I build world-class digital products.",
+    tagline: "AI Engineer • Full Stack Developer • System Builder",
+    aboutText: "I build premium AI-powered products, scalable systems, and immersive digital experiences for the modern web.",
     yearsExperience: "3+",
     projectsDelivered: "25+",
     technologiesMastered: "15+",
@@ -98,7 +100,12 @@ export default async function Home() {
     description: data.aboutText,
     url: "https://geniusdevelopers.space",
     email: data.email || undefined,
-    address: data.location ? { "@type": "PostalAddress", addressLocality: data.location } : undefined,
+    address: data.location
+      ? {
+          "@type": "PostalAddress",
+          addressLocality: data.location,
+        }
+      : undefined,
     sameAs: data.socialLinks
       ? Object.values(data.socialLinks).filter((v): v is string => typeof v === "string" && v.length > 0)
       : [],
@@ -110,6 +117,7 @@ export default async function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+
       <PortfolioUI
         data={data}
         skills={skills}
