@@ -58,9 +58,13 @@ export default function AdminLayout({
 
   const handleLogout = async () => {
     try {
-      document.cookie = "admin-token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      // Server-side clear: the admin-token cookie is httpOnly, so JS cannot
+      // delete it via document.cookie. Hit the API to overwrite it with an
+      // expired one, then redirect.
+      const res = await fetch("/api/auth/logout", { method: "POST" });
+      if (!res.ok) throw new Error("Logout request failed");
       toast.success("Logged out successfully");
-      router.push("/admin/login");
+      router.replace("/admin/login");
       router.refresh();
     } catch (err) {
       toast.error("Failed to log out");
